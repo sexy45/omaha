@@ -232,6 +232,47 @@ AddOption(
     default=default_sha2_cert_password
 )
 
+AddOption(
+    '--timestamp_server',
+    action='store',
+    nargs=1,
+    type='string',
+    default=os.environ.get(
+        'TIMESTAMP_SERVER',
+        'http://timestamp.verisign.com/scripts/timestamp.dll'
+    )
+)
+
+AddOption(
+    '--sha1_timestamp_server',
+    action='store',
+    nargs=1,
+    type='string',
+    default=os.environ.get(
+        'SHA1_TIMESTAMP_SERVER',
+        'http://timestamp.comodoca.com/authenticode'
+    )
+)
+
+AddOption(
+    '--sha2_timestamp_server',
+    action='store',
+    nargs=1,
+    type='string',
+    default=os.environ.get(
+        'SHA2_TIMESTAMP_SERVER',
+        'http://timestamp.comodoca.com/rfc3161'
+    )
+)
+
+AddOption(
+    '--patching_certificate',
+    action='store',
+    nargs=1,
+    type='string',
+    default='$MAIN_DIR/data/OmahaTestCert.cer'
+)
+
 # Declare option for specifying path to new official build files
 AddOption(
     '--official_build_path',
@@ -344,6 +385,9 @@ if not win_env.Bit('build_server'):
     SHA2_CERTIFICATE_HASH='',
     SHA1_CERTIFICATE_ISSUER='',
     SHA2_CERTIFICATE_ISSUER='',
+    TIMESTAMP_SERVER=GetOption('timestamp_server'),
+    SHA1_TIMESTAMP_SERVER=GetOption('sha1_timestamp_server'),
+    SHA2_TIMESTAMP_SERVER=GetOption('sha2_timestamp_server'),
     SHA1_CERTIFICATE_PASSWORD=GetOption('sha1_authenticode_password'),
     SHA2_CERTIFICATE_PASSWORD=GetOption('sha2_authenticode_password'),
     SHA1_CERTIFICATE_PATH=GetOption('sha1_authenticode_file'),
