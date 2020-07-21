@@ -51,3 +51,34 @@ and the steps below. They were tested with revision a1e8a0d8.
 17. Add `C:\Python27` to your `PATH` environment variable.
 
 18. Set the other environment variables in [`env.cmd`](env.cmd).
+
+## Building
+
+After the above steps, open an Administrator Command Prompt (don't forget the
+environment variables), `cd` into `omaha/omaha` and type:
+
+    hammer
+
+You will get several `scons` warnings. That's okay.
+
+## Running tests
+
+Create the registry key
+`HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\<CompanyName>\UpdateDev`
+with the string value `TestSource` set to `ossdev`. Then run the following as
+Administrator:
+
+    scons-out\dbg-win\staging\omaha_unittest.exe --gtest_brief=1
+
+The following 8 tests will likely fail:
+
+ * `TimeTest.RFC822TimeParsing`
+ * `UserInfoTest.GetProcessUserSid`
+ * `VistaUtilTest.IsUACOn`
+ * `VistaUtilTest.IsElevatedWithUACOn`
+ * `OmahaCustomizationTest.IsInternalUser`
+ * `SchedulerTest.UsesDebugTimer`
+ * `WorkerWithTwoAppsTest.CheckForUpdateAsync_Large`
+ * `WorkerWithTwoAppsTest.DownloadAsyncThenDownloadAndInstallAsync_Large5`
+
+That's normal.
