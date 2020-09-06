@@ -176,3 +176,19 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 # For an example, see instances of "enterprise" in the following files:
 #  omaha/test/test_foo.wxs.xml
 #  omaha/test/build.scons
+
+metainstaller_path = '$STAGING_DIR/GoogleUpdateSetup.exe'
+version = '0.0.1.0'
+google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
+            env,
+            metainstaller_path,
+            'StubProduct',
+            version,
+            '{62BA0B16-6DA4-40F3-AF42-C5BF57999C83}',
+            '',
+            'StubProduct',
+            ('$MAIN_DIR/enterprise/installer/'
+                'google_update_machine_installer_fragment.wxs.xml'),
+            company_name = 'Google'
+)
+print("Google update WiX fragment location: {}".format(google_update_wixobj))
