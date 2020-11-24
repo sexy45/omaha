@@ -29,9 +29,9 @@ and the steps below. They were tested with revision a1e8a0d8.
 
  9. Install Go 1.14.6 into `C:\Go`.
 
-10. Extract `protoc-3.9.2-win32.zip` so you have `C:\protobuf\bin`.
+10. Extract `protoc-3.13.0-win32.zip` so you have `C:\protobuf\bin`.
 
-11. Extract `protobuf-cpp-3.9.2.zip\protobuf-3.9.2\src` so you have
+11. Extract `protobuf-cpp-3.13.0.zip\protobuf-3.13.0\src` so you have
     `C:\protobuf\src`.
 
 12. Extract `breakpad-master.zip\breakpad-master` so you have eg.
@@ -39,13 +39,13 @@ and the steps below. They were tested with revision a1e8a0d8.
 
 13. Similarly for `googletest-master.zip`.
 
-14. Extract `libzip-1.5.2.tar.xz` so you have `examples\`, `lib\`, ... inside
+14. Extract `libzip-1.7.3.tar.xz` so you have `examples\`, `lib\`, ... inside
     `omaha\third_party\libzip`.
 
 15. Extract `zlip-1.2.11.tar.gz\zlib-1.2.11` so you have the files `amiga/`,
     `contrib/`, ... inside `omaha\third_party\zlib\v1_2_11\`.
 
-16. Extract `PSTool.zip` into `C:\Program Files (x86)`, so you have
+16. Extract `PSTools.zip` into `C:\Program Files (x86)`, so you have
     `C:\Program Files (x86)\pstools\psexec.exe`.
 
 17. Add `C:\Python27` to your `PATH` environment variable.
