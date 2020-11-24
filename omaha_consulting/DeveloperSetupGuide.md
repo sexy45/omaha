@@ -1,8 +1,8 @@
 # Developer Setup Guide (Omaha Consulting Edition)
 
 To set up a development environment. follow the original
-[Developer Setup Guide](../doc/DeveloperSetupGuide.ma)
-and the steps below. They were tested with revision a1e8a0d8.
+[Developer Setup Guide](../doc/DeveloperSetupGuide.md)
+and the steps below. They were tested with revision 7a84e556.
 
  1. Install Visual Studio 2017 Community Edition version 15.9.
     Do install the component "Desktop development with C++".
