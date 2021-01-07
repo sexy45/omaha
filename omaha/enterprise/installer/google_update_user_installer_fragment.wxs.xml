@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <?define UpdateKeyPath = 'SOFTWARE\Google\Update' ?>
+  <?define UpdateKeyPath = 'SOFTWARE\$(var.CompanyName)\Update' ?>
 
-  <!-- This fragment assumes machine install (ALLUSER=1). -->
+  <!-- This fragment assumes user install (ALLUSER=0). -->
 
   <Fragment Id='FragmentGoogleUpdate' >
     <!-- Detect whether product is already registered with Google Update. -->
@@ -22,7 +22,7 @@
          To avoid multiple Directory elements with the 'ProgramFilesFolder' Id,
          assume that the product MSI has defined a it and reference it here. -->
     <DirectoryRef Id='LocalAppDataFolder'>
-      <Directory Id='GoogleProgramDir' Name='Google'>
+      <Directory Id='GoogleProgramDir' Name='$(var.CompanyName)'>
         <Directory Id='UpdateDir' Name='Update'>
 
           <Component Id='ComponentGoogleUpdate'
@@ -56,7 +56,7 @@
       BinaryKey='GoogleUpdateSetup'
       Impersonate='no'
       Execute='deferred'
-      ExeCommand='/install "runltime=true" /installsource enterprisemsi /silent'
+      ExeCommand='/install "runtime=true" /installsource enterprisemsi /silent'
       Return='check' />
 
     <InstallExecuteSequence>
