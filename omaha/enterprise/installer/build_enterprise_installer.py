@@ -39,7 +39,8 @@ def BuildGoogleUpdateFragment(env,
                               product_guid,
                               product_custom_params,
                               wixobj_base_name,
-                              google_update_wxs_template_path):
+                              google_update_wxs_template_path,
+                              company_name = 'Google'):
   """Build an update fragment into a WiX object.
 
   Takes a supplied wix fragment, and turns it into a .wixobj object for later
@@ -81,6 +82,7 @@ def BuildGoogleUpdateFragment(env,
       msi_product_version,
       product_version,
       '"%s"' % product_guid,
+      company_name=company_name,
       product_custom_params=product_custom_params,
       metainstaller_path=str(env.File(metainstaller_path).abspath))
 
