@@ -68,9 +68,9 @@ _is_google_update_build = False
 _FULL_COMPANY_NAME = 'Kings Distributed Systems'
 _SHORT_COMPANY_NAME = 'KDS'
 _PRODUCT_NAME = 'Update'
-_COMPANY_DOMAIN_BASE = 'google'
-_COMPANY_DOMAIN = _COMPANY_DOMAIN_BASE + '.com'
-_MAIN_EXE_BASE_NAME = 'GoogleUpdate'
+_COMPANY_DOMAIN_BASE = 'kingsds'
+_COMPANY_DOMAIN = 'kingsds.network'
+_MAIN_EXE_BASE_NAME = 'KDSUpdate'
 # TODO(omaha): Use this throughout the build files where goopdate and
 # goopdateres are referenced.
 _MAIN_DLL_BASE_NAME = 'goopdate'
