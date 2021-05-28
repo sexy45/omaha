@@ -49,10 +49,10 @@ class OnDemandTest : public testing::Test {
     on_demand = NULL;
     if (is_machine) {
       return on_demand.CoCreateInstance(
-          L"GoogleUpdate.OnDemandCOMClassMachine");
+          L"KDSUpdate.OnDemandCOMClassMachine");
     } else {
       return on_demand.CoCreateInstance(
-          L"GoogleUpdate.OnDemandCOMClassUser");
+          L"KDSUpdate.OnDemandCOMClassUser");
     }
   }
 

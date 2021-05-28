@@ -146,7 +146,7 @@ enum LogCategory {
 
   // ADD BELOW - AND REMEMBER:
   //   - Add a line to the LogCategoryNames table in logging.cc!!!
-  //   - Add to C:\GoogleUpdate.ini.
+  //   - Add to C:\KDSUpdate.ini.
 
   LC_UTIL,
   LC_SETUP,
@@ -219,7 +219,7 @@ class LogWriter {
 
   // Returns true if this Logging object wants to log even if the global
   // "enable logging" flag is off.  Useful for always creating a log, e.g., an
-  // install log, even without a GoogleUpdate.ini.
+  // install log, even without a KDSUpdate.ini.
   virtual bool WantsToLogRegardless() const;
 
   // Returns true if this Logging object wants to handle the message,
@@ -362,7 +362,7 @@ class Logging {
   // Retrieves in-memory history buffer.
   CString GetHistory();
 
-  // Returns the file path of the current GoogleUpdate.ini.
+  // Returns the file path of the current KDSUpdate.ini.
   CString GetCurrentConfigurationFilePath() const;
 
   const CString& proc_name() const { return proc_name_; }
@@ -392,7 +392,7 @@ class Logging {
   bool InitializeLogging();
 
   // Configures/unconfigures the log writers for the current settings.  That
-  // is, given the current settings from GoogleUpdate.ini, either initializes
+  // is, given the current settings from KDSUpdate.ini, either initializes
   // and registers the file-out and debug-out logwriters, or unregisters them.
   void ConfigureETWLogWriter();
   void ConfigureFileLogWriter();
@@ -403,10 +403,10 @@ class Logging {
   void UpdateCatAndLevel(const wchar_t* cat_name, LogCategory cat);
   void ReadLoggingSettings();
 
-  // Returns the primary file path of the GoogleUpdate.ini.
+  // Returns the primary file path of the KDSUpdate.ini.
   CString GetConfigurationFilePath() const;
 
-  // Returns the alternate file path of the GoogleUpdate.ini.
+  // Returns the alternate file path of the KDSUpdate.ini.
   CString GetAltConfigurationFilePath() const;
 
  public:

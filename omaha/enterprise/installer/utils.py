@@ -164,7 +164,7 @@ def GetWixCandleFlags(
     flags.append('-dStandaloneInstallerPath=' + standalone_installer_path)
 
   if metainstaller_path:
-    flags.append('-dGoogleUpdateMetainstallerPath="%s"' % metainstaller_path)
+    flags.append('-dKDSUpdateMetainstallerPath="%s"' % metainstaller_path)
 
   if product_installer_install_command:
     flags.append('-dProductInstallerInstallCommand=' +

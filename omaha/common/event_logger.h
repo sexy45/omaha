@@ -123,14 +123,14 @@ class EventLogger {
   static const WORD kDefaultCategory = 0;
 };
 
-class GoogleUpdateLogEvent {
+class KDSUpdateLogEvent {
  public:
-  GoogleUpdateLogEvent(int type, int id, bool is_machine)
+  KDSUpdateLogEvent(int type, int id, bool is_machine)
       : type_(type),
         id_(id),
         is_machine_(is_machine) {}
-  GoogleUpdateLogEvent() : type_(0), id_(0), is_machine_(false) {}
-  ~GoogleUpdateLogEvent() {}
+  KDSUpdateLogEvent() : type_(0), id_(0), is_machine_(false) {}
+  ~KDSUpdateLogEvent() {}
   void WriteEvent();
   void set_event_desc(const CString& desc) { event_desc_ = desc; }
   void set_event_text(const CString& text) { event_text_ = text; }
@@ -142,7 +142,7 @@ class GoogleUpdateLogEvent {
   int id_;
   bool is_machine_;
 
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdateLogEvent);
+  DISALLOW_COPY_AND_ASSIGN(KDSUpdateLogEvent);
 };
 
 }  // namespace omaha

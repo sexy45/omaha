@@ -52,9 +52,9 @@ namespace omaha {
 namespace {
 
 // Private object namespaces for Vista processes.
-const TCHAR* const kGoopdateBoundaryDescriptor = _T("GoogleUpdate_BD");
-const TCHAR* const kGoopdatePrivateNamespace = _T("GoogleUpdate");
-const TCHAR* const kGoopdatePrivateNamespacePrefix = _T("GoogleUpdate\\");
+const TCHAR* const kGoopdateBoundaryDescriptor = _T("KDSUpdate_BD");
+const TCHAR* const kGoopdatePrivateNamespace = _T("KDSUpdate");
+const TCHAR* const kGoopdatePrivateNamespacePrefix = _T("KDSUpdate\\");
 
 // Helper for IsPrivateNamespaceAvailable().
 // For simplicity, the handles opened here are leaked. We need these until
@@ -86,7 +86,7 @@ bool EnsurePrivateNamespaceAvailable() {
   NamedObjectAttributes attr;
   GetAdminDaclSecurityAttributes(&attr.sa, GENERIC_ALL);
   // The private namespace created here will be used to create objects of the
-  // form "GoogleUpdate\xyz". As the article "Object Namespaces" on MSDN
+  // form "KDSUpdate\xyz". As the article "Object Namespaces" on MSDN
   // explains, these kernel objects are safe from squatting attacks from lower
   // integrity processes.
   HANDLE namespace_handle =

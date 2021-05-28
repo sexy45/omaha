@@ -76,8 +76,8 @@ void PreventSetupFromRunning(bool is_machine) {
 class InstallHandoffTest : public testing::Test {
  protected:
   explicit InstallHandoffTest(bool is_machine)
-      : omaha_path_(is_machine ? GetGoogleUpdateMachinePath() :
-                                 GetGoogleUpdateUserPath()),
+      : omaha_path_(is_machine ? GetKDSUpdateMachinePath() :
+                                 GetKDSUpdateUserPath()),
         path_(ConcatenatePath(omaha_path_, kVersionString)) {
   }
 

@@ -31,7 +31,7 @@
 #include "omaha/common/goopdate_utils.h"
 #include "omaha/third_party/smartany/scoped_any.h"
 
-// GoogleUpdate.exe is running in 32-bit mode and it cannot directly load
+// KDSUpdate.exe is running in 32-bit mode and it cannot directly load
 // 64-bit COM server DLL for register/unregister purpose. So create this
 // application to do that.
 

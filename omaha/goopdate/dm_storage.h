@@ -129,7 +129,7 @@ class DmStorage {
                                           CachedPolicyInfo* info);
 
   // Reads the information within the PolicyFetchResponse file within the
-  // |policy_responses_dir|\{Base64Encoded{kGoogleUpdatePolicyType}} directory.
+  // |policy_responses_dir|\{Base64Encoded{kKDSUpdatePolicyType}} directory.
   // Then calls on GetCachedOmahaPolicy() to populate |info|.
   static HRESULT ReadCachedOmahaPolicy(const CPath& policy_responses_dir,
                                        CachedOmahaPolicy* info);

@@ -58,7 +58,7 @@ class BundleCreatorTest : public testing::Test {
     EXPECT_SUCCEEDED(ResourceManager::Create(
         true, app_util::GetCurrentModuleDirectory(), _T("en")));
 
-    const CString shell_path = goopdate_utils::BuildGoogleUpdateExePath(true);
+    const CString shell_path = goopdate_utils::BuildKDSUpdateExePath(true);
     EXPECT_SUCCEEDED(RegKey::SetValue(kUpdateDevKey,
                                       kRegValueInstalledPath,
                                       shell_path));
@@ -75,7 +75,7 @@ class BundleCreatorTest : public testing::Test {
                                       kRegValueProductVersion,
                                       GetVersionString()));
 
-    CopyGoopdateFiles(GetGoogleUpdateMachinePath(), GetVersionString());
+    CopyGoopdateFiles(GetKDSUpdateMachinePath(), GetVersionString());
   }
 
   static void TearDownTestCase() {

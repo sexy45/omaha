@@ -110,8 +110,8 @@ def SetOutputFileNames(file_name, apps, output_dir):
     file_name: The input file name that needs to be stamped. This
                is used for deciding whether to use TEST in the name,
                and the directory. The names of this file is expected
-               to be either TEST_GoogleUpdateSetup.exe or
-               GoogleUpdateSetup.exe
+               to be either TEST_KDSUpdateSetup.exe or
+               KDSUpdateSetup.exe
     apps: Dictionary of applications keyed by language.
     output_dir: The output directory.
 
@@ -203,13 +203,13 @@ def GetAllSetupExeInDirectory(dir):
     dir: The input directory.
   Returns:
     A list of files that are match the regex:
-    TEST_GoogleUpdateSetup_.*.exe$|^GoogleUpdateSetup_.*.exe$
+    TEST_KDSUpdateSetup_.*.exe$|^KDSUpdateSetup_.*.exe$
   """
   ret_files = []
   files = os.listdir(dir)
   for file in files:
-    regex = re.compile('^TEST_GoogleUpdateSetup_.*.exe$|'
-                       '^GoogleUpdateSetup_.*.exe$')
+    regex = re.compile('^TEST_KDSUpdateSetup_.*.exe$|'
+                       '^KDSUpdateSetup_.*.exe$')
     if not regex.match(file):
       continue
     ret_files.append(file)

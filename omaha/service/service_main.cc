@@ -24,7 +24,7 @@ TCHAR kHKRootService[] = _T("HKLM");
 TCHAR kProgIDUpdate3COMClassServiceLocal[] = kProgIDUpdate3COMClassService;
 
 // A private object map with custom registration works best, even though this
-// stuff is deprecated. This is because GoogleUpdate.exe has other objects
+// stuff is deprecated. This is because KDSUpdate.exe has other objects
 // defined elsewhere and we do not want to expose those from the service.
 BEGIN_OBJECT_MAP(object_map_google_update3)
   OBJECT_ENTRY(__uuidof(GoogleUpdate3ServiceClass), Update3COMClassService)
@@ -34,7 +34,7 @@ BEGIN_OBJECT_MAP(object_map_google_update_medium)
   OBJECT_ENTRY(__uuidof(OnDemandMachineAppsServiceClass), OnDemandService)
   OBJECT_ENTRY(__uuidof(GoogleUpdate3WebServiceClass), Update3WebService)
   OBJECT_ENTRY(__uuidof(PolicyStatusMachineServiceClass), PolicyStatusService)
-  OBJECT_ENTRY(__uuidof(GoogleUpdateCoreClass), GoogleUpdateCoreService)
+  OBJECT_ENTRY(__uuidof(GoogleUpdateCoreClass), KDSUpdateCoreService)
 END_OBJECT_MAP()
 
 CommandLineMode Update3ServiceMode::commandline_mode() {
@@ -74,7 +74,7 @@ HRESULT Update3ServiceMode::PreMessageLoop() {
   SERVICE_LOG(L1, (_T("[Starting Google Update core...]")));
   CommandLineBuilder builder(COMMANDLINE_MODE_CORE);
   CString args = builder.GetCommandLineArgs();
-  return goopdate_utils::StartGoogleUpdateWithArgs(true,
+  return goopdate_utils::StartKDSUpdateWithArgs(true,
                                                    StartMode::kBackground,
                                                    args,
                                                    NULL);

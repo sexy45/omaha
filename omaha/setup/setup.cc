@@ -141,7 +141,7 @@ void IncrementProcessWaitFailCount(CommandLineMode mode) {
   }
 }
 
-// Returns the pids of all other GoogleUpdate.exe processes with the specified
+// Returns the pids of all other KDSUpdate.exe processes with the specified
 // argument string. Checks processes for all users that it has privileges to
 // access.
 HRESULT GetPidsWithArgsForAllUsers(const CString& args,
@@ -167,10 +167,10 @@ HRESULT GetPidsWithArgsForAllUsers(const CString& args,
   return S_OK;
 }
 
-void WriteGoogleUpdateUninstallEvent(bool is_machine) {
+void WriteKDSUpdateUninstallEvent(bool is_machine) {
   CString description;
   SafeCStringFormat(&description, kUninstallEventDescriptionFormat, kAppName);
-  GoogleUpdateLogEvent uninstall_event(EVENTLOG_INFORMATION_TYPE,
+  KDSUpdateLogEvent uninstall_event(EVENTLOG_INFORMATION_TYPE,
                                        kUninstallEventId,
                                        is_machine);
   uninstall_event.set_event_desc(description);
@@ -364,9 +364,9 @@ HRESULT Setup::DoProtectedInstall(RuntimeMode runtime_mode) {
     //  2) Fail the self-update. Leave the user on this version. Would need to
     //     figure out a way to avoid updating the user every 5 hours.
 
-    hr = DoProtectedGoogleUpdateInstall(&setup_files);
+    hr = DoProtectedKDSUpdateInstall(&setup_files);
     if (FAILED(hr)) {
-      SETUP_LOG(LE, (_T("[DoProtectedGoogleUpdateInstall fail][0x%08x]"), hr));
+      SETUP_LOG(LE, (_T("[DoProtectedKDSUpdateInstall fail][0x%08x]"), hr));
       // Do not return until rolling back and releasing the events.
     }
 
@@ -463,7 +463,7 @@ bool Setup::ShouldOverinstall() {
   CommandLineBuilder builder(COMMANDLINE_MODE_HEALTH_CHECK);
   CString cmd_line = builder.GetCommandLineArgs();
   scoped_process process;
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine_,
+  HRESULT hr = goopdate_utils::StartKDSUpdateWithArgs(is_machine_,
                                                          StartMode::kBackground,
                                                          cmd_line,
                                                          address(process));
@@ -485,13 +485,13 @@ bool Setup::ShouldOverinstall() {
   return should_overinstall;
 }
 
-HRESULT Setup::DoProtectedGoogleUpdateInstall(SetupFiles* setup_files) {
+HRESULT Setup::DoProtectedKDSUpdateInstall(SetupFiles* setup_files) {
   ASSERT1(setup_files);
-  SETUP_LOG(L2, (_T("[Setup::DoProtectedGoogleUpdateInstall]")));
+  SETUP_LOG(L2, (_T("[Setup::DoProtectedKDSUpdateInstall]")));
 
-  HRESULT hr = StopGoogleUpdateAndWait(GetForceKillWaitTimeMs());
+  HRESULT hr = StopKDSUpdateAndWait(GetForceKillWaitTimeMs());
   if (FAILED(hr)) {
-    SETUP_LOG(LE, (_T("[StopGoogleUpdateAndWait failed][0x%08x]"), hr));
+    SETUP_LOG(LE, (_T("[StopKDSUpdateAndWait failed][0x%08x]"), hr));
     if (E_ACCESSDENIED == hr) {
       return GOOPDATE_E_ACCESSDENIED_STOP_PROCESSES;
     }
@@ -520,9 +520,9 @@ HRESULT Setup::DoProtectedGoogleUpdateInstall(SetupFiles* setup_files) {
     return hr;
   }
 
-  hr = SetupGoogleUpdate();
+  hr = SetupKDSUpdate();
   if (FAILED(hr)) {
-    SETUP_LOG(LE, (_T("[SetupGoogleUpdate failed][0x%08x]"), hr));
+    SETUP_LOG(LE, (_T("[SetupKDSUpdate failed][0x%08x]"), hr));
     return hr;
   }
 
@@ -548,18 +548,18 @@ void Setup::RollBack(SetupFiles* setup_files) {
         saved_version_));
   }
 
-  // TODO(omaha3): Rollback SetupGoogleUpdate.
+  // TODO(omaha3): Rollback SetupKDSUpdate.
   VERIFY_SUCCEEDED(setup_files->RollBack());
 }
 
 // Assumes the caller is ensuring this is the only running instance of setup.
 // The original process holds the lock while it waits for this one to complete.
-HRESULT Setup::SetupGoogleUpdate() {
-  SETUP_LOG(L2, (_T("[Setup::SetupGoogleUpdate]")));
+HRESULT Setup::SetupKDSUpdate() {
+  SETUP_LOG(L2, (_T("[Setup::SetupKDSUpdate]")));
 
   HighresTimer phase2_metrics_timer;
 
-  omaha::SetupGoogleUpdate setup_google_update(is_machine_, is_self_update_);
+  omaha::SetupKDSUpdate setup_google_update(is_machine_, is_self_update_);
 
   HRESULT hr = setup_google_update.FinishInstall();
   if (FAILED(hr)) {
@@ -588,7 +588,7 @@ HRESULT Setup::SetupGoogleUpdate() {
 }
 
 // Stops all user/machine instances including the service, unregisters using
-// SetupGoogleUpdate, then deletes  the files using SetupFiles.
+// SetupKDSUpdate, then deletes  the files using SetupFiles.
 // Does not wait for the processes to exit, except the service.
 // Protects all operations with the setup lock. If MSI is found busy, Omaha
 // won't uninstall.
@@ -612,21 +612,21 @@ HRESULT Setup::Uninstall(bool send_uninstall_ping) {
 // Foces reporting of the metrics if uninstall is allowed.
 // Assumes that the current process holds the Setup Lock.
 HRESULT Setup::DoProtectedUninstall(bool send_uninstall_ping) {
-  const bool can_uninstall = CanUninstallGoogleUpdate();
-  OPT_LOG(L1, (_T("[CanUninstallGoogleUpdate returned %d]"), can_uninstall));
+  const bool can_uninstall = CanUninstallKDSUpdate();
+  OPT_LOG(L1, (_T("[CanUninstallKDSUpdate returned %d]"), can_uninstall));
 
   HRESULT hr = S_OK;
   if (!can_uninstall) {
     hr = GOOPDATE_E_CANT_UNINSTALL;
   } else {
-    hr = StopGoogleUpdateAndWait(GetForceKillWaitTimeMs());
+    hr = StopKDSUpdateAndWait(GetForceKillWaitTimeMs());
     if (FAILED(hr)) {
       // If there are any clients that don't listen to the shutdown event,
       // such as the current Update3Web workers, we'll need to wait until
       // they can be shut down.
       // TODO(omaha3): We might want to add a count metric for this case,
       // and maybe go through with the uninstall anyways after several tries.
-      SETUP_LOG(L1, (_T("[StopGoogleUpdateAndWait returned 0x%08x]"), hr));
+      SETUP_LOG(L1, (_T("[StopKDSUpdateAndWait returned 0x%08x]"), hr));
       hr = GOOPDATE_E_CANT_UNINSTALL;
     }
   }
@@ -646,9 +646,9 @@ HRESULT Setup::DoProtectedUninstall(bool send_uninstall_ping) {
   // Write the event in the event log before uninstalling the program since
   // the event contains version and language information, which are removed
   // during the uninstall.
-  WriteGoogleUpdateUninstallEvent(is_machine_);
+  WriteKDSUpdateUninstallEvent(is_machine_);
 
-  omaha::SetupGoogleUpdate setup_google_update(is_machine_, is_self_update_);
+  omaha::SetupKDSUpdate setup_google_update(is_machine_, is_self_update_);
   setup_google_update.Uninstall();
 
   SetupFiles setup_files(is_machine_);
@@ -715,7 +715,7 @@ void Setup::CheckInstallStateConsistency(bool is_machine) {
 // The caller is responsible for releasing the events.
 // Because this waiting occurs before a UI is generated, we do not want to wait
 // too long.
-HRESULT Setup::StopGoogleUpdate() {
+HRESULT Setup::StopKDSUpdate() {
   OPT_LOG(L1, (_T("[Stopping other instances]")));
 
   HRESULT hr = SignalShutdownEvent();
@@ -732,10 +732,10 @@ int Setup::GetForceKillWaitTimeMs() const {
                            kSetupInstallShutdownWaitMs;
 }
 
-HRESULT Setup::StopGoogleUpdateAndWait(int wait_time_before_kill_ms) {
-  HRESULT hr = StopGoogleUpdate();
+HRESULT Setup::StopKDSUpdateAndWait(int wait_time_before_kill_ms) {
+  HRESULT hr = StopKDSUpdate();
   if (FAILED(hr)) {
-    SETUP_LOG(LE, (_T("[StopGoogleUpdate failed][0x%08x]"), hr));
+    SETUP_LOG(LE, (_T("[StopKDSUpdate failed][0x%08x]"), hr));
     return hr;
   }
 
@@ -789,7 +789,7 @@ void Setup::ReleaseShutdownEvents() {
 // If a process fails to stop, its mode is stored in extra_code1_.
 // Does not return until all opened handles have been closed.
 // TODO(omaha): Add a parameter to specify the amount of time to wait to this
-// method and StopGoogleUpdateAndWait after we unify Setup and always have a UI.
+// method and StopKDSUpdateAndWait after we unify Setup and always have a UI.
 HRESULT Setup::WaitForOtherInstancesToExit(const Pids& pids,
                                            int wait_time_before_kill_ms) {
   OPT_LOG(L1, (_T("[Waiting for other instances to exit]")));
@@ -830,7 +830,7 @@ HRESULT Setup::WaitForOtherInstancesToExit(const Pids& pids,
       SETUP_LOG(LE, (_T("[::WaitForMultipleObjects failed][%u]"), error));
       hr = HRESULT_FROM_WIN32(error);
     } else if (WAIT_OBJECT_0 != res) {
-      OPT_LOG(LEVEL_ERROR, (_T("[Other GoogleUpdate.exe instances failed to ")
+      OPT_LOG(LEVEL_ERROR, (_T("[Other KDSUpdate.exe instances failed to ")
                             _T("shutdown in time][%u]"), res));
 
       extra_code1_ = COMMANDLINE_MODE_UNKNOWN;
@@ -1259,8 +1259,8 @@ bool Setup::InitSetupLock(bool is_machine, GLock* setup_lock) {
 //  (a) Has the Setup Lock, which is not possible because this process has it.
 //  (b) Has started an install worker.
 // TODO(omaha3): This is flawed: http://b/2764048.
-bool Setup::CanUninstallGoogleUpdate() const {
-  CORE_LOG(L2, (_T("[Setup::CanUninstallGoogleUpdate]")));
+bool Setup::CanUninstallKDSUpdate() const {
+  CORE_LOG(L2, (_T("[Setup::CanUninstallKDSUpdate]")));
   if (goopdate_utils::IsAppInstallWorkerRunning(is_machine_)) {
     CORE_LOG(L2, (_T("[Found install workers. Not uninstalling]")));
     return false;
@@ -1334,7 +1334,7 @@ HRESULT Setup::SendUninstallPing() {
 
   const bool is_eula_accepted =
       app_registry_utils::IsAppEulaAccepted(is_machine_,
-                                            kGoogleUpdateAppId,
+                                            kKDSUpdateAppId,
                                             false);
 
   if (!is_eula_accepted) {

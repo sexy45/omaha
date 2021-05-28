@@ -274,23 +274,23 @@ HRESULT LaunchBrowser(bool is_machine, BrowserType type, const CString& url) {
   return S_OK;
 }
 
-CString BuildGoogleUpdateExeDir(bool is_machine) {
+CString BuildKDSUpdateExeDir(bool is_machine) {
   ConfigManager& cm = *ConfigManager::Instance();
   return is_machine ? cm.GetMachineGoopdateInstallDir() :
                       cm.GetUserGoopdateInstallDir();
 }
 
-CString BuildGoogleUpdateExePath(bool is_machine) {
-  CORE_LOG(L3, (_T("[BuildGoogleUpdateExePath][%d]"), is_machine));
+CString BuildKDSUpdateExePath(bool is_machine) {
+  CORE_LOG(L3, (_T("[BuildKDSUpdateExePath][%d]"), is_machine));
 
-  CPath full_file_path(BuildGoogleUpdateExeDir(is_machine));
+  CPath full_file_path(BuildKDSUpdateExeDir(is_machine));
   VERIFY1(full_file_path.Append(kOmahaShellFileName));
 
   return full_file_path;
 }
 
-CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit) {
-  CORE_LOG(L3, (_T("[BuildGoogleUpdateServicesPath][%d][%d]"),
+CString BuildKDSUpdateServicesPath(bool is_machine, bool use64bit) {
+  CORE_LOG(L3, (_T("[BuildKDSUpdateServicesPath][%d][%d]"),
                is_machine, use64bit));
 
   CPath full_file_path(BuildInstallDirectory(is_machine, GetVersionString()));
@@ -300,8 +300,8 @@ CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit) {
   return full_file_path;
 }
 
-CString BuildGoogleUpdateServicesEnclosedPath(bool is_machine, bool use64bit) {
-  CString path(BuildGoogleUpdateServicesPath(is_machine, use64bit));
+CString BuildKDSUpdateServicesEnclosedPath(bool is_machine, bool use64bit) {
+  CString path(BuildKDSUpdateServicesPath(is_machine, use64bit));
   EnclosePath(&path);
   return path;
 }
@@ -352,19 +352,19 @@ HRESULT StartElevatedMetainstaller(const TCHAR* args, DWORD* exit_code) {
 CString GetInstalledShellVersion(bool is_machine) {
   CORE_LOG(L3, (_T("[GetInstalledShellVersion][%d]"), is_machine));
 
-  const CString shell_path = BuildGoogleUpdateExePath(is_machine);
+  const CString shell_path = BuildKDSUpdateExePath(is_machine);
   const ULONGLONG shell_version = app_util::GetVersionFromFile(shell_path);
   return shell_version ? StringFromVersion(shell_version) : CString();
 }
 
-HRESULT StartGoogleUpdateWithArgs(bool is_machine,
+HRESULT StartKDSUpdateWithArgs(bool is_machine,
                                   StartMode start_mode,
                                   const TCHAR* args,
                                   HANDLE* process) {
-  CORE_LOG(L3, (_T("[StartGoogleUpdateWithArgs][%d][%d][%s]"),
+  CORE_LOG(L3, (_T("[StartKDSUpdateWithArgs][%d][%d][%s]"),
                 is_machine, start_mode, args ? args : _T("")));
 
-  CString exe_path = BuildGoogleUpdateExePath(is_machine);
+  CString exe_path = BuildKDSUpdateExePath(is_machine);
 
   CORE_LOG(L3, (_T("[command line][%s][%s]"), exe_path, args ? args : _T("")));
 
@@ -395,7 +395,7 @@ HRESULT StartCrashHandler(bool is_machine) {
   ASSERT1(!is_machine || user_info::IsRunningAsSystem());
 
   // Always attempt start the 32-bit crash handler.
-  CString exe_path = BuildGoogleUpdateServicesEnclosedPath(is_machine, false);
+  CString exe_path = BuildKDSUpdateServicesEnclosedPath(is_machine, false);
   HRESULT hr = System::StartCommandLine(exe_path);
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[can't start 32-bit crash handler][0x%08x]"), hr));
@@ -410,7 +410,7 @@ HRESULT StartCrashHandler(bool is_machine) {
     CORE_LOG(LE, (_T("[Kernel32::IsWow64Process failed][0x%08x]"), hr));
   }
   if (!!is64bit) {
-    exe_path = BuildGoogleUpdateServicesEnclosedPath(is_machine, true);
+    exe_path = BuildKDSUpdateServicesEnclosedPath(is_machine, true);
     hr = System::StartCommandLine(exe_path);
     if (FAILED(hr)) {
       CORE_LOG(LE, (_T("[can't start 64-bit crash handler][0x%08x]"), hr));
@@ -767,7 +767,7 @@ HRESULT UnRegisterTypeLibForUser(REFGUID lib_id,
 
 // TODO(omaha): This method's name is much more specific than what it does. Can
 // we just copy the code to scheduled task and service code and eliminate it?
-// Reads the current value under {HKLM|HKCU}\Google\Update\value_name. Returns
+// Reads the current value under {HKLM|HKCU}\KDS\Update\value_name. Returns
 // default_val if value_name does not exist.
 CString GetCurrentVersionedName(bool is_machine,
                                 const TCHAR* value_name,
@@ -790,7 +790,7 @@ CString GetCurrentVersionedName(bool is_machine,
 }
 
 // Creates a unique name of the form "{prefix}1c9b3d6baf90df3" and stores it in
-// the registry under HKLM/HKCU\Google\Update\value_name. Subsequent
+// the registry under HKLM/HKCU\KDS\Update\value_name. Subsequent
 // invocations of GetCurrentTaskName() will return this new value.
 HRESULT CreateAndSetVersionedNameInRegistry(bool is_machine,
                                             const TCHAR* prefix,
@@ -1152,7 +1152,7 @@ HRESULT GetInstallWorkerProcesses(bool is_machine,
   SafeCStringFormat(&command_line_to_include, _T("/%s"), kCmdLineUpdate);
   command_lines.push_back(command_line_to_include);
   SafeCStringFormat(&command_line_to_include, _T("/%s"),
-                    kCmdLineLegacyFinishGoogleUpdateInstall);
+                    kCmdLineLegacyFinishKDSUpdateInstall);
   command_lines.push_back(command_line_to_include);
   command_lines.push_back(kCmdLineComServerDash);
 
@@ -1460,7 +1460,7 @@ HRESULT UpdateLastChecked(bool is_machine) {
 
 HRESULT LaunchUninstallProcess(bool is_machine) {
   CORE_LOG(L2, (_T("[LaunchUninstallProcess]")));
-  CString exe_path = BuildGoogleUpdateExePath(is_machine);
+  CString exe_path = BuildKDSUpdateExePath(is_machine);
   CommandLineBuilder builder(COMMANDLINE_MODE_UNINSTALL);
   CString cmd_line = builder.GetCommandLineArgs();
   return System::StartProcessWithArgs(exe_path, cmd_line);

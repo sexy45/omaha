@@ -117,7 +117,7 @@ def _BuildSampleForTest():
             prefix + msi_base_name + '_' + combo[0],
             '$MAIN_DIR/enterprise/installer',
             msi_custom_action_dll,
-            '$STAGING_DIR/%sGoogleUpdateSetup.exe' % prefix,
+            '$STAGING_DIR/%sKDSUpdateSetup.exe' % prefix,
             output_dir = '$TARGET_ROOT/Test_Installers'
         )
 
@@ -169,8 +169,8 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 #
 # To bundle Google Update with a product that has an MSI installer:
 #  * Build a .wixobj that contains the Google Update installation fragment
-#    by calling BuildGoogleUpdateFragment().
-#  * Include the ComponentGoogleUpdate component in the appropriate feature in
+#    by calling BuildKDSUpdateFragment().
+#  * Include the ComponentKDSUpdate component in the appropriate feature in
 #    the product's WiX code.
 #
 # For an example, see instances of "enterprise" in the following files:

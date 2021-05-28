@@ -35,7 +35,7 @@ namespace omaha {
 
 namespace {
 
-// OMAHA_KEY_REL == "Software\Google\Update"
+// OMAHA_KEY_REL == "Software\KDS\Update"
 #define OMAHA_KEY_REL \
     _T("Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
 
@@ -438,21 +438,21 @@ TEST_F(ConfigManagerNoOverrideTest, GetUserGoopdateInstallDir) {
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserDownloadStorageDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Download");
+  const CString expected_path = GetKDSUpdateUserPath() + _T("Download");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserDownloadStorageDir());
   EXPECT_TRUE(File::Exists(expected_path));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserInstallWorkingDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Install");
+  const CString expected_path = GetKDSUpdateUserPath() + _T("Install");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserInstallWorkingDir());
   EXPECT_TRUE(File::Exists(expected_path));
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetUserOfflineStorageDir) {
-  const CString expected_path = GetGoogleUpdateUserPath() + _T("Offline");
+  const CString expected_path = GetKDSUpdateUserPath() + _T("Offline");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetUserOfflineStorageDir());
   EXPECT_TRUE(File::Exists(expected_path));
@@ -481,27 +481,27 @@ TEST_F(ConfigManagerNoOverrideTest, GetMachineCrashReportsDir) {
 
 // Should run before the subdirectory tests to ensure the directory is created.
 TEST_F(ConfigManagerNoOverrideTest, GetMachineGoopdateInstallDir) {
-  CString expected_path = GetGoogleUpdateMachinePath();
+  CString expected_path = GetKDSUpdateMachinePath();
   EXPECT_STREQ(expected_path, cm_->GetMachineGoopdateInstallDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineSecureDownloadStorageDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Download");
+  CString expected_path = GetKDSUpdateMachinePath() + _T("\\Download");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineSecureDownloadStorageDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineInstallWorkingDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Install");
+  CString expected_path = GetKDSUpdateMachinePath() + _T("\\Install");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineInstallWorkingDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
 }
 
 TEST_F(ConfigManagerNoOverrideTest, GetMachineSecureOfflineStorageDir) {
-  CString expected_path = GetGoogleUpdateMachinePath() + _T("\\Offline");
+  CString expected_path = GetKDSUpdateMachinePath() + _T("\\Offline");
   EXPECT_SUCCEEDED(DeleteTestDirectory(expected_path));
   EXPECT_STREQ(expected_path, cm_->GetMachineSecureOfflineStorageDir());
   EXPECT_TRUE(File::Exists(expected_path) || !vista_util::IsUserAdmin());
@@ -1637,22 +1637,22 @@ TEST_P(ConfigManagerTest, CanUpdateApp_Auto_DefaultInvalid_NoAppValue) {
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultManualOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 2));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_DefaultAutoOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 3));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Auto_Omaha_AppDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("Update") GOOPDATE_APP_ID, 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, false));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, false));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_NoGroupPolicy) {
@@ -1868,22 +1868,22 @@ TEST_P(ConfigManagerTest, CanUpdateApp_Manual_DefaultInvalid_NoAppValue) {
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultManualOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 2));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_DefaultAutoOnly) {
   EXPECT_SUCCEEDED(SetPolicy(_T("UpdateDefault"), 3));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, CanUpdateApp_Manual_Omaha_AppDisabled) {
   EXPECT_SUCCEEDED(SetPolicy(_T("Update") GOOPDATE_APP_ID, 0));
-  EXPECT_TRUE(CanUpdateApp(kGoogleUpdateAppId, true));
+  EXPECT_TRUE(CanUpdateApp(kKDSUpdateAppId, true));
 }
 
 TEST_P(ConfigManagerTest, GetEffectivePolicyForAppUpdates_DMPolicy) {

@@ -19,7 +19,7 @@ import "oaidl.idl";
   object,
   uuid(1bcf5ad0-3304-444d-a5a6-c1aa2a3ad240),
   dual,
-  helpstring("GoogleUpdate3Web Control"),
+  helpstring("KDSUpdate3Web Control"),
   pointer_default(unique)
 ]
 interface IGoogleUpdate3WebControl : IDispatch {
@@ -95,7 +95,7 @@ library GoogleUpdateControlLib {
 
   [
     uuid(bbb0f6b9-f318-42c1-818e-72580be89145),
-    helpstring("GoogleUpdate3Web Control Class")
+    helpstring("KDSUpdate3Web Control Class")
   ]
   coclass GoogleUpdate3WebControlCoClass {
     [default] interface IDispatch;

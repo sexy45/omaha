@@ -58,9 +58,9 @@ HRESULT VerifyCOMLocalServerRegistration(bool is_machine) {
 #if 0
   // Validate the following:
   // * LocalServer32 under CLSID_OnDemandMachineAppsClass or
-  //   CLSID_OnDemandUserAppsClass should be ...Google\Update\GoogleUpdate.exe.
+  //   CLSID_OnDemandUserAppsClass should be ...KDS\Update\KDSUpdate.exe.
   // * InProcServer32 under CLSID of IID_IGoogleUpdate should be
-  //   ...Google\Update\{version}\goopdate.dll.
+  //   ...KDS\Update\{version}\goopdate.dll.
   // * ProxyStubClsid32 under IGoogleUpdate interface should be the CLSID of the
   //   proxy, which is IID_IGoogleUpdate.
 
@@ -128,7 +128,7 @@ HRESULT RegisterOrUnregisterService(bool register_server,
 
 }  // namespace
 
-SetupGoogleUpdate::SetupGoogleUpdate(bool is_machine, bool is_self_update)
+SetupKDSUpdate::SetupKDSUpdate(bool is_machine, bool is_self_update)
     : is_machine_(is_machine),
       is_self_update_(is_self_update),
       extra_code1_(S_OK)
@@ -139,8 +139,8 @@ SetupGoogleUpdate::SetupGoogleUpdate(bool is_machine, bool is_self_update)
   this_version_ = GetVersionString();
 }
 
-SetupGoogleUpdate::~SetupGoogleUpdate() {
-  SETUP_LOG(L2, (_T("[SetupGoogleUpdate::~SetupGoogleUpdate]")));
+SetupKDSUpdate::~SetupKDSUpdate() {
+  SETUP_LOG(L2, (_T("[SetupKDSUpdate::~SetupKDSUpdate]")));
 }
 
 // TODO(omaha): Add a VerifyInstall() method that can be called by /handoff
@@ -148,8 +148,8 @@ SetupGoogleUpdate::~SetupGoogleUpdate() {
 
 // Assumes the caller is ensuring this is the only running instance of setup.
 // The original process holds the lock while it waits for this one to complete.
-HRESULT SetupGoogleUpdate::FinishInstall() {
-  SETUP_LOG(L2, (_T("[SetupGoogleUpdate::FinishInstall]")));
+HRESULT SetupKDSUpdate::FinishInstall() {
+  SETUP_LOG(L2, (_T("[SetupKDSUpdate::FinishInstall]")));
 
   HRESULT hr = InstallRegistryValues();
   if (FAILED(hr)) {
@@ -220,8 +220,8 @@ HRESULT SetupGoogleUpdate::FinishInstall() {
 }
 
 // Version values are written at the end of setup, not here.
-HRESULT SetupGoogleUpdate::InstallRegistryValues() {
-  OPT_LOG(L3, (_T("[SetupGoogleUpdate::InstallRegistryValues]")));
+HRESULT SetupKDSUpdate::InstallRegistryValues() {
+  OPT_LOG(L3, (_T("[SetupKDSUpdate::InstallRegistryValues]")));
 
   const ConfigManager* cm = ConfigManager::Instance();
   const TCHAR* keys[] = { cm->registry_google(is_machine_),
@@ -246,7 +246,7 @@ HRESULT SetupGoogleUpdate::InstallRegistryValues() {
     }
   }
 
-  CString shell_path = goopdate_utils::BuildGoogleUpdateExePath(is_machine_);
+  CString shell_path = goopdate_utils::BuildKDSUpdateExePath(is_machine_);
   if (shell_path.IsEmpty() || !File::Exists(shell_path)) {
     SETUP_LOG(LE, (_T("[Failed to get valid shell path]")));
     return E_FAIL;
@@ -278,7 +278,7 @@ HRESULT SetupGoogleUpdate::InstallRegistryValues() {
 
   // Set the version so the constant shell will know which version to use.
   // TODO(omaha3): This should be the atomic switch of the version, but it must
-  // be called before registering the COM servers because GoogleUpdate.exe needs
+  // be called before registering the COM servers because KDSUpdate.exe needs
   // the pv to find goopdate.dll. We may need to support rolling this back.
   hr = RegKey::SetValue(omaha_clients_key_path,
                         kRegValueProductVersion,
@@ -321,7 +321,7 @@ HRESULT SetupGoogleUpdate::InstallRegistryValues() {
 // users to read and write values in its subkeys.
 // Since this key is not as secure as other keys, the supported values must be
 // limited and the use of them must be carefully designed.
-HRESULT SetupGoogleUpdate::CreateClientStateMedium() {
+HRESULT SetupKDSUpdate::CreateClientStateMedium() {
   ASSERT1(is_machine_);
 
   // Authenticated non-admins may read, write, create subkeys and values.
@@ -361,8 +361,8 @@ HRESULT SetupGoogleUpdate::CreateClientStateMedium() {
   return S_OK;
 }
 
-HRESULT SetupGoogleUpdate::InstallLaunchMechanisms() {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::InstallLaunchMechanisms]")));
+HRESULT SetupKDSUpdate::InstallLaunchMechanisms() {
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::InstallLaunchMechanisms]")));
   if (is_machine_) {
     HRESULT hr = InstallMachineLaunchMechanisms();
     if (FAILED(hr)) {
@@ -380,8 +380,8 @@ HRESULT SetupGoogleUpdate::InstallLaunchMechanisms() {
   return S_OK;
 }
 
-void SetupGoogleUpdate::UninstallLaunchMechanisms() {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::UninstallLaunchMechanisms]")));
+void SetupKDSUpdate::UninstallLaunchMechanisms() {
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::UninstallLaunchMechanisms]")));
   if (is_machine_) {
     CString current_dir = app_util::GetModuleDirectory(NULL);
     CString service_path = ConcatenatePath(current_dir, kServiceFileName);
@@ -399,8 +399,8 @@ void SetupGoogleUpdate::UninstallLaunchMechanisms() {
   VERIFY_SUCCEEDED(scheduled_task_utils::UninstallGoopdateTasks(is_machine_));
 }
 
-HRESULT SetupGoogleUpdate::InstallScheduledTask() {
-  CString exe_path = goopdate_utils::BuildGoogleUpdateExePath(is_machine_);
+HRESULT SetupKDSUpdate::InstallScheduledTask() {
+  CString exe_path = goopdate_utils::BuildKDSUpdateExePath(is_machine_);
 
   HighresTimer metrics_timer;
   const ULONGLONG install_task_start_ms = metrics_timer.GetElapsedMs();
@@ -425,8 +425,8 @@ HRESULT SetupGoogleUpdate::InstallScheduledTask() {
 // Assumes the any existing service instance has been stopped
 // TODO(omaha): Provide service_hr and task_hr failures in a ping.
 // They are no longer being provided in the URL.
-HRESULT SetupGoogleUpdate::InstallMachineLaunchMechanisms() {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::InstallMachineLaunchMechanisms]")));
+HRESULT SetupKDSUpdate::InstallMachineLaunchMechanisms() {
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::InstallMachineLaunchMechanisms]")));
   ++metric_setup_install_service_task_total;
 
   // Install the service and scheduled task. Failing to install both will
@@ -435,7 +435,7 @@ HRESULT SetupGoogleUpdate::InstallMachineLaunchMechanisms() {
   HighresTimer metrics_timer;
 
   HRESULT service_hr = RegisterOrUnregisterService(true,
-      goopdate_utils::BuildGoogleUpdateExePath(is_machine_));
+      goopdate_utils::BuildKDSUpdateExePath(is_machine_));
   ASSERT(SUCCEEDED(service_hr), (_T("[registration err][0x%x]"), service_hr));
 
   if (SUCCEEDED(service_hr)) {
@@ -479,8 +479,8 @@ HRESULT SetupGoogleUpdate::InstallMachineLaunchMechanisms() {
   return S_OK;
 }
 
-HRESULT SetupGoogleUpdate::InstallUserLaunchMechanisms() {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::InstallUserLaunchMechanisms]")));
+HRESULT SetupKDSUpdate::InstallUserLaunchMechanisms() {
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::InstallUserLaunchMechanisms]")));
 
   HRESULT run_hr = ConfigureUserRunAtStartup(true);  // install
   ASSERT(SUCCEEDED(run_hr), (_T("ConfigureRunAtStartup 0x%x"), run_hr));
@@ -498,8 +498,8 @@ HRESULT SetupGoogleUpdate::InstallUserLaunchMechanisms() {
 }
 
 // Sets a value in the Run key in the user registry to start the core.
-HRESULT SetupGoogleUpdate::ConfigureUserRunAtStartup(bool install) {
-  SETUP_LOG(L3, (_T("SetupGoogleUpdate::ConfigureUserRunAtStartup")));
+HRESULT SetupKDSUpdate::ConfigureUserRunAtStartup(bool install) {
+  SETUP_LOG(L3, (_T("SetupKDSUpdate::ConfigureUserRunAtStartup")));
 
   return ConfigureRunAtStartup(USER_KEY_NAME,
                                kRunValueName,
@@ -507,11 +507,11 @@ HRESULT SetupGoogleUpdate::ConfigureUserRunAtStartup(bool install) {
                                install);
 }
 
-HRESULT SetupGoogleUpdate::RegisterOrUnregisterCOMLocalServer(bool reg) {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::RegisterOrUnregisterCOMLocalServer]")
+HRESULT SetupKDSUpdate::RegisterOrUnregisterCOMLocalServer(bool reg) {
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::RegisterOrUnregisterCOMLocalServer]")
                  _T("[%d]"), reg));
   const CString google_update_path =
-      goopdate_utils::BuildGoogleUpdateExePath(is_machine_);
+      goopdate_utils::BuildKDSUpdateExePath(is_machine_);
   CString register_cmd;
   SafeCStringFormat(&register_cmd, _T("/%s"),
                     reg ? kCmdRegServer : kCmdUnregServer);
@@ -523,9 +523,9 @@ HRESULT SetupGoogleUpdate::RegisterOrUnregisterCOMLocalServer(bool reg) {
   return S_OK;
 }
 
-CString SetupGoogleUpdate::BuildSupportFileInstallPath(
+CString SetupKDSUpdate::BuildSupportFileInstallPath(
     const CString& filename) const {
-  SETUP_LOG(L3, (_T("[SetupGoogleUpdate::BuildSupportFileInstallPath][%s]"),
+  SETUP_LOG(L3, (_T("[SetupKDSUpdate::BuildSupportFileInstallPath][%s]"),
                  filename));
   CPath install_file_path = goopdate_utils::BuildInstallDirectory(
                                 is_machine_,
@@ -535,7 +535,7 @@ CString SetupGoogleUpdate::BuildSupportFileInstallPath(
   return install_file_path;
 }
 
-CString SetupGoogleUpdate::BuildCoreProcessCommandLine() const {
+CString SetupKDSUpdate::BuildCoreProcessCommandLine() const {
   CPath full_file_path(goopdate_utils::BuildInstallDirectory(
       is_machine_, GetVersionString()));
   VERIFY1(full_file_path.Append(kOmahaCoreFileName));
@@ -544,7 +544,7 @@ CString SetupGoogleUpdate::BuildCoreProcessCommandLine() const {
   return core_command_line;
 }
 
-HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
+HRESULT SetupKDSUpdate::UninstallPreviousVersions() {
 #ifdef _DEBUG
   have_called_uninstall_previous_versions_ = true;
 #endif
@@ -555,7 +555,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
   CString install_path(
       is_machine_ ? ConfigManager::Instance()->GetMachineGoopdateInstallDir() :
                     ConfigManager::Instance()->GetUserGoopdateInstallDir());
-  SETUP_LOG(L1, (_T("[SetupGoogleUpdate::UninstallPreviousVersions][%s][%s]"),
+  SETUP_LOG(L1, (_T("[SetupKDSUpdate::UninstallPreviousVersions][%s][%s]"),
                  install_path, this_version_));
   // An empty install_path can be disastrous as it will start deleting from the
   // current directory.
@@ -564,7 +564,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
     return E_UNEXPECTED;
   }
 
-  // In the Google\\Update directory, run over all files and directories.
+  // In the KDS\\Update directory, run over all files and directories.
   WIN32_FIND_DATA file_data = {0};
   CPath find_files(install_path);
   VERIFY1(find_files.Append(_T("*.*")));
@@ -602,7 +602,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
                _tcsicmp(file_data.cFileName, install_dir) &&
                !(file_data.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)) {
       // Unregister the previous version OneClick if it exists. Ignore
-      // failures. The file is named npGoogleOneClick*.dll.
+      // failures. The file is named npKDSOneClick*.dll.
       CPath old_oneclick(file_or_directory);
       VERIFY1(old_oneclick.Append(ONECLICK_PLUGIN_NAME _T("*.dll")));
       WIN32_FIND_DATA old_oneclick_file_data = {};
@@ -615,7 +615,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
       }
 
       // Unregister the previous version of the plugin if it exists. Ignore
-      // failures. The file is named npGoogleUpdate*.dll.
+      // failures. The file is named npKDSUpdate*.dll.
       CPath old_plugin(file_or_directory);
       VERIFY1(old_plugin.Append(UPDATE_PLUGIN_NAME _T("*.dll")));
       WIN32_FIND_DATA old_plugin_file_data = {};
@@ -652,8 +652,8 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
   return S_OK;
 }
 
-void SetupGoogleUpdate::Uninstall() {
-  OPT_LOG(L1, (_T("[SetupGoogleUpdate::Uninstall]")));
+void SetupKDSUpdate::Uninstall() {
+  OPT_LOG(L1, (_T("[SetupKDSUpdate::Uninstall]")));
 
   // If running from the installed location instead of a temporary location,
   // we assume that Omaha had been properly installed and can verify the COM
@@ -678,8 +678,8 @@ void SetupGoogleUpdate::Uninstall() {
 }
 
 // Also deletes the main Google Update key if there is nothing in it.
-HRESULT SetupGoogleUpdate::DeleteRegistryKeys() {
-  OPT_LOG(L3, (_T("[SetupGoogleUpdate::DeleteRegistryKeys]")));
+HRESULT SetupKDSUpdate::DeleteRegistryKeys() {
+  OPT_LOG(L3, (_T("[SetupKDSUpdate::DeleteRegistryKeys]")));
 
   if (is_machine_) {
     VERIFY_SUCCEEDED(goopdate_utils::EnableSEHOP(false));

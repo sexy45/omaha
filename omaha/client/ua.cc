@@ -77,7 +77,7 @@ namespace omaha {
 namespace {
 
 void WriteUpdateAppsStartEvent(bool is_machine) {
-  GoogleUpdateLogEvent update_event(EVENTLOG_INFORMATION_TYPE,
+  KDSUpdateLogEvent update_event(EVENTLOG_INFORMATION_TYPE,
                                     kWorkerStartEventId,
                                     is_machine);
   update_event.set_event_desc(_T("Update Apps start"));

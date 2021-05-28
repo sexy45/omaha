@@ -161,7 +161,7 @@ HRESULT ChromeRecoveryImproved::BuildChromeClientStateKey() {
   }
 
   key.SetValue(kRegValueAdditionalParams, _T(""));
-  key.SetValue(kRegValueBrandCode, kDefaultGoogleUpdateBrandCode);
+  key.SetValue(kRegValueBrandCode, kDefaultKDSUpdateBrandCode);
 
   return S_OK;
 }
@@ -227,7 +227,7 @@ HRESULT ChromeRecoveryImproved::TriggerUpdateCheck() {
   builder.set_install_source(kCmdLineInstallSource_ChromeRecovery);
   const CString cmd_line_args = builder.GetCommandLineArgs();
 
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine_,
+  HRESULT hr = goopdate_utils::StartKDSUpdateWithArgs(is_machine_,
                                                          StartMode::kBackground,
                                                          cmd_line_args,
                                                          NULL);
@@ -247,7 +247,7 @@ HRESULT ChromeRecoveryImproved::SendResultPing(
                is_machine_, result_code, error_code, extra_code));
 
   CString omaha_pv;
-  app_registry_utils::GetAppVersion(is_machine_, kGoogleUpdateAppId, &omaha_pv);
+  app_registry_utils::GetAppVersion(is_machine_, kKDSUpdateAppId, &omaha_pv);
 
   Ping ping(is_machine_, session_id_, kCmdLineInstallSource_ChromeRecovery);
   PingEventPtr ping_event(
@@ -332,7 +332,7 @@ HRESULT ChromeRecoveryImproved::WaitAndGetExitCode(HANDLE process,
 
 void ChromeRecoveryImproved::SetExperimentLabel(const CString& label) {
   OPT_LOG(L1, (_T("[SetExperimentLabel][%s]"), label));
-  VERIFY_SUCCEEDED(SetLabelOnApp(label, kGoogleUpdateAppId));
+  VERIFY_SUCCEEDED(SetLabelOnApp(label, kKDSUpdateAppId));
   VERIFY_SUCCEEDED(SetLabelOnApp(label, browser_guid_));
 }
 

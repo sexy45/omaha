@@ -33,12 +33,12 @@ class DataDumperGoopdate : public DataDumper {
                           const GoopdumpCmdLineArgs& args);
 
  private:
-  void DumpGoogleUpdateIniFile(const DumpLog& dump_log);
+  void DumpKDSUpdateIniFile(const DumpLog& dump_log);
   void DumpHostsFile(const DumpLog& dump_log);
   void DumpUpdateDevKeys(const DumpLog& dump_log);
   void DumpLogFile(const DumpLog& dump_log);
   void DumpEventLog(const DumpLog& dump_log);
-  void DumpGoogleUpdateProcessInfo(const DumpLog& dump_log);
+  void DumpKDSUpdateProcessInfo(const DumpLog& dump_log);
   void DumpDirContents(const DumpLog& dump_log, bool is_machine);
   void DumpServiceInfo(const DumpLog& dump_log);
   void DumpRunKeys(const DumpLog& dump_log);

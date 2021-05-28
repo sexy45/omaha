@@ -149,7 +149,7 @@ class DmStorageTest : public RegistryProtectedTest {
 
       CheckFileContentsMatch(policy_response_file, expected_response.second);
 
-      if (expected_response.first == kGoogleUpdatePolicyType) {
+      if (expected_response.first == kKDSUpdatePolicyType) {
         CachedOmahaPolicy info;
         EXPECT_EQ(S_OK,
             DmStorage::ReadCachedOmahaPolicy(policy_responses_dir, &info));
@@ -356,7 +356,7 @@ TEST_F(DmStorageTest, PersistPolicies) {
     {"google/earth/machine-level-user",
      "test-data-earth-foo-bar-baz-foo-bar-baz-foo-bar-baz"},  // Longer data.
     {"google/newdrive/machine-level-user", "test-data-newdrive"},  // New.
-    {kGoogleUpdatePolicyType, CannedOmahaPolicyFetchResponse()},  // New.
+    {kKDSUpdatePolicyType, CannedOmahaPolicyFetchResponse()},  // New.
   };
 
   PolicyResponses expected_new_responses = {new_responses, "expected data"};

@@ -31,7 +31,7 @@ namespace dm_client {
 
 // The policy type that supports getting the policies for all Machine
 // applications from the DMServer.
-const char kGoogleUpdateMachineLevelApps[] = "google/machine-level-apps";
+const char kKDSUpdateMachineLevelApps[] = "google/machine-level-apps";
 
 // The content-type for all protocol buffer requests.
 const TCHAR kProtobufContentType[] = _T("application/protobuf");

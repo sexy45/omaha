@@ -225,7 +225,7 @@ TEST_F(StatsUploaderTest, ResetPersistentMetricsTest) {
 // AggregateAndReportMetrics aggregates, but is unable to report metrics and
 // does not update 'LastTransmission'.
 TEST_F(StatsUploaderTest,
-       AggregateAndReportMetrics_GoogleUpdateEulaNotAccepted_DoNotForce) {
+       AggregateAndReportMetrics_KDSUpdateEulaNotAccepted_DoNotForce) {
   EXPECT_SUCCEEDED(RegKey::SetValue(USER_REG_UPDATE,
                                     _T("eulaaccepted"),
                                     static_cast<DWORD>(0)));
@@ -244,7 +244,7 @@ TEST_F(StatsUploaderTest,
 // AggregateAndReportMetrics aggregates, but is unable to report metrics and
 // does not update 'LastTransmission'.
 TEST_F(StatsUploaderTest,
-       AggregateAndReportMetrics_GoogleUpdateEulaNotAccepted_Force) {
+       AggregateAndReportMetrics_KDSUpdateEulaNotAccepted_Force) {
   EXPECT_SUCCEEDED(RegKey::SetValue(USER_REG_UPDATE,
                                     _T("eulaaccepted"),
                                     static_cast<DWORD>(0)));

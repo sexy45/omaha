@@ -35,7 +35,7 @@ class UpdateResponse;
 struct NamedObjectAttributes;
 
 // The enum for the values of the |start_mode| parameter for the function
-// StartGoogleUpdateWithArgs().
+// StartKDSUpdateWithArgs().
 enum class StartMode { kForeground, kBackground };
 
 // Represents the Result of an attempt to terminate the browser.
@@ -59,19 +59,19 @@ namespace goopdate_utils {
 typedef HRESULT (*RegisterOrUnregisterFunction)(void* data, bool is_register);
 
 // Builds the directory of the Google Update executable.
-CString BuildGoogleUpdateExeDir(bool is_machine);
+CString BuildKDSUpdateExeDir(bool is_machine);
 
 // Builds the path of the Google Update version found in the registry. The
-// command line is of the form "<install location>\googleupdate.exe"
-CString BuildGoogleUpdateExePath(bool is_machine);
+// command line is of the form "<install location>\kdsupdate.exe"
+CString BuildKDSUpdateExePath(bool is_machine);
 
 // Builds the path of the crash handler. The command line is of the form
 // "<install location>\googlecrashhandler.exe"; googlecrashhandler64.exe is
 // used if use64bit is true.
-CString BuildGoogleUpdateServicesPath(bool is_machine, bool use64bit);
+CString BuildKDSUpdateServicesPath(bool is_machine, bool use64bit);
 
 // Builds the path of the crash handler and adds the enclosing quotes.
-CString BuildGoogleUpdateServicesEnclosedPath(bool is_machine, bool use64bit);
+CString BuildKDSUpdateServicesEnclosedPath(bool is_machine, bool use64bit);
 
 // Returns true if the currently executing binary is running from the
 // Machine/User Goopdate directory, or a directory under it.
@@ -84,19 +84,19 @@ bool IsRunningFromDir(int csidl);
 // If running the installed machine instance, returns HKLM. Else returns HKCU.
 CString GetHKRoot();
 
-// Returns the version of GoogleUpdate.exe that is installed in the official
-// location. Returns an empty CString if GoogleUpdate.exe is missing.
+// Returns the version of KDSUpdate.exe that is installed in the official
+// location. Returns an empty CString if KDSUpdate.exe is missing.
 CString GetInstalledShellVersion(bool is_machine);
 
 // Starts an instance of the Google Update version found in the registry.
 // args can be NULL.
 // process can be NULL. If not NULL, caller is responsible for closing handle.
-HRESULT StartGoogleUpdateWithArgs(bool is_machine,
+HRESULT StartKDSUpdateWithArgs(bool is_machine,
                                   StartMode start_mode,
                                   const TCHAR* args,
                                   HANDLE* process);
 
-// Starts an instance of GoogleCrashHandler.exe, and GoogleCrashHandler64.exe
+// Starts an instance of KDSCrashHandler.exe, and KDSCrashHandler64.exe
 // if we're running on a 64-bit OS.
 HRESULT StartCrashHandler(bool is_machine);
 
@@ -104,7 +104,7 @@ HRESULT StartCrashHandler(bool is_machine);
 // elevated mode using the "Runas" verb.
 HRESULT StartElevatedMetainstaller(const TCHAR* args, DWORD* exit_code);
 
-// Registers security and sets the security values for the GoogleUpdate
+// Registers security and sets the security values for the KDSUpdate
 // process when running as a COM server.
 HRESULT InitializeSecurity();
 

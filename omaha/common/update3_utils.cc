@@ -41,8 +41,8 @@ bool UseInProcCOMServer() {
 }
 
 template <typename Update3COMClassT>
-HRESULT CreateGoogleUpdate3LocalClass(IGoogleUpdate3** server) {
-  CORE_LOG(L3, (_T("[CreateGoogleUpdate3LocalClass]")));
+HRESULT CreateKDSUpdate3LocalClass(IGoogleUpdate3** server) {
+  CORE_LOG(L3, (_T("[CreateKDSUpdate3LocalClass]")));
   ASSERT1(server);
 
   typedef CComObject<Update3COMClassT> Update3;
@@ -89,12 +89,12 @@ HRESULT SetProxyBlanketAllowImpersonate(IUnknown* server) {
   return S_OK;
 }
 
-HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server) {
-  CORE_LOG(L3, (_T("[CreateGoogleUpdate3Class][%d]"), is_machine));
+HRESULT CreateKDSUpdate3Class(bool is_machine, IGoogleUpdate3** server) {
+  CORE_LOG(L3, (_T("[CreateKDSUpdate3Class][%d]"), is_machine));
   ASSERT1(server);
 
   CComPtr<IGoogleUpdate3> com_server;
-  HRESULT hr = is_machine ? CreateGoogleUpdate3MachineClass(&com_server) :
+  HRESULT hr = is_machine ? CreateKDSUpdate3MachineClass(&com_server) :
                             CreateGoogleUpdate3UserClass(&com_server);
   if (FAILED(hr)) {
     return hr;
@@ -112,13 +112,13 @@ HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server) {
 // Tries to CoCreate the service CLSID first. If that fails, tries to create the
 // server in-proc. Finally, sets a security blanket on the interface to allow
 // the server to impersonate the client.
-HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server) {
+HRESULT CreateKDSUpdate3MachineClass(IGoogleUpdate3** machine_server) {
   ASSERT1(machine_server);
   ASSERT1(vista_util::IsUserAdmin());
 
   if (UseInProcCOMServer()) {
     return
-        CreateGoogleUpdate3LocalClass<Update3COMClassService>(machine_server);
+        CreateKDSUpdate3LocalClass<Update3COMClassService>(machine_server);
   }
 
   CComPtr<IGoogleUpdate3> server;
@@ -127,14 +127,14 @@ HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server) {
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[CoCreate GoogleUpdate3ServiceClass failed][0x%x]"), hr));
 
-    hr = CreateGoogleUpdate3LocalClass<Update3COMClassService>(&server);
+    hr = CreateKDSUpdate3LocalClass<Update3COMClassService>(&server);
     if (hr == GOOPDATE_E_INSTANCES_RUNNING) {
       CORE_LOG(L3, (_T("[Retry CoCreate GoogleUpdate3ServiceClass]")));
       hr = server.CoCreateInstance(__uuidof(GoogleUpdate3ServiceClass));
     }
 
     if (FAILED(hr)) {
-      CORE_LOG(LE, (_T("[Create GoogleUpdate3MachineClass failed][0x%x]"), hr));
+      CORE_LOG(LE, (_T("[Create KDSUpdate3MachineClass failed][0x%x]"), hr));
       return hr;
     }
   }
@@ -150,7 +150,7 @@ HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server) {
   ASSERT1(user_server);
 
   if (UseInProcCOMServer()) {
-    return CreateGoogleUpdate3LocalClass<Update3COMClassUser>(user_server);
+    return CreateKDSUpdate3LocalClass<Update3COMClassUser>(user_server);
   }
 
   CComPtr<IGoogleUpdate3> server;
@@ -164,7 +164,7 @@ HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server) {
     // one install at a time, so we use it only as a backup mechanism.
     OPT_LOG(LE, (_T("[IsElevatedWithEnableLUAOn][%d]"),
                  vista_util::IsElevatedWithEnableLUAOn()));
-    hr = CreateGoogleUpdate3LocalClass<Update3COMClassUser>(&server);
+    hr = CreateKDSUpdate3LocalClass<Update3COMClassUser>(&server);
     if (FAILED(hr)) {
       return hr;
     }

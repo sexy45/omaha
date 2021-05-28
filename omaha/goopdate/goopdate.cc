@@ -180,7 +180,7 @@ bool CheckRegisteredVersion(const CString& version,
 void LogErrorWithHResult(int event_id,
                          const CString& description,
                          HRESULT hresult) {
-  GoogleUpdateLogEvent log_event(EVENTLOG_ERROR_TYPE, event_id,
+  KDSUpdateLogEvent log_event(EVENTLOG_ERROR_TYPE, event_id,
                                  true /* is_machine */);
   log_event.set_event_desc(description);
 
@@ -279,7 +279,7 @@ class GoopdateImpl {
   HRESULT HandleHealthCheck();
 
   // TODO(omaha): Reconcile the two uninstall functions and paths.
-  void MaybeUninstallGoogleUpdate();
+  void MaybeUninstallKDSUpdate();
 
   // Uninstalls Google Update if a /install process failed to install itself
   // or the app and there are no other apps registered.
@@ -350,7 +350,7 @@ GoopdateImpl::GoopdateImpl(Goopdate* goopdate, bool is_local_system)
   // fails to allocate memory.
   VERIFY1(set_new_handler(&GoopdateImpl::OutOfMemoryHandler) == 0);
 
-  // Install the exception handler.  If GoogleCrashHandler is running, this will
+  // Install the exception handler.  If KDSCrashHandler is running, this will
   // connect to it for out-of-process handling; if not, it will install an
   // in-process breakpad crash handler with a callback to upload it.
   VERIFY_SUCCEEDED(InstallExceptionHandler());
@@ -395,9 +395,9 @@ GoopdateImpl::~GoopdateImpl() {
   // Bug 994348 does not repro anymore.
   // If the assert fires, clean up the key, and fix the code if we have unit
   // tests or application code that create the key.
-  ASSERT(!RegKey::HasKey(_T("HKEY_USERS\\.DEFAULT\\Software\\Google\\Update")),
+  ASSERT(!RegKey::HasKey(_T("HKEY_USERS\\.DEFAULT\\Software\\KDS\\Update")),
          (_T("This assert has fired because it has found the registry key at ")
-          _T("'HKEY_USERS\\.DEFAULT\\Software\\Google\\Update'. ")
+          _T("'HKEY_USERS\\.DEFAULT\\Software\\KDS\\Update'. ")
           _T("Please delete the key and report to omaha-core team if ")
           _T("the assert fires again.")));
 
@@ -564,7 +564,7 @@ HRESULT GoopdateImpl::DoMain(HINSTANCE instance,
   cmd_show_ = cmd_show;
 
   // The system terminates the process without displaying a retry dialog box
-  // for the user. GoogleUpdate has no user state to be saved, therefore
+  // for the user. KDSUpdate has no user state to be saved, therefore
   // prompting the user for input is meaningless.
   VERIFY_SUCCEEDED(SetProcessSilentShutdown());
 
@@ -647,7 +647,7 @@ HRESULT GoopdateImpl::DoMain(HINSTANCE instance,
   bool has_ui_been_displayed = false;
 
   if (!is_machine_ && vista_util::IsElevatedWithEnableLUAOn()) {
-    CORE_LOG(LW, (_T("User GoogleUpdate is possibly running in an unsupported ")
+    CORE_LOG(LW, (_T("User KDSUpdate is possibly running in an unsupported ")
                   _T("way, at High integrity with UAC possibly enabled.")));
   }
 
@@ -831,14 +831,14 @@ HRESULT GoopdateImpl::ExecuteMode(bool* has_ui_been_displayed) {
           return E_FAIL;
 
         case COMMANDLINE_MODE_COMBROKER: {
-          omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-              is_machine_, omaha::GoogleUpdate::kBrokerMode);
+          omaha::KDSUpdate* module = new omaha::KDSUpdate(
+              is_machine_, omaha::KDSUpdate::kBrokerMode);
           return module->Main();
         }
 
         case COMMANDLINE_MODE_ONDEMAND: {
-          omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-              is_machine_, omaha::GoogleUpdate::kOnDemandMode);
+          omaha::KDSUpdate* module = new omaha::KDSUpdate(
+              is_machine_, omaha::KDSUpdate::kOnDemandMode);
           return module->Main();
         }
 
@@ -878,30 +878,30 @@ HRESULT GoopdateImpl::ExecuteMode(bool* has_ui_been_displayed) {
 
             case COMMANDLINE_MODE_REGSERVER:
             case COMMANDLINE_MODE_UNREGSERVER: {
-              // GoogleUpdate instances are created on the stack and we reset
-              // the _pAtlModule to allow for multiple instances of GoogleUpdate
+              // KDSUpdate instances are created on the stack and we reset
+              // the _pAtlModule to allow for multiple instances of KDSUpdate
               // to be created and destroyed serially.
-              hr = omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kUpdate3Mode).Main();
+              hr = omaha::KDSUpdate(
+                  is_machine_, omaha::KDSUpdate::kUpdate3Mode).Main();
               if (FAILED(hr)) {
                 return hr;
               }
               _pAtlModule = NULL;
 
-              hr = omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kBrokerMode).Main();
+              hr = omaha::KDSUpdate(
+                  is_machine_, omaha::KDSUpdate::kBrokerMode).Main();
               if (FAILED(hr)) {
                 return hr;
               }
               _pAtlModule = NULL;
 
-              return omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kOnDemandMode).Main();
+              return omaha::KDSUpdate(
+                  is_machine_, omaha::KDSUpdate::kOnDemandMode).Main();
             }
 
             case COMMANDLINE_MODE_COMSERVER: {
-              omaha::GoogleUpdate* module = new omaha::GoogleUpdate(
-                  is_machine_, omaha::GoogleUpdate::kUpdate3Mode);
+              omaha::KDSUpdate* module = new omaha::KDSUpdate(
+                  is_machine_, omaha::KDSUpdate::kUpdate3Mode);
               return module->Main();
             }
 
@@ -1301,7 +1301,7 @@ HRESULT GoopdateImpl::DoUpdateAllApps(bool* has_ui_been_displayed ) {
   bool is_interactive_update = !args_.is_silent_set;
 
   // TODO(omaha): Consider moving InitializeClientSecurity calls inside
-  // install_apps.cc or maybe to update3_utils::CreateGoogleUpdate3Class().
+  // install_apps.cc or maybe to update3_utils::CreateKDSUpdate3Class().
   HRESULT hr = InitializeClientSecurity();
   if (FAILED(hr)) {
     CORE_LOG(LE, (_T("[InitializeClientSecurity failed][%#x]"), hr));
@@ -1394,7 +1394,7 @@ HRESULT GoopdateImpl::HandleUninstall() {
   HRESULT hr = WaitForMSIExecute(kWaitForMSIExecuteMs);
   CORE_LOG(L2, (_T("[WaitForMSIExecute returned 0x%08x]"), hr));
   if (SUCCEEDED(hr)) {
-    MaybeUninstallGoogleUpdate();
+    MaybeUninstallKDSUpdate();
   }
   return S_OK;
 }
@@ -1478,8 +1478,8 @@ HRESULT GoopdateImpl::HandleHealthCheck() {
 // no other single lock that can be acquired to prevent changes to the
 // application registration. The code looks for install workers but the test is
 // racy if not protected by locks.
-void GoopdateImpl::MaybeUninstallGoogleUpdate() {
-  CORE_LOG(L1, (_T("[MaybeUninstallGoogleUpdate]")));
+void GoopdateImpl::MaybeUninstallKDSUpdate() {
+  CORE_LOG(L1, (_T("[MaybeUninstallKDSUpdate]")));
   has_uninstalled_ =
       !!SUCCEEDED(install_self::UninstallSelf(is_machine_, true));
 }
@@ -1716,7 +1716,7 @@ HRESULT PromoteAppEulaAccepted(bool is_machine) {
     }
 
     if (app_registry_utils::IsAppEulaAccepted(is_machine, sub_key_name, true)) {
-      ASSERT1(kGoogleUpdateAppId != sub_key_name);
+      ASSERT1(kKDSUpdateAppId != sub_key_name);
       return install_self::SetEulaAccepted(is_machine);
     }
   }
@@ -1760,7 +1760,7 @@ bool IsMachineProcess(CommandLineMode mode,
     case COMMANDLINE_MODE_ONDEMAND:
 #if !OFFICIAL_BUILD
       // Return machine == true. This is to facilitate unit tests such as
-      // GoogleUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
+      // KDSUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
       if (IsOmahaShellRunningFromStaging()) {
         return true;
       }
@@ -1769,7 +1769,7 @@ bool IsMachineProcess(CommandLineMode mode,
       ASSERT1(goopdate_utils::IsRunningFromOfficialGoopdateDir(false) ||
               goopdate_utils::IsRunningFromOfficialGoopdateDir(true) ||
               _T("omaha_unittest.exe") == app_util::GetCurrentModuleName() ||
-              _T("GoogleUpdate_unsigned.exe") ==
+              _T("KDSUpdate_unsigned.exe") ==
                   app_util::GetModuleName(NULL));  // Running in debugger.
       return is_running_from_official_machine_directory;
 
@@ -1817,7 +1817,7 @@ bool IsMachineProcess(CommandLineMode mode,
     case COMMANDLINE_MODE_UNREGSERVER:
 #if !OFFICIAL_BUILD
       // Return machine == true. This is to facilitate unit tests such as
-      // GoogleUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
+      // KDSUpdateCoreTest.LaunchCmdElevated_LocalServerRegistered.
       if (IsOmahaShellRunningFromStaging()) {
         return true;
       }

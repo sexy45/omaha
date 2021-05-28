@@ -265,7 +265,7 @@ HRESULT FetchPolicies(std::unique_ptr<HttpRequestInterface> http_request,
   CStringA payload = SerializePolicyFetchRequest(
       WideToUtf8(app_util::GetHostName()),
       WideToUtf8(SystemInfo::GetSerialNumber()),
-      CStringA(kGoogleUpdateMachineLevelApps),
+      CStringA(kKDSUpdateMachineLevelApps),
       info);
   if (payload.IsEmpty()) {
     REPORT_LOG(LE, (_T("[SerializePolicyFetchRequest failed]")));

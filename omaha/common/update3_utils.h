@@ -61,8 +61,8 @@ HRESULT CoCreateWithProxyBlanket(REFCLSID rclsid, T* t) {
 }
 
 // Create methods.
-HRESULT CreateGoogleUpdate3Class(bool is_machine, IGoogleUpdate3** server);
-HRESULT CreateGoogleUpdate3MachineClass(IGoogleUpdate3** machine_server);
+HRESULT CreateKDSUpdate3Class(bool is_machine, IGoogleUpdate3** server);
+HRESULT CreateKDSUpdate3MachineClass(IGoogleUpdate3** machine_server);
 HRESULT CreateGoogleUpdate3UserClass(IGoogleUpdate3** user_server);
 HRESULT CreateAppBundle(IGoogleUpdate3* server, IAppBundle** app_bundle);
 HRESULT CreateApp(BSTR app_id, IAppBundle* app_bundle, IApp** app);

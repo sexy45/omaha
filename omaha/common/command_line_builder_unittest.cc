@@ -221,19 +221,19 @@ TEST(CommandLineBuilder, BuildUpdateWithSessionId) {
       cmd_line);
 }
 
-// The /update builder works when not used with GoogleUpdate.exe.
-TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithNonGoogleUpdateExe) {
+// The /update builder works when not used with KDSUpdate.exe.
+TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithNonKDSUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
-  CString cmd_line = builder.GetCommandLine(_T("C:\\GoogleUpdateSetup_en.exe"));
-  EXPECT_STREQ(_T("\"C:\\GoogleUpdateSetup_en.exe\" /update"), cmd_line);
+  CString cmd_line = builder.GetCommandLine(_T("C:\\KDSUpdateSetup_en.exe"));
+  EXPECT_STREQ(_T("\"C:\\KDSUpdateSetup_en.exe\" /update"), cmd_line);
 }
 
-// The /update builder should not be used with GoogleUpdate.exe directly.
-TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithGoogleUpdateExe) {
+// The /update builder should not be used with KDSUpdate.exe directly.
+TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithKDSUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
   ExpectAsserts expect_asserts;
-  CString cmd_line = builder.GetCommandLine(_T("C:\\GoogleUpdate.exe"));
-  EXPECT_STREQ(_T("\"C:\\GoogleUpdate.exe\" /update"), cmd_line);
+  CString cmd_line = builder.GetCommandLine(_T("C:\\KDSUpdate.exe"));
+  EXPECT_STREQ(_T("\"C:\\KDSUpdate.exe\" /update"), cmd_line);
 }
 
 TEST(CommandLineBuilder, BuildComServer) {

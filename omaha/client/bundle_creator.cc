@@ -320,9 +320,9 @@ HRESULT Create(bool is_machine,
   ASSERT1(app_bundle);
 
   CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  HRESULT hr = update3_utils::CreateKDSUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class][0x%08x]"), hr));
+    CORE_LOG(LE, (_T("[CreateKDSUpdate3Class][0x%08x]"), hr));
     return hr;
   }
 
@@ -379,9 +379,9 @@ HRESULT CreateFromCommandLine(bool is_machine,
   UNREFERENCED_PARAMETER(is_interactive);
 
   CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  HRESULT hr = update3_utils::CreateKDSUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class][0x%08x]"), hr));
+    CORE_LOG(LE, (_T("[CreateKDSUpdate3Class][0x%08x]"), hr));
     return hr;
   }
 
@@ -494,9 +494,9 @@ HRESULT CreateForceInstallBundle(bool is_machine,
   }
 
   CComPtr<IGoogleUpdate3> server;
-  hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  hr = update3_utils::CreateKDSUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class][%#x]"), hr));
+    CORE_LOG(LE, (_T("[CreateKDSUpdate3Class][%#x]"), hr));
     return hr;
   }
 
@@ -574,9 +574,9 @@ HRESULT CreateForOnDemand(bool is_machine,
   ASSERT1(app_bundle);
 
   CComPtr<IGoogleUpdate3> server;
-  HRESULT hr = update3_utils::CreateGoogleUpdate3Class(is_machine, &server);
+  HRESULT hr = update3_utils::CreateKDSUpdate3Class(is_machine, &server);
   if (FAILED(hr)) {
-    CORE_LOG(LE, (_T("[CreateGoogleUpdate3Class failed][0x%x]"), hr));
+    CORE_LOG(LE, (_T("[CreateKDSUpdate3Class failed][0x%x]"), hr));
     return hr;
   }
 

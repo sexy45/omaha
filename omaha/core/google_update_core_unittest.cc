@@ -43,18 +43,18 @@ const TCHAR appid_state_key[] = MACHINE_REG_CLIENT_STATE_GOOPDATE;
 
 }  // namespace
 
-class GoogleUpdateCoreTest : public testing::Test {
+class KDSUpdateCoreTest : public testing::Test {
  protected:
-  GoogleUpdateCoreTest() {
+  KDSUpdateCoreTest() {
   }
 
   static void SetUpTestCase() {
     if (vista_util::IsUserAdmin()) {
       System::AdjustPrivilege(SE_DEBUG_NAME, true);
-      TerminateAllGoogleUpdateProcesses();
+      TerminateAllKDSUpdateProcesses();
     }
 
-    const CString shell_path = goopdate_utils::BuildGoogleUpdateExePath(true);
+    const CString shell_path = goopdate_utils::BuildKDSUpdateExePath(true);
     EXPECT_SUCCEEDED(RegKey::SetValue(update_key,
                                       kRegValueInstalledPath,
                                       shell_path));
@@ -73,12 +73,12 @@ class GoogleUpdateCoreTest : public testing::Test {
                                       kRegValueProductVersion,
                                       GetVersionString()));
 
-    CopyGoopdateFiles(GetGoogleUpdateMachinePath(), GetVersionString());
+    CopyGoopdateFiles(GetKDSUpdateMachinePath(), GetVersionString());
   }
 
   static void TearDownTestCase() {
     if (vista_util::IsUserAdmin()) {
-      TerminateAllGoogleUpdateProcesses();
+      TerminateAllKDSUpdateProcesses();
     }
 
     EXPECT_SUCCEEDED(RegKey::DeleteValue(appid_key, _T("fc")));
@@ -87,7 +87,7 @@ class GoogleUpdateCoreTest : public testing::Test {
   void DoLaunchCmdElevatedTests(IUnknown* core_object);
 };
 
-void GoogleUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
+void KDSUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
   CComQIPtr<IGoogleUpdateCore> google_update_core = core_object;
   EXPECT_TRUE(google_update_core != NULL);
   if (!google_update_core) {
@@ -100,7 +100,7 @@ void GoogleUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
   // Returns ERROR_BAD_IMPERSONATION_LEVEL when explicit security blanket is not
   // set.
   EXPECT_EQ(HRESULT_FROM_WIN32(ERROR_BAD_IMPERSONATION_LEVEL),
-            google_update_core->LaunchCmdElevated(kGoogleUpdateAppId,
+            google_update_core->LaunchCmdElevated(kKDSUpdateAppId,
                                                   _T("cmd"),
                                                   caller_proc_id,
                                                   &proc_handle));
@@ -116,7 +116,7 @@ void GoogleUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
   // Returns GOOPDATE_E_CORE_MISSING_CMD when the command is missing in
   // the registry.
   EXPECT_EQ(GOOPDATE_E_CORE_MISSING_CMD,
-            google_update_core->LaunchCmdElevated(kGoogleUpdateAppId,
+            google_update_core->LaunchCmdElevated(kKDSUpdateAppId,
                                                   _T("cmd"),
                                                   caller_proc_id,
                                                   &proc_handle));
@@ -129,7 +129,7 @@ void GoogleUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
                                                   caller_proc_id,
                                                   &proc_handle));
 
-  EXPECT_SUCCEEDED(google_update_core->LaunchCmdElevated(kGoogleUpdateAppId,
+  EXPECT_SUCCEEDED(google_update_core->LaunchCmdElevated(kKDSUpdateAppId,
                                                          _T("fc"),
                                                          caller_proc_id,
                                                          &proc_handle));
@@ -144,7 +144,7 @@ void GoogleUpdateCoreTest::DoLaunchCmdElevatedTests(IUnknown* core_object) {
   EXPECT_TRUE(::CloseHandle(handle));
 }
 
-TEST_F(GoogleUpdateCoreTest, LaunchCmdElevated_LocalServerRegistered) {
+TEST_F(KDSUpdateCoreTest, LaunchCmdElevated_LocalServerRegistered) {
   RegisterOrUnregisterGoopdateLocalServer(true);
 
   CComPtr<IUnknown> local_server_com;
@@ -159,7 +159,7 @@ TEST_F(GoogleUpdateCoreTest, LaunchCmdElevated_LocalServerRegistered) {
   RegisterOrUnregisterGoopdateLocalServer(false);
 }
 
-TEST_F(GoogleUpdateCoreTest,
+TEST_F(KDSUpdateCoreTest,
        LaunchCmdElevated_ServiceAndLocalServerRegistered) {
   RegisterOrUnregisterGoopdateService(true);
   RegisterOrUnregisterGoopdateLocalServer(true);
@@ -187,7 +187,7 @@ TEST_F(GoogleUpdateCoreTest,
 // TODO(omaha): This test is disabled because it frequently gets
 // ERROR_SERVICE_CANNOT_ACCEPT_CTRL when trying to stop the service during
 // cleanup.
-TEST_F(GoogleUpdateCoreTest, DISABLED_LaunchCmdElevated_ServiceRunning) {
+TEST_F(KDSUpdateCoreTest, DISABLED_LaunchCmdElevated_ServiceRunning) {
   if (!vista_util::IsUserAdmin()) {
     SUCCEED() << "\tTest did not run because the user is not an admin.";
     return;

@@ -33,15 +33,15 @@
 
 namespace omaha {
 
-class ATL_NO_VTABLE GoogleUpdateCoreBase
+class ATL_NO_VTABLE KDSUpdateCoreBase
     : public CComObjectRootEx<CComMultiThreadModel>,
       public IGoogleUpdateCore,
       public StdMarshalInfo {
  public:
-  GoogleUpdateCoreBase();
-  virtual ~GoogleUpdateCoreBase();
+  KDSUpdateCoreBase();
+  virtual ~KDSUpdateCoreBase();
 
-  BEGIN_COM_MAP(GoogleUpdateCoreBase)
+  BEGIN_COM_MAP(KDSUpdateCoreBase)
     COM_INTERFACE_ENTRY(IGoogleUpdateCore)
     COM_INTERFACE_ENTRY(IStdMarshalInfo)
   END_COM_MAP()
@@ -56,26 +56,26 @@ class ATL_NO_VTABLE GoogleUpdateCoreBase
   // the process handle.
   static HRESULT OpenCallerProcessHandle(DWORD proc_id, HANDLE* proc_handle);
 
-  friend class GoogleUpdateCoreTest;
+  friend class KDSUpdateCoreTest;
 
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdateCoreBase);
+  DISALLOW_COPY_AND_ASSIGN(KDSUpdateCoreBase);
 };
 
 template <bool is_service>
-class ATL_NO_VTABLE GoogleUpdateCore
-    : public GoogleUpdateCoreBase,
-      public CComCoClass<GoogleUpdateCore<is_service> > {
+class ATL_NO_VTABLE KDSUpdateCore
+    : public KDSUpdateCoreBase,
+      public CComCoClass<KDSUpdateCore<is_service> > {
  public:
-  GoogleUpdateCore() {}
-  virtual ~GoogleUpdateCore() {}
+  KDSUpdateCore() {}
+  virtual ~KDSUpdateCore() {}
 
-  DECLARE_NOT_AGGREGATABLE(GoogleUpdateCore)
+  DECLARE_NOT_AGGREGATABLE(KDSUpdateCore)
   DECLARE_REGISTRY_RESOURCEID_EX(is_service ? IDR_LOCAL_SERVICE_RGS :
                                               IDR_LOCAL_SERVER_ELEVATION_RGS)
 
   BEGIN_REGISTRY_MAP()
-    REGMAP_ENTRY(_T("PROGID"), is_service ? kProgIDGoogleUpdateCoreService :
-                                            kProgIDGoogleUpdateCoreMachine)
+    REGMAP_ENTRY(_T("PROGID"), is_service ? kProgIDKDSUpdateCoreService :
+                                            kProgIDKDSUpdateCoreMachine)
     REGMAP_ENTRY(_T("VERSION"), _T("1"))
     REGMAP_ENTRY(_T("NAME"), _T("GoogleUpdateCoreClass"))
     REGMAP_ENTRY(_T("DESCRIPTION"), _T("Google Update Core Class"))
@@ -89,11 +89,11 @@ class ATL_NO_VTABLE GoogleUpdateCore
   END_REGISTRY_MAP()
 
  private:
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdateCore);
+  DISALLOW_COPY_AND_ASSIGN(KDSUpdateCore);
 };
 
-typedef GoogleUpdateCore<false> GoogleUpdateCoreMachine;
-typedef GoogleUpdateCore<true> GoogleUpdateCoreService;
+typedef KDSUpdateCore<false> KDSUpdateCoreMachine;
+typedef KDSUpdateCore<true> KDSUpdateCoreService;
 
 }  // namespace omaha
 

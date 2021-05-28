@@ -677,7 +677,7 @@ bool ValidatePolicyFetchResponse(
     return false;
   }
 
-  if (validation_result->policy_type == kGoogleUpdatePolicyType &&
+  if (validation_result->policy_type == kKDSUpdatePolicyType &&
       !ValidateOmahaPolicyResponse(fetch_response, validation_result)) {
     return false;
   }

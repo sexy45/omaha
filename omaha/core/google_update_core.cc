@@ -31,19 +31,19 @@
 
 namespace omaha {
 
-GoogleUpdateCoreBase::GoogleUpdateCoreBase() : StdMarshalInfo(true) {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::GoogleUpdateCoreBase]")));
+KDSUpdateCoreBase::KDSUpdateCoreBase() : StdMarshalInfo(true) {
+  CORE_LOG(L3, (_T("[KDSUpdateCoreBase::KDSUpdateCoreBase]")));
 }
 
-GoogleUpdateCoreBase::~GoogleUpdateCoreBase() {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::~GoogleUpdateCoreBase]")));
+KDSUpdateCoreBase::~KDSUpdateCoreBase() {
+  CORE_LOG(L3, (_T("[KDSUpdateCoreBase::~KDSUpdateCoreBase]")));
 }
 
-STDMETHODIMP GoogleUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
+STDMETHODIMP KDSUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
                                                      const WCHAR* cmd_id,
                                                      DWORD caller_proc_id,
                                                      ULONG_PTR* proc_handle) {
-  CORE_LOG(L3, (_T("[GoogleUpdateCoreBase::LaunchCmdElevated]")
+  CORE_LOG(L3, (_T("[KDSUpdateCoreBase::LaunchCmdElevated]")
                 _T("[app %s][cmd %s][pid %d]"),
                 app_guid, cmd_id, caller_proc_id));
   ASSERT1(app_guid);
@@ -118,7 +118,7 @@ STDMETHODIMP GoogleUpdateCoreBase::LaunchCmdElevated(const WCHAR* app_guid,
   return S_OK;
 }
 
-HRESULT GoogleUpdateCoreBase::OpenCallerProcessHandle(DWORD proc_id,
+HRESULT KDSUpdateCoreBase::OpenCallerProcessHandle(DWORD proc_id,
                                                       HANDLE* proc_handle) {
   ASSERT1(proc_handle);
   *proc_handle = NULL;

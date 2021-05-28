@@ -115,7 +115,7 @@ class SetupTest : public testing::Test {
  protected:
   typedef std::vector<uint32> Pids;
 
-  // Returns the path to the long-running GoogleUpdate.exe.
+  // Returns the path to the long-running KDSUpdate.exe.
   static CString CopyGoopdateAndLongRunningFiles(const CString& omaha_path,
                                                  const CString& version) {
     CopyGoopdateFiles(omaha_path, version);
@@ -138,23 +138,23 @@ class SetupTest : public testing::Test {
 
   static void SetUpTestCase() {
     not_listening_machine_exe_path_ =
-        CopyGoopdateAndLongRunningFiles(GetGoogleUpdateMachinePath(),
+        CopyGoopdateAndLongRunningFiles(GetKDSUpdateMachinePath(),
                                         GetVersionString());
     not_listening_user_exe_path_ =
-        CopyGoopdateAndLongRunningFiles(GetGoogleUpdateUserPath(),
+        CopyGoopdateAndLongRunningFiles(GetKDSUpdateUserPath(),
                                         GetVersionString());
   }
 
   explicit SetupTest(bool is_machine)
       : is_machine_(is_machine),
-        omaha_path_(is_machine ? GetGoogleUpdateMachinePath() :
-                                 GetGoogleUpdateUserPath()),
+        omaha_path_(is_machine ? GetKDSUpdateMachinePath() :
+                                 GetKDSUpdateUserPath()),
         not_listening_exe_path_(is_machine ? not_listening_machine_exe_path_ :
                                              not_listening_user_exe_path_),
         not_listening_exe_opposite_path_(!is_machine ?
                                          not_listening_machine_exe_path_ :
                                          not_listening_user_exe_path_) {
-    omaha_exe_path_ = ConcatenatePath(omaha_path_, _T("GoogleUpdate.exe"));
+    omaha_exe_path_ = ConcatenatePath(omaha_path_, _T("KDSUpdate.exe"));
   }
 
   virtual void SetUp() {
@@ -168,9 +168,9 @@ class SetupTest : public testing::Test {
     return setup_->ShouldInstall();
   }
 
-  HRESULT StopGoogleUpdateAndWait() {
+  HRESULT StopKDSUpdateAndWait() {
     const int wait_time_before_kill_ms = 2000;
-    return setup_->StopGoogleUpdateAndWait(wait_time_before_kill_ms);
+    return setup_->StopKDSUpdateAndWait(wait_time_before_kill_ms);
   }
 
   HRESULT TerminateCoreProcesses() const {
@@ -192,7 +192,7 @@ class SetupTest : public testing::Test {
     thread.WaitTillExit(1000);
   }
 
-  void StopGoogleUpdateAndWaitSucceedsTestHelper(bool use_job_objects_only) {
+  void StopKDSUpdateAndWaitSucceedsTestHelper(bool use_job_objects_only) {
     if (is_machine_ && !vista_util::IsUserAdmin()) {
       std::wcout << _T("\tTest did not run because the user is not an admin.")
                  << std::endl;
@@ -228,8 +228,8 @@ class SetupTest : public testing::Test {
     if (use_job_objects_only && is_machine_) {
       // When starting the core process with psexec, there is a race condition
       // between that process initializing (and joining a Job Object) and
-      // StopGoogleUpdateAndWait() looking for processes. If the latter wins,
-      // the core process is not found and StopGoogleUpdateAndWait() does not
+      // StopKDSUpdateAndWait() looking for processes. If the latter wins,
+      // the core process is not found and StopKDSUpdateAndWait() does not
       // wait for the core process. As a result,
       // ::WaitForSingleObject(get(core_process), 0)) would fail intermittently.
       // Sleep here to allow the process to start and join the job.
@@ -247,7 +247,7 @@ class SetupTest : public testing::Test {
     EXPECT_EQ(WAIT_TIMEOUT, ::WaitForSingleObject(get(install_process), 0));
 
     if (vista_util::IsUserAdmin()) {
-      // GoogleUpdate running from the opposite directory should always be
+      // KDSUpdate running from the opposite directory should always be
       // ignored. Using a command line that would not be ignored if it were not
       // an opposite.
       LaunchProcess(not_listening_exe_opposite_path_,
@@ -346,7 +346,7 @@ class SetupTest : public testing::Test {
                 ::WaitForSingleObject(get(install_job_opposite_process), 0));
     }
 
-    EXPECT_SUCCEEDED(StopGoogleUpdateAndWait());
+    EXPECT_SUCCEEDED(StopKDSUpdateAndWait());
     EXPECT_EQ(0, setup_->extra_code1());
 
     // Verify the real core process exited and terminate the processes that are
@@ -385,8 +385,8 @@ class SetupTest : public testing::Test {
                                   kProcessesCleanupWait));
   }
 
-  void StopGoogleUpdateAndWaitSucceedsTest() {
-    StopGoogleUpdateAndWaitSucceedsTestHelper(false);
+  void StopKDSUpdateAndWaitSucceedsTest() {
+    StopKDSUpdateAndWaitSucceedsTestHelper(false);
   }
 
   HRESULT GetRunningCoreProcesses(Pids* core_processes) {
@@ -430,7 +430,7 @@ class SetupTest : public testing::Test {
   // Uses psexec to start processes as SYSTEM if necessary.
   // Assumes that psexec blocks until the process exits.
   // TODO(omaha): Start the opposite instances and wait for them in
-  // StopGoogleUpdateAndWaitSucceedsTest. They should not close.
+  // StopKDSUpdateAndWaitSucceedsTest. They should not close.
   void StartCoreProcessesToShutdown(HANDLE* core_process) {
     ASSERT_TRUE(core_process);
 
@@ -459,14 +459,14 @@ class SetupTest : public testing::Test {
                                                      0));
   }
 
-  // Launches an instance of GoogleUpdate.exe that doesn't exit.
-  void StopGoogleUpdateAndWaitProcessesDoNotStopTest() {
-    LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+  // Launches an instance of KDSUpdate.exe that doesn't exit.
+  void StopKDSUpdateAndWaitProcessesDoNotStopTest() {
+    LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
         is_machine_,
         _T(""));
   }
 
-  void LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+  void LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
       bool is_machine_process,
       const CString& args) {
     ASSERT_TRUE(args);
@@ -498,7 +498,7 @@ class SetupTest : public testing::Test {
     }
     EXPECT_SUCCEEDED(hr);
 
-    EXPECT_EQ(S_OK, StopGoogleUpdateAndWait());
+    EXPECT_EQ(S_OK, StopKDSUpdateAndWait());
     // Make sure the process has been killed.
     EXPECT_EQ(WAIT_OBJECT_0,
               ::WaitForSingleObject(get(process), kProcessesCleanupWait));
@@ -1093,10 +1093,10 @@ TEST_F(SetupRegistryProtectedMachineTest, SetRuntimeMode) {
 }
 
 //
-// StopGoogleUpdateAndWait tests.
+// StopKDSUpdateAndWait tests.
 //
 // These are "large" tests.
-// They kill currently running GoogleUpdate processes, including the core, owned
+// They kill currently running KDSUpdate processes, including the core, owned
 // by the current user or SYSTEM.
 // A core may already be running, so if a core process is found, it is used for
 // the tests. Otherwise, they launch a core from a previous build.
@@ -1108,59 +1108,59 @@ TEST_F(SetupRegistryProtectedMachineTest, SetRuntimeMode) {
 //
 
 // TODO(omaha3): Make these tests pass.
-TEST_F(SetupUserTest, DISABLED_StopGoogleUpdateAndWait_Succeeds) {
-  StopGoogleUpdateAndWaitSucceedsTest();
+TEST_F(SetupUserTest, DISABLED_StopKDSUpdateAndWait_Succeeds) {
+  StopKDSUpdateAndWaitSucceedsTest();
 }
 
-TEST_F(SetupMachineTest, DISABLED_StopGoogleUpdateAndWait_Succeeds) {
-  StopGoogleUpdateAndWaitSucceedsTest();
+TEST_F(SetupMachineTest, DISABLED_StopKDSUpdateAndWait_Succeeds) {
+  StopKDSUpdateAndWaitSucceedsTest();
 }
 
 // TODO(omaha): If start using Job Objects again, enable these tests.
 /*
-TEST_F(SetupUserTest, StopGoogleUpdateAndWait_SucceedsUsingOnlyJobObjects) {
-  StopGoogleUpdateAndWaitWithProcessSearchDisabledSucceedsTest();
+TEST_F(SetupUserTest, StopKDSUpdateAndWait_SucceedsUsingOnlyJobObjects) {
+  StopKDSUpdateAndWaitWithProcessSearchDisabledSucceedsTest();
 }
 
-TEST_F(SetupMachineTest, StopGoogleUpdateAndWait_SucceedsUsingOnlyJobObjects) {
-  StopGoogleUpdateAndWaitWithProcessSearchDisabledSucceedsTest();
+TEST_F(SetupMachineTest, StopKDSUpdateAndWait_SucceedsUsingOnlyJobObjects) {
+  StopKDSUpdateAndWaitWithProcessSearchDisabledSucceedsTest();
 }
 */
 
-TEST_F(SetupUserTest, StopGoogleUpdateAndWait_ProcessesDoNotStop) {
-  StopGoogleUpdateAndWaitProcessesDoNotStopTest();
+TEST_F(SetupUserTest, StopKDSUpdateAndWait_ProcessesDoNotStop) {
+  StopKDSUpdateAndWaitProcessesDoNotStopTest();
 }
 
-TEST_F(SetupMachineTest, StopGoogleUpdateAndWait_ProcessesDoNotStop) {
-  StopGoogleUpdateAndWaitProcessesDoNotStopTest();
+TEST_F(SetupMachineTest, StopKDSUpdateAndWait_ProcessesDoNotStop) {
+  StopKDSUpdateAndWaitProcessesDoNotStopTest();
 }
 
 TEST_F(SetupMachineTest,
-       StopGoogleUpdateAndWait_MachineHandoffWorkerRunningAsUser) {
-  LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+       StopKDSUpdateAndWait_MachineHandoffWorkerRunningAsUser) {
+  LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
       false,
       _T("/handoff \"needsadmin=True\""));
 }
 
 // Process mode is unknown because Omaha 3 does not recognize IG.
 TEST_F(SetupMachineTest,
-       StopGoogleUpdateAndWait_MachineLegacyInstallGoogleUpdateWorkerRunningAsUser) {   // NOLINT
-  LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+       StopKDSUpdateAndWait_MachineLegacyInstallKDSUpdateWorkerRunningAsUser) {   // NOLINT
+  LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
       false,
       _T("/ig \"needsadmin=True\""));
 }
 
 TEST_F(SetupMachineTest,
-       StopGoogleUpdateAndWait_UserHandoffWorkerRunningAsSystem) {
-  LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+       StopKDSUpdateAndWait_UserHandoffWorkerRunningAsSystem) {
+  LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
       true,
       _T("/handoff \"needsadmin=False\""));
 }
 
 // Process mode is unknown because Omaha 3 does not recognize IG.
 TEST_F(SetupMachineTest,
-       StopGoogleUpdateAndWait_UserLegacyInstallGoogleUpdateWorkerRunningAsSystem) {   // NOLINT
-  LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
+       StopKDSUpdateAndWait_UserLegacyInstallKDSUpdateWorkerRunningAsSystem) {   // NOLINT
+  LaunchProcessAndExpectStopKDSUpdateAndWaitKillsProcess(
       true,
       _T("/ig \"needsadmin=False\""));
 }

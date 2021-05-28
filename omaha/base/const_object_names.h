@@ -71,9 +71,9 @@ const TCHAR* const kUpdateAppsSingleInstance =
 const TCHAR* const kInstallAppSingleInstance =
     _T("%s-{86D25F1C-A1F8-48F5-818D-CAA22C1064BB}");
 
-// Ensures the GoogleUpdate3 server only runs one instance per machine and one
+// Ensures the KDSUpdate3 server only runs one instance per machine and one
 // instance per each user session.
-const TCHAR* const kGoogleUpdate3SingleInstance =
+const TCHAR* const kKDSUpdate3SingleInstance =
     _T("{57D738B4-86DE-44CB-B581-8873D04EC1C4}");
 
 // Ensures the recovery probe only runs one instance per machine and one
@@ -140,13 +140,13 @@ const TCHAR* const kExternalUpdaterActivityPrefix =
 
 // The name of the shared memory objects containing the serialized COM
 // interface pointers exposed by the machine core.
-// TODO(omaha): Rename these constants to remove "GoogleUpdate".
+// TODO(omaha): Rename these constants to remove "KDSUpdate".
 // TODO(omaha): Consider following the kGlobalPrefix convention with the 'G'
 // for the new shared Omaha 3 name  and building this from the same #define as
 // kGlobalPrefix.
-const TCHAR* const kGoogleUpdate3SharedMemoryName =
+const TCHAR* const kKDSUpdate3SharedMemoryName =
     _T("Global\\") APP_NAME_IDENTIFIER _T("3");
-const TCHAR* const kGoogleUpdateCoreSharedMemoryName =
+const TCHAR* const kKDSUpdateCoreSharedMemoryName =
     _T("Global\\") APP_NAME_IDENTIFIER _T("Core");
 
 }  // namespace omaha

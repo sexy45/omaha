@@ -60,7 +60,7 @@ TEST(CertInfoTest, CertInfo) {
   // ExtractAllCertificatesFromSignature() gets the certificate chain for the
   // first signature and the certificate chain for the corresponding timestamp,
   // excluding the root certificates.
-  // The following certificates are enumerated from GoogleUpdate.exe signed
+  // The following certificates are enumerated from KDSUpdate.exe signed
   // Friday, November 15, 2019 4:04:23 PM:
   // * "DigiCert Assured ID CA-1" hash
   //   19a09b5a36f4dd99727df783c17a51231a56c117.
@@ -208,7 +208,7 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_DualSigned_Sha1AndSha256) {
 // since expired.
 TEST(SignatureValidatorTest, VerifySigneeIsGoogle_SignedWithNowExpiredCert) {
   const TCHAR kRelativePath[] =
-      _T("unittest_support\\GoogleUpdate_now_expired_cert.exe");
+      _T("unittest_support\\KDSUpdate_now_expired_cert.exe");
 
   CString executable_full_path(app_util::GetCurrentModuleDirectory());
   ASSERT_TRUE(::PathAppend(CStrBuf(executable_full_path, MAX_PATH),
@@ -244,8 +244,8 @@ TEST(SignatureValidatorTest, VerifySigneeIsGoogle_TestSigned_WrongCN) {
 
 TEST(SignatureValidatorTest, VerifyAuthenticodeSignature) {
   const TCHAR* kFileNamesToVerify[] = {
-    _T("GoogleUpdate_now_expired_cert.exe"),
-    _T("GoogleUpdate_old_signature.exe"),
+    _T("KDSUpdate_now_expired_cert.exe"),
+    _T("KDSUpdate_old_signature.exe"),
     _T("SaveArguments.exe"),
     _T("chrome_setup.exe"),
     _T("sha2_0c15be4a15bb0903c901b1d6c265302f.msi"),

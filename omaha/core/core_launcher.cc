@@ -79,7 +79,7 @@ HRESULT StartCoreIfNeeded(bool is_system) {
   CommandLineBuilder builder(omaha::COMMANDLINE_MODE_CORE);
   CString cmd_line(builder.GetCommandLineArgs());
   scoped_process process;
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_system,
+  HRESULT hr = goopdate_utils::StartKDSUpdateWithArgs(is_system,
                                                          StartMode::kBackground,
                                                          cmd_line,
                                                          address(process));

@@ -76,11 +76,11 @@ HRESULT DataDumperGoopdate::Process(const DumpLog& dump_log,
   dump_log.WriteLine(_T(""));
   dump_log.WriteLine(_T("-- GENERAL / GLOBAL DATA --"));
   DumpHostsFile(dump_log);
-  DumpGoogleUpdateIniFile(dump_log);
+  DumpKDSUpdateIniFile(dump_log);
   DumpUpdateDevKeys(dump_log);
   DumpLogFile(dump_log);
   DumpEventLog(dump_log);
-  DumpGoogleUpdateProcessInfo(dump_log);
+  DumpKDSUpdateProcessInfo(dump_log);
 
   if (args.is_machine) {
     dump_log.WriteLine(_T(""));
@@ -169,7 +169,7 @@ HRESULT DataDumperGoopdate::GetRegisteredVersion(bool is_machine,
 HRESULT DataDumperGoopdate::GetDllDir(bool is_machine, CString* dll_path) {
   TCHAR path[MAX_PATH] = {0};
 
-  CString base_path = goopdate_utils::BuildGoogleUpdateExeDir(is_machine);
+  CString base_path = goopdate_utils::BuildKDSUpdateExeDir(is_machine);
 
   // Try the side-by-side DLL first.
   _tcscpy_s(path, arraysize(path), base_path);
@@ -203,8 +203,8 @@ HRESULT DataDumperGoopdate::GetDllDir(bool is_machine, CString* dll_path) {
   return S_OK;
 }
 
-void DataDumperGoopdate::DumpGoogleUpdateIniFile(const DumpLog& dump_log) {
-  DumpHeader header(dump_log, _T("GoogleUpdate.ini File Contents"));
+void DataDumperGoopdate::DumpKDSUpdateIniFile(const DumpLog& dump_log) {
+  DumpHeader header(dump_log, _T("KDSUpdate.ini File Contents"));
   DumpFileContents(dump_log, _T("c:\\googleupdate.ini"), 0);
 }
 
@@ -229,7 +229,7 @@ void DataDumperGoopdate::DumpHostsFile(const DumpLog& dump_log) {
 void DataDumperGoopdate::DumpUpdateDevKeys(const DumpLog& dump_log) {
   DumpHeader header(dump_log, _T("UpdateDev Keys"));
 
-  DumpRegistryKeyData(dump_log, _T("HKLM\\Software\\Google\\UpdateDev"));
+  DumpRegistryKeyData(dump_log, _T("HKLM\\Software\\KDS\\UpdateDev"));
 }
 
 void DataDumperGoopdate::DumpLogFile(const DumpLog& dump_log) {
@@ -339,8 +339,8 @@ void DataDumperGoopdate::DumpEventLog(const DumpLog& dump_log) {
   ::CloseEventLog(handle_event_log);
 }
 
-void DataDumperGoopdate::DumpGoogleUpdateProcessInfo(const DumpLog& dump_log) {
-  DumpHeader header(dump_log, _T("GoogleUpdate.exe Process Info"));
+void DataDumperGoopdate::DumpKDSUpdateProcessInfo(const DumpLog& dump_log) {
+  DumpHeader header(dump_log, _T("KDSUpdate.exe Process Info"));
 
   EnableDebugPrivilege();
 
@@ -364,7 +364,7 @@ void DataDumperGoopdate::DumpGoogleUpdateProcessInfo(const DumpLog& dump_log) {
     CString exe_file_name = process_entry32.szExeFile;
     exe_file_name.MakeLower();
 
-    if (exe_file_name.Find(_T("googleupdate.exe")) >= 0) {
+    if (exe_file_name.Find(_T("kdsupdate.exe")) >= 0) {
       if (first) {
         first = false;
       } else {

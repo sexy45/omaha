@@ -52,10 +52,10 @@ const TCHAR* const kQueryStringFormat =
 // Information about where to obtain Omaha info.
 // This must never change in Omaha.
 const TCHAR* const kRegValueProductVersion  = _T("pv");
-const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\Google\\Update\\");
+const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\KDS\\Update\\");
 const TCHAR* const kRelativeClientsGoopdateRegPath =
-    _T("Software\\Google\\Update\\Clients\\")
-    _T("{430FD4D0-B729-4F61-AA34-91526481799D}");
+    _T("Software\\KDS\\Update\\Clients\\")
+    _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}");
 
 // The UpdateDev registry value to override the Code Red url.
 const TCHAR* const kRegValueNameCodeRedUrl = _T("CodeRedUrl");
@@ -64,7 +64,7 @@ const TCHAR* const kRegValueNameCodeRedUrl = _T("CodeRedUrl");
 const TCHAR* const kRecoveryDirectory = _T("Recovery");
 
 // The hard-coded SHA256 of the SubjectPublicKeyInfo used to sign the Recovery
-// CRX which contains GoogleUpdateRecovery.exe.
+// CRX which contains KDSUpdateRecovery.exe.
 std::vector<uint8_t> GetRecoveryCRXHash() {
   return std::vector<uint8_t>{0x5f, 0x94, 0xe0, 0x3c, 0x64, 0x30, 0x9f, 0xbc,
                               0xfe, 0x00, 0x9a, 0x27, 0x3e, 0x52, 0xbf, 0xa5,
@@ -436,7 +436,7 @@ HRESULT GetDownloadTargetPath(CPath* download_target_path,
   }
 
   *download_target_path = *parent_dir;
-  *download_target_path += _T("GoogleUpdateSetup.crx3");
+  *download_target_path += _T("KDSUpdateSetup.crx3");
   return S_OK;
 }
 
@@ -456,7 +456,7 @@ HRESULT DownloadRepairFile(const CString& download_target_path,
 
   CString url;
   HRESULT hr = GetRegStringValue(true,
-                                 _T("SOFTWARE\\Google\\UpdateDev"),
+                                 _T("SOFTWARE\\KDS\\UpdateDev"),
                                  kRegValueNameCodeRedUrl,
                                  &url);
   if (FAILED(hr)) {
@@ -589,7 +589,7 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
   }
 
   CPath exe = unpack_under_path;
-  exe += _T("GoogleUpdateSetup.exe");
+  exe += _T("KDSUpdateSetup.exe");
   if (!exe.FileExists()) {
     return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
   }
@@ -604,7 +604,7 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
 // after reboot will only succeed when executed by an admin or LocalSystem.
 // Returns HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY) if automatic
 // update checks are disabled.
-HRESULT FixGoogleUpdate(const TCHAR* app_guid,
+HRESULT FixKDSUpdate(const TCHAR* app_guid,
                         const TCHAR* app_version,
                         const TCHAR* app_language,
                         bool is_machine_app,

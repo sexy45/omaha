@@ -57,14 +57,14 @@
       <RegistrySearch Id='UninstallCmdSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\Google\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallString'/>
     </Property>
     <Property Id='UNINSTALLCMDARGS'>
       <RegistrySearch Id='UninstallArgSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\Google\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallArguments'/>
     </Property>
 
@@ -88,7 +88,7 @@
             SourceFile='$(var.MsiInstallerCADll)' />
 
     <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='ComponentGoogleUpdate' />
+      <ComponentRef Id='ComponentKDSUpdate' />
     </Feature>
 
     <CustomAction Id='NewerVersionError' Error='4000'/>
@@ -152,7 +152,7 @@
 
       <!-- Any operations that rely on values, such as brand and usagestats, in
            ClientState should not run until after
-           InstallGoogleUpdateAndRegister. This is sequenced before InstallFiles
+           InstallKDSUpdateAndRegister. This is sequenced before InstallFiles
            so that can be used as well.
            It is also advisable to write the Clients key after this point so
            the specific values in the installer will replace the ones Google
@@ -166,42 +166,42 @@
            was installed before installing it and only add the rollback then.
       <Custom Action='Rollback$(var.ProductNameLegalIdentifier)'
               After='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT $(var.ProductNameLegalIdentifier)_INSTALLED)
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT $(var.ProductNameLegalIdentifier)_INSTALLED)
       </Custom>
       Change After='InstallFiles' below to
       After='Rollback$(var.ProductNameLegalIdentifier)'. -->
       <Custom Action='SetInstallerInstallCommandProperty'
               After='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentKDSUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'
               After='SetInstallerInstallCommandProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND DISABLE_UPDATES
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND DISABLE_UPDATES
       </Custom>
       <Custom Action='SetAppGuidProperty'
               After='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentKDSUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='ShowInstallerResultUIString'
               After='SetAppGuidProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentKDSUpdate>2) OR REINSTALL)
       </Custom>
       <Custom Action='Install$(var.ProductNameLegalIdentifier)'
               After='ShowInstallerResultUIString'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL)
+        (($ComponentKDSUpdate>2) OR REINSTALL)
       </Custom>
 
       <Custom Action='CallUninstallerArgs.SetProperty'
               Before='CallUninstaller.SetProperty'>
-        $ComponentGoogleUpdate=2
+        $ComponentKDSUpdate=2
       </Custom>
       <Custom Action='CallUninstaller.SetProperty'
               Before='CallUninstaller'>
-        $ComponentGoogleUpdate=2
+        $ComponentKDSUpdate=2
       </Custom>
       <Custom Action='CallUninstaller'
               Before='RemoveFiles'>
-        $ComponentGoogleUpdate=2
+        $ComponentKDSUpdate=2
       </Custom>
 
     </InstallExecuteSequence>

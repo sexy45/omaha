@@ -41,7 +41,7 @@ CString LoadEnrollmentTokenFromInstall() {
   CString value;
   HRESULT hr = RegKey::GetValue(
       app_registry_utils::GetAppClientStateKey(true /* is_machine */,
-                                               kGoogleUpdateAppId),
+                                               kKDSUpdateAppId),
       kRegValueCloudManagementEnrollmentToken,
       &value);
   return (SUCCEEDED(hr) && IsUuid(value)) ? value : CString();
@@ -220,7 +220,7 @@ HRESULT DmStorage::StoreRuntimeEnrollmentTokenForInstall() {
   }
   HRESULT hr = RegKey::SetValue(
       app_registry_utils::GetAppClientStateKey(true /* is_machine */,
-                                               kGoogleUpdateAppId),
+                                               kKDSUpdateAppId),
       kRegValueCloudManagementEnrollmentToken,
       enrollment_token_);
   if (FAILED(hr)) {
@@ -381,8 +381,8 @@ HRESULT DmStorage::ReadCachedOmahaPolicy(const CPath& policy_responses_dir,
   }
 
   CStringA encoded_policy_response_dirname;
-  Base64Escape(kGoogleUpdatePolicyType,
-               arraysize(kGoogleUpdatePolicyType) - 1,
+  Base64Escape(kKDSUpdatePolicyType,
+               arraysize(kKDSUpdatePolicyType) - 1,
                &encoded_policy_response_dirname,
                true);
 

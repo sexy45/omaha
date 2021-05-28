@@ -13,7 +13,7 @@
 // limitations under the License.
 // ========================================================================
 //
-// Contains GoogleUpdate class which is the ATL exe module for the local
+// Contains KDSUpdate class which is the ATL exe module for the local
 // server that allows launching of the browser at medium integrity.
 
 #ifndef OMAHA_GOOPDATE_GOOGLE_UPDATE_H_
@@ -34,7 +34,7 @@ namespace omaha {
 // It might also be a good idea to rename this class and file since it is more
 // a boilerplate for COM servers than it is related to "Google Update" or the
 // main Omaha 3 COM server since it als handles various brokers.
-class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
+class KDSUpdate : public CAtlExeModuleT<KDSUpdate> {
  public:
   enum ComServerMode {
     kUpdate3Mode,
@@ -44,8 +44,8 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
 
   DECLARE_LIBID(LIBID_GoogleUpdate3Lib)
 
-  explicit GoogleUpdate(bool is_machine, ComServerMode mode);
-  ~GoogleUpdate();
+  explicit KDSUpdate(bool is_machine, ComServerMode mode);
+  ~KDSUpdate();
   HRESULT RegisterClassObjects(DWORD cls_ctx, DWORD flags) throw();
   HRESULT RevokeClassObjects() throw();
 
@@ -63,7 +63,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
   virtual LONG Lock() throw() {
     ::CoAddRefServerProcess();
     LONG lock_count = CComGlobalsThreadModel::Increment(&m_nLockCnt);
-    CORE_LOG(L6, (_T("[GoogleUpdate::Lock][%d]"), lock_count));
+    CORE_LOG(L6, (_T("[KDSUpdate::Lock][%d]"), lock_count));
     return lock_count;
   }
 
@@ -81,7 +81,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
 
     ::CoReleaseServerProcess();
     LONG lock_count = CComGlobalsThreadModel::Decrement(&m_nLockCnt);
-    CORE_LOG(L6, (_T("[GoogleUpdate::Unlock][%d]"), lock_count));
+    CORE_LOG(L6, (_T("[KDSUpdate::Unlock][%d]"), lock_count));
 
     if (lock_count == 0) {
       ::PostThreadMessage(m_dwMainThreadID, WM_QUIT, 0, 0);
@@ -98,7 +98,7 @@ class GoogleUpdate : public CAtlExeModuleT<GoogleUpdate> {
   bool is_machine_;
   ComServerMode mode_;
 
-  DISALLOW_COPY_AND_ASSIGN(GoogleUpdate);
+  DISALLOW_COPY_AND_ASSIGN(KDSUpdate);
 };
 
 }  // namespace omaha

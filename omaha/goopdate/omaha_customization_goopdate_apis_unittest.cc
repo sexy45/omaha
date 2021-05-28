@@ -55,26 +55,26 @@ namespace omaha {
 // TODO(omaha): We should probably move these to a separate
 // const_com_customization.h in goopdate\.
 TEST(OmahaCustomizationTest, Constants_ComProgIds) {
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassMachine"),
+  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
+  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassMachine"),
                   kProgIDOnDemandMachine);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
+  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebMachine"),
+  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
+  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebMachine"),
                   kProgIDUpdate3WebMachine);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
+  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.CoreClass"), kProgIDGoogleUpdateCoreService);
+  EXPECT_GU_STREQ(_T("KDSUpdate.CoreClass"), kProgIDKDSUpdateCoreService);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.ProcessLauncher"), kProgIDProcessLauncher);
+  EXPECT_GU_STREQ(_T("KDSUpdate.ProcessLauncher"), kProgIDProcessLauncher);
 
-  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusUser"), kProgIDPolicyStatusUser);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusMachine"),
+  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusUser"), kProgIDPolicyStatusUser);
+  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusMachine"),
                   kProgIDPolicyStatusMachine);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusMachineFallback"),
+  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusMachineFallback"),
                   kProgIDPolicyStatusMachineFallback);
-  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusSvc"), kProgIDPolicyStatusSvc);
+  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusSvc"), kProgIDPolicyStatusSvc);
 }
 
 }  // namespace omaha
@@ -388,7 +388,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdate3UserClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3UserClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3 Class for per-user applications"),
+  EXPECT_STREQ(_T("KDSUpdate3 Class for per-user applications"),
                item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
@@ -400,7 +400,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdate3ServiceClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3ServiceClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3 Service Class for machine applications"),
+  EXPECT_STREQ(_T("KDSUpdate3 Service Class for machine applications"),
                item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
@@ -412,7 +412,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdate3WebUserClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebUserClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web for user applications"),
+  EXPECT_STREQ(_T("KDSUpdate3Web for user applications"),
                   item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
@@ -437,7 +437,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdate3WebServiceClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdate3WebServiceClass")));
-  EXPECT_STREQ(_T("GoogleUpdate3Web"), item_doc_string_);
+  EXPECT_STREQ(_T("KDSUpdate3Web"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
@@ -662,7 +662,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdateCoreClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdateCoreClass")));
-  EXPECT_STREQ(_T("GoogleUpdateCore Class"), item_doc_string_);
+  EXPECT_STREQ(_T("KDSUpdateCore Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }
@@ -673,7 +673,7 @@ TEST_GU_INT_F(OmahaCustomizationGoopdateComInterfaceTest,
                   __uuidof(GoogleUpdateCoreMachineClass));
 
   EXPECT_SUCCEEDED(GetDocumentation(_T("GoogleUpdateCoreMachineClass")));
-  EXPECT_STREQ(_T("GoogleUpdateCore Machine Class"), item_doc_string_);
+  EXPECT_STREQ(_T("KDSUpdateCore Machine Class"), item_doc_string_);
   EXPECT_EQ(0, help_context_);
   EXPECT_TRUE(!help_file_);
 }

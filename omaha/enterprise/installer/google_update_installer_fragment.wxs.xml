@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <?define UpdateKeyPath = 'SOFTWARE\Google\Update' ?>
+  <?define UpdateKeyPath = 'SOFTWARE\KDS\Update' ?>
 
   <!-- This fragment assumes machine install (ALLUSER=1). -->
 
-  <Fragment Id='FragmentGoogleUpdate' >
+  <Fragment Id='FragmentKDSUpdate' >
     <!-- Detect whether product is already registered with Google Update. -->
     <Property Id='PRODUCT_REGISTERED_VERSION'>
       <RegistrySearch Id='$(var.ProductNameLegalIdentifier)RegistrationSearch'
@@ -13,8 +13,8 @@
                       Name='pv' Type='raw' />
     </Property>
 
-    <Binary Id='GoogleUpdateSetup'
-            SourceFile='$(var.GoogleUpdateMetainstallerPath)' />
+    <Binary Id='KDSUpdateSetup'
+            SourceFile='$(var.KDSUpdateMetainstallerPath)' />
 
     <!-- This fragment needs a component that can be referenced.
          Components must be in Directory[Ref] elements and cannot be empty.
@@ -25,7 +25,7 @@
       <Directory Id='GoogleProgramDir' Name='Google'>
         <Directory Id='UpdateDir' Name='Update'>
 
-          <Component Id='ComponentGoogleUpdate'
+          <Component Id='ComponentKDSUpdate'
                      Guid='6B528A57-0CD8-4b26-85F8-1CA05523B8F1'>
             <!-- Clear the last UI string before running the installer so we know
                  that any value present upon rollback is fresh. -->
@@ -35,7 +35,7 @@
             <RemoveRegistryValue Key='$(var.UpdateKeyPath)'
                                  Name='LastInstallerResultUIString'
                                  Root='HKLM' />
-            <?ifdef UsingGoogleUpdate_1_2_171_OrLater?>
+            <?ifdef UsingKDSUpdate_1_2_171_OrLater?>
             <RegistryValue Id='NonEmptyComponent' Action='write'
                            Root='HKLM'
                            Key='$(var.UpdateKeyPath)\ClientState\$(var.ProductGuid)'
@@ -67,8 +67,8 @@
       Value='[ProductTag]&amp;brand=[BRAND]'
       Execute='immediate'
       Return='check' />
-    <CustomAction Id='RollbackGoogleUpdateRegistration'
-      BinaryKey='GoogleUpdateSetup'
+    <CustomAction Id='RollbackKDSUpdateRegistration'
+      BinaryKey='KDSUpdateSetup'
       Impersonate='no'
       Execute='rollback'
       ExeCommand='/unregisterproduct "[ProductTag]"'
@@ -78,8 +78,8 @@
          write the pv value to the product's ClientState. Otherwise, Omaha
          might uninstall itself before the product's normal install flow writes
          these values. -->
-    <CustomAction Id='InstallGoogleUpdateAndRegister'
-      BinaryKey='GoogleUpdateSetup'
+    <CustomAction Id='InstallKDSUpdateAndRegister'
+      BinaryKey='KDSUpdateSetup'
       Impersonate='no'
       Execute='deferred'
       ExeCommand='/registerproduct "[ProductTag]" /installsource enterprisemsi'
@@ -89,27 +89,27 @@
       <!-- Build tag property. -->
       <Custom Action='SetProductTagProperty'
               Before='AppendCustomParamsToProductTagProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
       <Custom Action='AppendCustomParamsToProductTagProperty'
               Before='AppendBrandToProductTagProperty'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
       <Custom Action='AppendBrandToProductTagProperty'
-              Before='RollbackGoogleUpdateRegistration'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (BRAND &lt;&gt; "")
+              Before='RollbackKDSUpdateRegistration'>
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (BRAND &lt;&gt; "")
       </Custom>
 
       <!-- Install Google Update before 'InstallFiles' so that brand, etc. will
            be present when the product is installed. -->
-      <Custom Action='RollbackGoogleUpdateRegistration'
-              Before='InstallGoogleUpdateAndRegister'
+      <Custom Action='RollbackKDSUpdateRegistration'
+              Before='InstallKDSUpdateAndRegister'
               >
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (PRODUCT_REGISTERED_VERSION = "")
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES) AND (PRODUCT_REGISTERED_VERSION = "")
       </Custom>
-      <Custom Action='InstallGoogleUpdateAndRegister'
+      <Custom Action='InstallKDSUpdateAndRegister'
               Before='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
 
       <!-- Google Update will uninstall itself if the product is the only

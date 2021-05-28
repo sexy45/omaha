@@ -50,7 +50,7 @@ const TCHAR* const kAppId2 = _T("{35F1A986-417D-4039-8718-781DD418232A}");
 // Does not replace files if they already exist.
 void CopyFilesRequiredByFinishInstall(bool is_machine, const CString& version) {
   const CString omaha_path = is_machine ?
-      GetGoogleUpdateMachinePath() : GetGoogleUpdateUserPath();
+      GetKDSUpdateMachinePath() : GetKDSUpdateUserPath();
   const CString expected_shell_path =
       ConcatenatePath(omaha_path, kOmahaShellFileName);
   const CString version_path = ConcatenatePath(omaha_path, version);
@@ -250,13 +250,13 @@ void VerifyHklmKeyHasMediumIntegrity(const CString& key_full_name) {
                             KEY_READ | KEY_SET_VALUE | KEY_CREATE_SUB_KEY);
 }
 
-class SetupGoogleUpdateTest : public testing::Test {
+class SetupKDSUpdateTest : public testing::Test {
  protected:
-  explicit SetupGoogleUpdateTest(bool is_machine) : is_machine_(is_machine) {}
-  virtual ~SetupGoogleUpdateTest() {}
+  explicit SetupKDSUpdateTest(bool is_machine) : is_machine_(is_machine) {}
+  virtual ~SetupKDSUpdateTest() {}
 
   void SetUp() override {
-    setup_google_update_.reset(new SetupGoogleUpdate(is_machine_, false));
+    setup_google_update_.reset(new SetupKDSUpdate(is_machine_, false));
   }
 
   HRESULT InstallRegistryValues() {
@@ -276,49 +276,49 @@ class SetupGoogleUpdateTest : public testing::Test {
   }
 
   bool is_machine_;
-  std::unique_ptr<SetupGoogleUpdate> setup_google_update_;
+  std::unique_ptr<SetupKDSUpdate> setup_google_update_;
 };
 
-class SetupGoogleUpdateUserTest : public SetupGoogleUpdateTest {
+class SetupKDSUpdateUserTest : public SetupKDSUpdateTest {
  protected:
-  SetupGoogleUpdateUserTest() : SetupGoogleUpdateTest(false) {
+  SetupKDSUpdateUserTest() : SetupKDSUpdateTest(false) {
     CString expected_core_command_line = ConcatenatePath(
-        ConcatenatePath(GetGoogleUpdateUserPath(), GetVersionString()),
+        ConcatenatePath(GetKDSUpdateUserPath(), GetVersionString()),
         kOmahaCoreFileName);
     EnclosePath(&expected_core_command_line);
     expected_run_key_value_ = expected_core_command_line;
   }
 
   void SetUp() override {
-    SetupGoogleUpdateTest::SetUp();
+    SetupKDSUpdateTest::SetUp();
     RegKey::DeleteKey(USER_REG_UPDATE);
   }
 
   void TearDown() override {
     RegKey::DeleteKey(USER_REG_UPDATE);
-    SetupGoogleUpdateTest::TearDown();
+    SetupKDSUpdateTest::TearDown();
   }
 
   CString expected_run_key_value_;
 };
 
-class SetupGoogleUpdateMachineTest : public SetupGoogleUpdateTest {
+class SetupKDSUpdateMachineTest : public SetupKDSUpdateTest {
  protected:
-  SetupGoogleUpdateMachineTest() : SetupGoogleUpdateTest(true) {}
+  SetupKDSUpdateMachineTest() : SetupKDSUpdateTest(true) {}
 
   void SetUp() override {
     RegKey::DeleteKey(MACHINE_REG_UPDATE);
-    SetupGoogleUpdateTest::SetUp();
+    SetupKDSUpdateTest::SetUp();
   }
 
   void TearDown() override {
     RegKey::DeleteKey(MACHINE_REG_UPDATE);
-    SetupGoogleUpdateTest::TearDown();
+    SetupKDSUpdateTest::TearDown();
   }
 };
 
 // This test uninstalls all other versions of Omaha.
-TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
+TEST_F(SetupKDSUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   RegKey::DeleteValue(kRunKey, _T(OMAHA_APP_NAME_ANSI));
   ASSERT_FALSE(RegKey::HasValue(kRunKey, _T(OMAHA_APP_NAME_ANSI)));
 
@@ -345,7 +345,7 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
 
   // Check the system state.
 
-  CPath expected_shell_path(GetGoogleUpdateUserPath());
+  CPath expected_shell_path(GetKDSUpdateUserPath());
   expected_shell_path.Append(kOmahaShellFileName);
   CString shell_path;
   EXPECT_SUCCEEDED(RegKey::GetValue(USER_REG_UPDATE, _T("path"), &shell_path));
@@ -384,9 +384,9 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   }
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
 // is not always true when run independently.
-TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
+TEST_F(SetupKDSUpdateUserTest, InstallRegistryValues) {
   if (IsTestRunByLocalSystem()) {
     return;
   }
@@ -418,7 +418,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(client_state_key.Open(USER_REG_CLIENT_STATE));
   EXPECT_EQ(1, client_state_key.GetSubkeyCount());
 
-  CPath expected_shell_path(GetGoogleUpdateUserPath());
+  CPath expected_shell_path(GetKDSUpdateUserPath());
   expected_shell_path.Append(kOmahaShellFileName);
   CString shell_path;
   EXPECT_SUCCEEDED(RegKey::GetValue(USER_REG_UPDATE, _T("path"), &shell_path));
@@ -440,10 +440,10 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_STREQ(GetVersionString(), product_version);
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 // TODO(omaha): Fails when run by itself on Windows Vista.
-TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
+TEST_F(SetupKDSUpdateMachineTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(InstallRegistryValues());
   const uint32 now = Time64ToInt32(GetCurrent100NSTime());
 
@@ -478,7 +478,7 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &expected_shell_path));
   expected_shell_path.Append(_T("\\") SHORT_COMPANY_NAME
                              _T("\\") PRODUCT_NAME
-                             _T("\\GoogleUpdate.exe"));
+                             _T("\\KDSUpdate.exe"));
   CString shell_path;
   EXPECT_SUCCEEDED(
       RegKey::GetValue(MACHINE_REG_UPDATE, _T("path"), &shell_path));
@@ -512,7 +512,7 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
   VerifyHklmKeyHasMediumIntegrity(app_client_state_medium_key_name);
 }
 
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupKDSUpdateMachineTest,
        CreateClientStateMedium_KeyAlreadyExistsWithSamePermissions) {
   EXPECT_SUCCEEDED(RegKey::CreateKey(MACHINE_REG_UPDATE));
   EXPECT_SUCCEEDED(CreateClientStateMedium());
@@ -523,7 +523,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
 }
 
 // CreateClientStateMedium does not replace permissions on existing keys.
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupKDSUpdateMachineTest,
        CreateClientStateMedium_KeysAlreadyExistWithDifferentPermissions) {
   const CString app1_client_state_medium_key_name = AppendRegKeyPath(
       MACHINE_REG_CLIENT_STATE_MEDIUM,
@@ -585,7 +585,7 @@ TEST_F(SetupGoogleUpdateMachineTest,
       app2_client_state_medium_key_name, KEY_WRITE, &dacl, &interactive);
 }
 
-TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
+TEST_F(SetupKDSUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
   EXPECT_SUCCEEDED(RegKey::SetValue(kRunKey,
                                     _T(OMAHA_APP_NAME_ANSI),
                                     _T("fo /b")));
@@ -605,7 +605,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyValueExists) {
   EXPECT_FALSE(scheduled_task_utils::IsInstalledGoopdateTaskUA(false));
 }
 
-TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
+TEST_F(SetupKDSUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
   RegKey::DeleteValue(kRunKey, _T(OMAHA_APP_NAME_ANSI));
   ASSERT_FALSE(RegKey::HasValue(kRunKey, _T(OMAHA_APP_NAME_ANSI)));
 
@@ -624,7 +624,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallLaunchMechanisms_RunKeyDoesNotExist) {
   EXPECT_FALSE(scheduled_task_utils::IsInstalledGoopdateTaskUA(false));
 }
 
-TEST_F(SetupGoogleUpdateMachineTest, WriteClientStateMedium) {
+TEST_F(SetupKDSUpdateMachineTest, WriteClientStateMedium) {
   bool is_uac_on(false);
   EXPECT_SUCCEEDED(vista_util::IsUACOn(&is_uac_on));
 
@@ -667,7 +667,7 @@ TEST_F(SetupGoogleUpdateMachineTest, WriteClientStateMedium) {
 // verifies that the created app subkey inherits those.
 // The Update key must be created first to avoid applying ClientStateMedium's
 // permissions to all its parent keys.
-TEST_F(SetupGoogleUpdateMachineTest,
+TEST_F(SetupKDSUpdateMachineTest,
        WritePreInstallData_CheckClientStateMediumPermissions) {
   // Start with a clean state without a ClientStateMedium key.
   const CString client_state_medium_key_name(

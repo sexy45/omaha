@@ -67,13 +67,13 @@ CString GetGoogleUserPath() {
   return GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\");
 }
 
-// TODO(omaha): make GetGoogleUpdateUserPath and GetGoogleUpdateMachinePath
+// TODO(omaha): make GetKDSUpdateUserPath and GetKDSUpdateMachinePath
 // consistent. They should end with \ or not.
-CString GetGoogleUpdateUserPath() {
+CString GetKDSUpdateUserPath() {
   return GetGoogleUserPath() + PRODUCT_NAME + _T("\\");
 }
 
-CString GetGoogleUpdateMachinePath() {
+CString GetKDSUpdateMachinePath() {
   CString program_files;
   GetFolderPath(CSIDL_PROGRAM_FILES, &program_files);
   return program_files + _T("\\") + SHORT_COMPANY_NAME
@@ -216,7 +216,7 @@ void TerminateAllProcessesByName(const TCHAR* process_name) {
   }
 }
 
-void TerminateAllGoogleUpdateProcesses() {
+void TerminateAllKDSUpdateProcesses() {
   TerminateAllProcessesByName(kOmahaShellFileName);
   TerminateAllProcessesByName(kCrashHandlerFileName);
   TerminateAllProcessesByName(kCrashHandler64FileName);
@@ -224,7 +224,7 @@ void TerminateAllGoogleUpdateProcesses() {
 
 // The exit code of psexec is the pid it started when -d is used.
 // Wait for psexec to exit, get the exit code, and use it to get a handle
-// to the GoogleUpdate.exe instance.
+// to the KDSUpdate.exe instance.
 void LaunchProcessAsSystem(const CString& launch_cmd, HANDLE* process) {
   ASSERT_TRUE(process);
 
@@ -322,7 +322,7 @@ void RunAsAdmin(const CString& exe_path, const CString& cmd_line) {
 }
 
 void RegisterOrUnregisterGoopdateLocalServer(bool reg) {
-  CString server_path = ConcatenatePath(GetGoogleUpdateMachinePath(),
+  CString server_path = ConcatenatePath(GetKDSUpdateMachinePath(),
                                         kOmahaShellFileName);
   EnclosePath(&server_path);
 
@@ -333,7 +333,7 @@ void RegisterOrUnregisterGoopdateLocalServer(bool reg) {
 }
 
 void RegisterOrUnregisterGoopdateService(bool reg) {
-  CString service_path = ConcatenatePath(GetGoogleUpdateMachinePath(),
+  CString service_path = ConcatenatePath(GetKDSUpdateMachinePath(),
                                          kServiceFileName);
   EnclosePath(&service_path);
 

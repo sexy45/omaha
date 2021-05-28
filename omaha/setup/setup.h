@@ -17,7 +17,7 @@
 // temp location.
 //  1) Copy the Google Update files to the install location.
 //  2) Do everything else to install Google Update.
-//   * Executed by SetupGoogleUpdate().
+//   * Executed by SetupKDSUpdate().
 //
 //  Uninstall() undoes both phases of setup.
 //  All methods assume the instance is running with the correct permissions.
@@ -69,7 +69,7 @@ class Setup {
   typedef std::vector<uint32> Pids;
 
   // Completes installation.
-  HRESULT SetupGoogleUpdate();
+  HRESULT SetupKDSUpdate();
 
   // Handles Setup lock acquisition failures and returns the error to report.
   HRESULT HandleLockFailed(int lock_version);
@@ -89,20 +89,20 @@ class Setup {
   // over-installed.
   bool ShouldOverinstall();
 
-  HRESULT DoProtectedGoogleUpdateInstall(SetupFiles* setup_files);
+  HRESULT DoProtectedKDSUpdateInstall(SetupFiles* setup_files);
 
-  // Rolls back the changes made during DoProtectedGoogleUpdateInstall().
+  // Rolls back the changes made during DoProtectedKDSUpdateInstall().
   // Call when that method fails.
   void RollBack(SetupFiles* setup_files);
 
   // Tells other instances to stop.
-  HRESULT StopGoogleUpdate();
+  HRESULT StopKDSUpdate();
 
-  // Returns how long to wait before terminating GoogleUpdate.exe forcefully.
+  // Returns how long to wait before terminating KDSUpdate.exe forcefully.
   int GetForceKillWaitTimeMs() const;
 
   // Tells other instances to stop then waits for them to exit.
-  HRESULT StopGoogleUpdateAndWait(int wait_time_before_kill_ms);
+  HRESULT StopKDSUpdateAndWait(int wait_time_before_kill_ms);
 
   // Sets the shutdown event to signal other instances for this user or machine
   // to exit.
@@ -111,14 +111,14 @@ class Setup {
   // Releases all the shutdown events.
   void ReleaseShutdownEvents();
 
-  // Waits for other instances of GoogleUpdate.exe to exit.
+  // Waits for other instances of KDSUpdate.exe to exit.
   HRESULT WaitForOtherInstancesToExit(const Pids& pids,
                                       int wait_time_before_kill_ms);
 
-  // Gets the list of all the GoogleUpdate.exe processes to wait for.
+  // Gets the list of all the KDSUpdate.exe processes to wait for.
   HRESULT GetPidsToWaitFor(Pids* pids) const;
 
-  // Gets a list of GoogleUpdate.exe processes for user or machine that are
+  // Gets a list of KDSUpdate.exe processes for user or machine that are
   // running from the respective official directory, except "/install" or
   // "/registerproduct" instances.
   // In the machine case we search in all the accounts since the workers can be
@@ -136,7 +136,7 @@ class Setup {
 #if 0
   // Given a guid, finds and copies the offline manifest and binaries from the
   // current module directory to the offline_dir passed in. offline_dir is
-  // typically the Google\Update\Offline\ directory. The offline manifest is
+  // typically the KDS\Update\Offline\ directory. The offline manifest is
   // copied to offline_dir\{GUID}.gup. The binaries are in the format
   // "Installer.msi.{GUID}", and they are copied to the offline_dir under the
   // subdirectory {GUID}, as Installer.msi.
@@ -171,8 +171,8 @@ class Setup {
   // Initializes the Setup Lock with correct name and security attributes.
   static bool InitSetupLock(bool is_machine, GLock* setup_lock);
 
-  // Returns true if GoogleUpdate can be uninstalled now.
-  bool CanUninstallGoogleUpdate() const;
+  // Returns true if KDSUpdate can be uninstalled now.
+  bool CanUninstallKDSUpdate() const;
 
   // The state of the RuntimeMode in the registry.
   RuntimeMode GetRuntimeMode() const;

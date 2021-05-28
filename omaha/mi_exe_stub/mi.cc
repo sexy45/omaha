@@ -161,7 +161,7 @@ class MetaInstaller {
   }
 
   ~MetaInstaller() {
-    // When a crash happens while running GoogleUpdate and breakpad gets it
+    // When a crash happens while running KDSUpdate and breakpad gets it
     // GooogleUpdate.exe is started with the /report to report the crash.
     // In a crash, the temp directory and the contained files can't be deleted.
     if (exit_code_ != GOOPDATE_E_CRASH) {

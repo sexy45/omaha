@@ -157,24 +157,24 @@ class V2ScheduledTasks : public ScheduledTasksInterface {
 // otherwise returns the single instance of V1ScheduledTasks.
 ScheduledTasksInterface& Instance();
 
-// Gets the current name, say "GoogleUpdateTaskMachineCore", of the
-// GoogleUpdateCore scheduled task, either from the registry, or a default
+// Gets the current name, say "KDSUpdateTaskMachineCore", of the
+// KDSUpdateCore scheduled task, either from the registry, or a default
 // value if there is no registration.
 CString GetCurrentTaskNameCore(bool is_machine);
 
-// Creates a unique name, say "GoogleUpdateTaskMachineCore1c9b3d6baf90df3", of
-// the GoogleUpdateCore scheduled task, and stores it in the registry.
+// Creates a unique name, say "KDSUpdateTaskMachineCore1c9b3d6baf90df3", of
+// the KDSUpdateCore scheduled task, and stores it in the registry.
 // Subsequent invocations of GetCurrentTaskNameCore() will return this new
 // value.
 HRESULT CreateAndSetVersionedTaskNameCoreInRegistry(bool machine);
 
-// Gets the current name, say "GoogleUpdateTaskMachineUA", of the
-// GoogleUpdateUA scheduled task, either from the registry, or a default value
+// Gets the current name, say "KDSUpdateTaskMachineUA", of the
+// KDSUpdateUA scheduled task, either from the registry, or a default value
 // if there is no registration.
 CString GetCurrentTaskNameUA(bool is_machine);
 
-// Creates a unique name, say "GoogleUpdateTaskMachineUA1c9b3d6baf90df3", of
-// the GoogleUpdateUA scheduled task, and stores it in the registry.
+// Creates a unique name, say "KDSUpdateTaskMachineUA1c9b3d6baf90df3", of
+// the KDSUpdateUA scheduled task, and stores it in the registry.
 // Subsequent invocations of GetCurrentTaskNameUA() will return this new
 // value.
 HRESULT CreateAndSetVersionedTaskNameUAInRegistry(bool machine);

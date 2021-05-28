@@ -28,7 +28,7 @@ import re
 import sys
 
 
-MAIN_POLICY_KEY = r'Software\Policies\Google\Update'
+MAIN_POLICY_KEY = r'Software\Policies\KDS\Update'
 
 ADMX_HEADER = '<policyDefinitions revision="1.0" schemaVersion="1.0">'
 
@@ -38,42 +38,42 @@ ADMX_ENVIRONMENT = '''
     <using namespace="Google.Policies" prefix="Google"/>
     <using prefix="windows" namespace="Microsoft.Policies.Windows" />
   </policyNamespaces>
-  <supersededAdm fileName="GoogleUpdate.adm" />
+  <supersededAdm fileName="KDSUpdate.adm" />
   <resources minRequiredRevision="1.0" />
   <supportedOn>
     <definitions>
-      <definition name="Sup_GoogleUpdate1_2_145_5"
-          displayName="$(string.Sup_GoogleUpdate1_2_145_5)" />
-      <definition name="Sup_GoogleUpdate1_3_21_81"
-          displayName="$(string.Sup_GoogleUpdate1_3_21_81)" />
-      <definition name="Sup_GoogleUpdate1_3_26_0"
-          displayName="$(string.Sup_GoogleUpdate1_3_26_0)" />
-      <definition name="Sup_GoogleUpdate1_3_33_5"
-          displayName="$(string.Sup_GoogleUpdate1_3_33_5)" />
-      <definition name="Sup_GoogleUpdate1_3_34_3"
-          displayName="$(string.Sup_GoogleUpdate1_3_34_3)" />
-      <definition name="Sup_GoogleUpdate1_3_35_453"
-          displayName="$(string.Sup_GoogleUpdate1_3_35_453)" />
+      <definition name="Sup_KDSUpdate1_2_145_5"
+          displayName="$(string.Sup_KDSUpdate1_2_145_5)" />
+      <definition name="Sup_KDSUpdate1_3_21_81"
+          displayName="$(string.Sup_KDSUpdate1_3_21_81)" />
+      <definition name="Sup_KDSUpdate1_3_26_0"
+          displayName="$(string.Sup_KDSUpdate1_3_26_0)" />
+      <definition name="Sup_KDSUpdate1_3_33_5"
+          displayName="$(string.Sup_KDSUpdate1_3_33_5)" />
+      <definition name="Sup_KDSUpdate1_3_34_3"
+          displayName="$(string.Sup_KDSUpdate1_3_34_3)" />
+      <definition name="Sup_KDSUpdate1_3_35_453"
+          displayName="$(string.Sup_KDSUpdate1_3_35_453)" />
     </definitions>
   </supportedOn>
 '''
 
 ADMX_CATEGORIES = r'''
   <categories>
-    <category name="Cat_GoogleUpdate" displayName="$(string.Cat_GoogleUpdate)"
-        explainText="$(string.Explain_GoogleUpdate)">
+    <category name="Cat_KDSUpdate" displayName="$(string.Cat_KDSUpdate)"
+        explainText="$(string.Explain_KDSUpdate)">
       <parentCategory ref="Google:Cat_Google" />
     </category>
     <category name="Cat_Preferences" displayName="$(string.Cat_Preferences)"
         explainText="$(string.Explain_Preferences)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_KDSUpdate" />
     </category>
     <category name="Cat_ProxyServer" displayName="$(string.Cat_ProxyServer)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_KDSUpdate" />
     </category>
     <category name="Cat_Applications" displayName="$(string.Cat_Applications)"
         explainText="$(string.Explain_Applications)">
-      <parentCategory ref="Cat_GoogleUpdate" />
+      <parentCategory ref="Cat_KDSUpdate" />
     </category>
 %(AppCategorList)s
   </categories>
@@ -87,7 +87,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_AutoUpdateCheckPeriod)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_KDSUpdate1_2_145_5" />
       <elements>
         <decimal id="Part_AutoUpdateCheckPeriod"
             key="%(RootPolicyKey)s"
@@ -101,7 +101,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DownloadPreference)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_26_0" />
+      <supportedOn ref="Sup_KDSUpdate1_3_26_0" />
       <elements>
         <enum id="Part_DownloadPreference" key="%(RootPolicyKey)s"
             valueName="DownloadPreference">
@@ -117,20 +117,20 @@ ADMX_POLICIES = r'''
         displayName="$(string.Pol_UpdateCheckSuppressedPeriod)"
         explainText="$(string.Explain_UpdateCheckSuppressedPeriod)"
         presentation="$(presentation.Pol_UpdateCheckSuppressedPeriod)"
-        key="Software\Policies\Google\Update">
+        key="Software\Policies\KDS\Update">
       <parentCategory ref="Cat_Preferences" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_33_5" />
+      <supportedOn ref="Sup_KDSUpdate1_3_33_5" />
       <elements>
         <decimal id="Part_UpdateCheckSuppressedStartHour"
-            key="Software\Policies\Google\Update"
+            key="Software\Policies\KDS\Update"
             valueName="UpdatesSuppressedStartHour"
             required="true" minValue="0" maxValue="23" />
         <decimal id="Part_UpdateCheckSuppressedStartMin"
-            key="Software\Policies\Google\Update"
+            key="Software\Policies\KDS\Update"
             valueName="UpdatesSuppressedStartMin"
             required="true" minValue="0" maxValue="59" />
         <decimal id="Part_UpdateCheckSuppressedDurationMin"
-            key="Software\Policies\Google\Update"
+            key="Software\Policies\KDS\Update"
             valueName="UpdatesSuppressedDurationMin"
             required="true" minValue="1" maxValue="960" />
       </elements>
@@ -141,7 +141,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyMode)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_KDSUpdate1_3_21_81" />
       <elements>
         <enum id="Part_ProxyMode" key="%(RootPolicyKey)s"
             valueName="ProxyMode">
@@ -179,7 +179,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyServer)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_KDSUpdate1_3_21_81" />
       <elements>
         <text id="Part_ProxyServer" valueName="ProxyServer" />
       </elements>
@@ -190,7 +190,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_ProxyPacUrl)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_ProxyServer" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_21_81" />
+      <supportedOn ref="Sup_KDSUpdate1_3_21_81" />
       <elements>
         <text id="Part_ProxyPacUrl" valueName="ProxyPacUrl" />
       </elements>
@@ -202,7 +202,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DefaultAllowInstallation)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Applications" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_KDSUpdate1_2_145_5" />
       <elements>
         <enum id="Part_InstallPolicy" key="%(RootPolicyKey)s"
             valueName="InstallDefault" required="true">
@@ -230,7 +230,7 @@ ADMX_POLICIES = r'''
         presentation="$(presentation.Pol_DefaultUpdatePolicy)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_Applications" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_KDSUpdate1_2_145_5" />
       <elements>
         <enum id="Part_UpdatePolicy" key="%(RootPolicyKey)s"
             valueName="UpdateDefault" required="true">
@@ -282,7 +282,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_AllowInstallation)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_KDSUpdate1_2_145_5" />
       <elements>
         <enum id="Part_InstallPolicy"
              valueName="Install%(AppGuid)s" required="true">
@@ -310,7 +310,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_UpdatePolicy)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_2_145_5" />
+      <supportedOn ref="Sup_KDSUpdate1_2_145_5" />
       <elements>
         <enum id="Part_UpdatePolicy"
              valueName="Update%(AppGuid)s" required="true">
@@ -343,7 +343,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_TargetChannel)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_35_453" />
+      <supportedOn ref="Sup_KDSUpdate1_3_35_453" />
       <elements>
         <text id="Part_TargetChannel"
             valueName="TargetChannel%(AppGuid)s" />
@@ -355,7 +355,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         presentation="$(presentation.Pol_TargetVersionPrefix)"
         key="%(RootPolicyKey)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_33_5" />
+      <supportedOn ref="Sup_KDSUpdate1_3_33_5" />
       <elements>
         <text id="Part_TargetVersionPrefix"
             valueName="TargetVersionPrefix%(AppGuid)s" />
@@ -368,7 +368,7 @@ ADMX_APP_POLICY_TEMPLATE = '''\
         key="%(RootPolicyKey)s"
         valueName="RollbackToTargetVersion%(AppGuid)s">
       <parentCategory ref="Cat_%(AppLegalId)s" />
-      <supportedOn ref="Sup_GoogleUpdate1_3_34_3" />
+      <supportedOn ref="Sup_KDSUpdate1_3_34_3" />
       <enabledValue><decimal value="1" /></enabledValue>
       <disabledValue><decimal value="0" /></disabledValue>
     </policy>'''
@@ -510,13 +510,13 @@ ADML_DOMAIN_REQUIREMENT_EN = (
     'Microsoft&#x00AE; Active Directory&#x00AE; domain.')
 
 ADML_PREDEFINED_STRINGS_TABLE_EN = [
-    ('Sup_GoogleUpdate1_2_145_5', 'At least Google Update 1.2.145.5'),
-    ('Sup_GoogleUpdate1_3_21_81', 'At least Google Update 1.3.21.81'),
-    ('Sup_GoogleUpdate1_3_26_0', 'At least Google Update 1.3.26.0'),
-    ('Sup_GoogleUpdate1_3_33_5', 'At least Google Update 1.3.33.5'),
-    ('Sup_GoogleUpdate1_3_34_3', 'At least Google Update 1.3.34.3'),
-    ('Sup_GoogleUpdate1_3_35_453', 'At least Google Update 1.3.35.453'),
-    ('Cat_GoogleUpdate', 'Google Update'),
+    ('Sup_KDSUpdate1_2_145_5', 'At least Google Update 1.2.145.5'),
+    ('Sup_KDSUpdate1_3_21_81', 'At least Google Update 1.3.21.81'),
+    ('Sup_KDSUpdate1_3_26_0', 'At least Google Update 1.3.26.0'),
+    ('Sup_KDSUpdate1_3_33_5', 'At least Google Update 1.3.33.5'),
+    ('Sup_KDSUpdate1_3_34_3', 'At least Google Update 1.3.34.3'),
+    ('Sup_KDSUpdate1_3_35_453', 'At least Google Update 1.3.35.453'),
+    ('Cat_KDSUpdate', 'Google Update'),
     ('Cat_Preferences', 'Preferences'),
     ('Cat_ProxyServer', 'Proxy Server'),
     ('Cat_Applications', 'Applications'),
@@ -564,7 +564,7 @@ ADML_PREDEFINED_STRINGS_TABLE_EN = [
     ('ProxyPacScript_DropDown', 'Use a .pac proxy script'),
     ('ProxyFixedServers_DropDown', 'Use fixed proxy servers'),
     ('ProxyUseSystem_DropDown', 'Use system proxy settings'),
-    ('Explain_GoogleUpdate',
+    ('Explain_KDSUpdate',
      'Policies to control the installation and updating of Google applications '
      'that use Google Update/Google Installer.'),
     ('Explain_Preferences', 'General policies for Google Update.'),

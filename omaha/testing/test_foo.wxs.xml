@@ -160,7 +160,7 @@
         <ComponentRef Id='FooNotifyFailed' />
         <ComponentRef Id='FooPropBar' />
 <?if $(var.IsEnterprise) = 1 ?>
-        <ComponentRef Id='ComponentGoogleUpdate' />
+        <ComponentRef Id='ComponentKDSUpdate' />
 <?endif?>
       </Feature>
       <Property Id="UILevel"><![CDATA[1]]></Property>

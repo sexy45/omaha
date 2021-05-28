@@ -23,10 +23,10 @@
 
 namespace omaha {
 
-class SetupGoogleUpdate {
+class SetupKDSUpdate {
  public:
-  SetupGoogleUpdate(bool is_machine, bool is_self_update);
-  ~SetupGoogleUpdate();
+  SetupKDSUpdate(bool is_machine, bool is_self_update);
+  ~SetupKDSUpdate();
 
   HRESULT FinishInstall();
 
@@ -47,7 +47,7 @@ class SetupGoogleUpdate {
   // Uninstalls appropriate launch mechanism(s).
   void UninstallLaunchMechanisms();
 
-  // Installs the scheduled task which runs the GoogleUpdate core.
+  // Installs the scheduled task which runs the KDSUpdate core.
   HRESULT InstallScheduledTask();
 
   // Installs the service and scheduled task.
@@ -84,7 +84,7 @@ class SetupGoogleUpdate {
 
   // Uninstall previous versions after an overinstall of the new version. We do
   // the following:
-  //   * Delete all sub-directories under Google\\Update, except the running
+  //   * Delete all sub-directories under KDS\\Update, except the running
   //     version's directory and the cache directory.
   HRESULT UninstallPreviousVersions();
 
@@ -97,10 +97,10 @@ class SetupGoogleUpdate {
   bool have_called_uninstall_previous_versions_;
 #endif
 
-  friend class SetupGoogleUpdateTest;
+  friend class SetupKDSUpdateTest;
   friend class AppManagerTestBase;
 
-  DISALLOW_COPY_AND_ASSIGN(SetupGoogleUpdate);
+  DISALLOW_COPY_AND_ASSIGN(SetupKDSUpdate);
 };
 
 }  // namespace omaha

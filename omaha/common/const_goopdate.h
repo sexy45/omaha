@@ -108,7 +108,7 @@ const TCHAR* const kNeedsAdminYes = _T("&needsadmin=true");
 const TCHAR* const kNeedsAdminPrefers = _T("&needsadmin=prefers");
 
 // Environment variable inherited by an installer child process that indicates
-// whether GoogleUpdate is running as user or machine.
+// whether KDSUpdate is running as user or machine.
 const TCHAR* const kEnvVariableIsMachine = APP_NAME_IDENTIFIER _T("IsMachine");
 const TCHAR* const kEnvVariableUntrustedData = APP_NAME_IDENTIFIER
                                                _T("UntrustedData");
@@ -385,9 +385,9 @@ const TCHAR* const kProgIDUpdate3WebMachineFallback =
 const TCHAR* const kProgIDUpdate3WebSvc =
     APP_NAME_IDENTIFIER _T(".Update3WebSvc");
 
-const TCHAR* const kProgIDGoogleUpdateCoreService =
+const TCHAR* const kProgIDKDSUpdateCoreService =
     APP_NAME_IDENTIFIER _T(".CoreClass");
-const TCHAR* const kProgIDGoogleUpdateCoreMachine =
+const TCHAR* const kProgIDKDSUpdateCoreMachine =
     APP_NAME_IDENTIFIER _T(".CoreMachineClass");
 
 const TCHAR* const kProgIDProcessLauncher =

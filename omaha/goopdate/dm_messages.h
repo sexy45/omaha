@@ -37,7 +37,7 @@ class PolicyFetchResponse;
 namespace omaha {
 
 // The policy type for Omaha policy settings.
-constexpr char kGoogleUpdatePolicyType[] = "google/machine-level-omaha";
+constexpr char kKDSUpdatePolicyType[] = "google/machine-level-omaha";
 
 struct PolicyValueValidationIssue {
   enum class Severity { kWarning, kError };

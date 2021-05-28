@@ -207,13 +207,13 @@ HRESULT CheckForCodeRed(bool is_machine, const CString& omaha_version) {
     return HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY);
   }
 
-  HRESULT hr = FixGoogleUpdate(kGoogleUpdateAppId,
+  HRESULT hr = FixKDSUpdate(kKDSUpdateAppId,
                                omaha_version,
                                _T(""),     // Omaha doesn't have a language.
                                is_machine,
                                &CodeRedDownloadCallback,
                                NULL);
-  CORE_LOG(L2, (_T("[FixGoogleUpdate returned 0x%08x]"), hr));
+  CORE_LOG(L2, (_T("[FixKDSUpdate returned 0x%08x]"), hr));
   return hr;
 }
 

@@ -990,7 +990,7 @@ class GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest
     : public GoopdateUtilsRegistryProtectedTest {
  protected:
   virtual void SetUp() {
-    // The tests start GoogleUpdate processes running as user and these
+    // The tests start KDSUpdate processes running as user and these
     // processes need the following registry value.
     ASSERT_SUCCEEDED(RegKey::SetValue(USER_REG_UPDATE,
                                       kRegValueInstalledVersion,
@@ -1100,106 +1100,106 @@ void ExpectMacMatchViaWMI(const CString& mac_address) {
 
 // pv should be ignored.
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
-       BuildGoogleUpdateExePath_MachineVersionFound) {
+       BuildKDSUpdateExePath_MachineVersionFound) {
   ASSERT_SUCCEEDED(RegKey::SetValue(MACHINE_REG_CLIENTS_GOOPDATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));
 
-  CString path = BuildGoogleUpdateExePath(true);
+  CString path = BuildKDSUpdateExePath(true);
   CString program_files_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &program_files_path));
   EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 }
 
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
-       BuildGoogleUpdateExePath_MachineVersionNotFound) {
+       BuildKDSUpdateExePath_MachineVersionNotFound) {
   // Test when the key doesn't exist.
-  CString path = BuildGoogleUpdateExePath(true);
+  CString path = BuildKDSUpdateExePath(true);
   CString program_files_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &program_files_path));
   EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 
   // Test when the key exists but the value doesn't.
   ASSERT_SUCCEEDED(RegKey::CreateKey(MACHINE_REG_CLIENTS_GOOPDATE));
-  path = BuildGoogleUpdateExePath(true);
+  path = BuildKDSUpdateExePath(true);
   EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 }
 
 // pv should be ignored.
 TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
-       BuildGoogleUpdateExePath_UserVersionFound) {
+       BuildKDSUpdateExePath_UserVersionFound) {
   ASSERT_SUCCEEDED(RegKey::SetValue(USER_REG_CLIENTS_GOOPDATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));
 
-  CString path = BuildGoogleUpdateExePath(false);
+  CString path = BuildKDSUpdateExePath(false);
 
   CString user_appdata;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_LOCAL_APPDATA, &user_appdata));
   CString expected_path;
   expected_path.Format(_T("%s\\") SHORT_COMPANY_NAME _T("\\")
-                       PRODUCT_NAME _T("\\GoogleUpdate.exe"),
+                       PRODUCT_NAME _T("\\KDSUpdate.exe"),
                        user_appdata);
   EXPECT_STREQ(expected_path, path);
 }
 
 TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
-       BuildGoogleUpdateExePath_UserVersionNotFound) {
+       BuildKDSUpdateExePath_UserVersionNotFound) {
   CString user_appdata;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_LOCAL_APPDATA, &user_appdata));
   CString expected_path;
   expected_path.Format(_T("%s\\") SHORT_COMPANY_NAME _T("\\")
-                       PRODUCT_NAME _T("\\GoogleUpdate.exe"),
+                       PRODUCT_NAME _T("\\KDSUpdate.exe"),
                        user_appdata);
 
   // Test when the key doesn't exist.
-  CString path = BuildGoogleUpdateExePath(false);
+  CString path = BuildKDSUpdateExePath(false);
   EXPECT_STREQ(expected_path, path);
 
   // Test when the key exists but the value doesn't.
   ASSERT_SUCCEEDED(RegKey::CreateKey(USER_REG_CLIENTS_GOOPDATE));
-  path = BuildGoogleUpdateExePath(false);
+  path = BuildKDSUpdateExePath(false);
   EXPECT_STREQ(expected_path, path);
 }
 
-// The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether program_files\Google\Update\GoogleUpdate.exe exists.
+// The version is no longer used by StartKDSUpdateWithArgs, so the return
+// value depends on whether program_files\KDS\Update\KDSUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
-       StartGoogleUpdateWithArgs_MachineVersionVersionDoesNotExist) {
+       StartKDSUpdateWithArgs_MachineVersionVersionDoesNotExist) {
   ASSERT_SUCCEEDED(RegKey::SetValue(MACHINE_REG_CLIENTS_GOOPDATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));
   const TCHAR* kArgs = _T("/cr");
   HRESULT hr =
-      StartGoogleUpdateWithArgs(true, StartMode::kForeground, kArgs, NULL);
+      StartKDSUpdateWithArgs(true, StartMode::kForeground, kArgs, NULL);
   EXPECT_TRUE(S_OK == hr || HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) == hr);
-  hr = StartGoogleUpdateWithArgs(true, StartMode::kBackground, kArgs, NULL);
+  hr = StartKDSUpdateWithArgs(true, StartMode::kBackground, kArgs, NULL);
   EXPECT_TRUE(S_OK == hr || HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) == hr);
 }
 
-// The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether <user_folder>\Google\Update\GoogleUpdate.exe exists.
+// The version is no longer used by StartKDSUpdateWithArgs, so the return
+// value depends on whether <user_folder>\KDS\Update\KDSUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 //
-// TODO(omaha): This test is disabled because StartGoogleUpdateWithArgs fails on
+// TODO(omaha): This test is disabled because StartKDSUpdateWithArgs fails on
 // Windows 8.1 with REGDB_E_CLASSNOTREG. Needs further investigation as to why.
 TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
-       DISABLED_StartGoogleUpdateWithArgs_UserVersionVersionDoesNotExist) {
+       DISABLED_StartKDSUpdateWithArgs_UserVersionVersionDoesNotExist) {
   ASSERT_SUCCEEDED(RegKey::SetValue(USER_REG_CLIENTS_GOOPDATE,
                                     _T("pv"),
                                     _T("1.2.3.4")));
   const TCHAR* kArgs = _T("/cr");
   HRESULT hr =
-      StartGoogleUpdateWithArgs(false, StartMode::kForeground, kArgs, NULL);
+      StartKDSUpdateWithArgs(false, StartMode::kForeground, kArgs, NULL);
   EXPECT_TRUE(S_OK == hr || HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) == hr);
-  hr = StartGoogleUpdateWithArgs(false, StartMode::kBackground, kArgs, NULL);
+  hr = StartKDSUpdateWithArgs(false, StartMode::kBackground, kArgs, NULL);
   EXPECT_TRUE(S_OK == hr || HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) == hr);
 }
 
@@ -1212,14 +1212,14 @@ TEST(GoopdateUtilsTest, BuildInstallDirectory_Machine) {
 }
 
 TEST(GoopdateUtilsTest, BuildInstallDirectory_User) {
-  CPath expected_path(GetGoogleUpdateUserPath());
+  CPath expected_path(GetKDSUpdateUserPath());
   expected_path.Append(_T("4.5.6.7"));
   EXPECT_STREQ(expected_path,
                BuildInstallDirectory(false, _T("4.5.6.7")));
 }
 
 TEST(GoopdateUtilsTest, GetInstalledShellVersion_Machine_NoShell) {
-  File::Remove(BuildGoogleUpdateExePath(true));
+  File::Remove(BuildKDSUpdateExePath(true));
   ULONGLONG shell_version = VersionFromString(GetInstalledShellVersion(true));
   EXPECT_EQ(shell_version, 0ULL);
 }
@@ -1228,7 +1228,7 @@ TEST(GoopdateUtilsTest, GetInstalledShellVersion_Machine_ShellExists) {
   CPath shell_path_1_2_183_21(app_util::GetCurrentModuleDirectory());
   shell_path_1_2_183_21.Append(_T("unittest_support\\omaha_1.3.x\\"));
   shell_path_1_2_183_21.Append(kOmahaShellFileName);
-  CPath goopdate_exe(goopdate_utils::BuildGoogleUpdateExePath(true));
+  CPath goopdate_exe(goopdate_utils::BuildKDSUpdateExePath(true));
   EXPECT_SUCCEEDED(File::Copy(shell_path_1_2_183_21,
                               goopdate_exe,
                               true));
@@ -1238,7 +1238,7 @@ TEST(GoopdateUtilsTest, GetInstalledShellVersion_Machine_ShellExists) {
 }
 
 TEST(GoopdateUtilsTest, GetInstalledShellVersion_User_NoShell) {
-  File::Remove(BuildGoogleUpdateExePath(false));
+  File::Remove(BuildKDSUpdateExePath(false));
   ULONGLONG shell_version = VersionFromString(GetInstalledShellVersion(false));
   EXPECT_EQ(shell_version, 0ULL);
 }
@@ -1247,7 +1247,7 @@ TEST(GoopdateUtilsTest, GetInstalledShellVersion_User_ShellExists) {
   CPath shell_path_1_2_183_21(app_util::GetCurrentModuleDirectory());
   shell_path_1_2_183_21.Append(_T("unittest_support\\omaha_1.3.x\\"));
   shell_path_1_2_183_21.Append(kOmahaShellFileName);
-  CPath goopdate_exe(goopdate_utils::BuildGoogleUpdateExePath(false));
+  CPath goopdate_exe(goopdate_utils::BuildKDSUpdateExePath(false));
   EXPECT_SUCCEEDED(File::Copy(shell_path_1_2_183_21,
                               goopdate_exe,
                               true));

@@ -69,11 +69,11 @@ CString GetGoogleUserPath();
 
 // Returns the path to the base Google Update directory for the user on the
 // current OS.
-CString GetGoogleUpdateUserPath();
+CString GetKDSUpdateUserPath();
 
 // Returns the path to the base Google Update directory for the per-machine
 // install on the current OS.
-CString GetGoogleUpdateMachinePath();
+CString GetKDSUpdateMachinePath();
 
 // Returns a DWORD registry value from the registry. Assumes the value exists.
 // Useful for inline comparisons in EXPECT_EQ.
@@ -102,8 +102,8 @@ const TCHAR* const kCsidlProgramFilesRegValue =
 // Overrides the HKLM and HKCU registry hives so that accesses go to the
 // specified registry key instead. The function creates the
 // hive_override_key_name. In other words, overriding HKCU with
-// "HKCU\\Software\\Google\\Update\\UnitTest\\" and accessing HKCU\\Foo results
-// in an access at "HKCU\\Software\\Google\\Update\\UnitTest\\Foo".
+// "HKCU\\Software\\KDS\\Update\\UnitTest\\" and accessing HKCU\\Foo results
+// in an access at "HKCU\\Software\\KDS\\Update\\UnitTest\\Foo".
 // This method is most often used in SetUp().
 void OverrideRegistryHives(const CString& hive_override_key_name);
 
@@ -148,8 +148,8 @@ bool IsBuildSystem();
 // Sets TestSource=buildsystem.
 void SetBuildSystemTestSource();
 
-// Terminates all processes named GoogleUpdate.exe or GoogleCrashHandler.exe.
-void TerminateAllGoogleUpdateProcesses();
+// Terminates all processes named KDSUpdate.exe or KDSCrashHandler.exe.
+void TerminateAllKDSUpdateProcesses();
 
 // Launches a process and returns its handle.
 void LaunchProcess(const CString& exe_path,

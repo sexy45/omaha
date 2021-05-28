@@ -17,7 +17,7 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 // When adding interfaces to this file:
-//  * Do not use "Google" or "GoogleUpdate" directly. Instead, use preprocessor
+//  * Do not use "Google" or "KDSUpdate" directly. Instead, use preprocessor
 //    defines.
 //  * Add a test for the Google-specific value to
 //    omaha_customization_goopdate_apis_unittest.cc.
@@ -1009,7 +1009,7 @@ typedef enum {
   object,
   oleautomation,
   uuid(f34ad5db-3637-4ce3-a02f-829c91ee5bf4),
-  helpstring("GoogleUpdate UI-specific events Interface"),
+  helpstring("KDSUpdate UI-specific events Interface"),
   pointer_default(unique)
 ]
 interface IProgressWndEvents : IUnknown {
@@ -1146,7 +1146,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(f1a7feaa-98ad-4493-90d6-23021738fe7e),
-    helpstring("GoogleUpdate3 Class for per-user applications")
+    helpstring("KDSUpdate3 Class for per-user applications")
   ]
   coclass GoogleUpdate3UserClass {
     [default] interface IDispatch;
@@ -1154,7 +1154,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(cd8b755e-a69a-4e81-a36a-523a6d5cb7f0),
-    helpstring("GoogleUpdate3 Service Class for machine applications")
+    helpstring("KDSUpdate3 Service Class for machine applications")
   ]
   coclass GoogleUpdate3ServiceClass {
     [default] interface IDispatch;
@@ -1162,7 +1162,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(f2a7668d-ceed-487f-9dc3-73e7ea892f0a),
-    helpstring("GoogleUpdate3Web for user applications")
+    helpstring("KDSUpdate3Web for user applications")
   ]
   coclass GoogleUpdate3WebUserClass {
     [default] interface IDispatch;
@@ -1178,7 +1178,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(d77742a4-587e-4890-8c2c-af7cd94ff396),
-    helpstring("GoogleUpdate3Web")
+    helpstring("KDSUpdate3Web")
   ]
   coclass GoogleUpdate3WebServiceClass {
     [default] interface IDispatch;
@@ -1340,7 +1340,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(4c6ef859-61b9-4603-ba27-df8041f8a2dc),
-    helpstring("GoogleUpdateCore Class")
+    helpstring("KDSUpdateCore Class")
   ]
   coclass GoogleUpdateCoreClass
   {
@@ -1349,7 +1349,7 @@ library GoogleUpdate3Lib {
 
   [
     uuid(3b839611-5b50-4910-99cc-c004b7fa8d0b),
-    helpstring("GoogleUpdateCore Machine Class")
+    helpstring("KDSUpdateCore Machine Class")
   ]
   coclass GoogleUpdateCoreMachineClass
   {

@@ -151,7 +151,7 @@ HRESULT AddUninstalledAppsPings(AppBundle* app_bundle) {
     CORE_LOG(L3, (_T("[found uninstalled product][%s]"), app_id));
 
     // Omaha uninstall ping is sent by the Uninstall function in setup.
-    if (app_id == kGoogleUpdateAppId) {
+    if (app_id == kKDSUpdateAppId) {
       CORE_LOG(L3, (_T("[skipping Omaha]")));
       continue;
     }
@@ -248,7 +248,7 @@ Worker::~Worker() {
   CORE_LOG(L1, (_T("[Worker::~Worker]")));
 
   ASSERT1(!lock_count_);
-  // TODO(omaha3): Remove when Run() is used. See TODO in GoogleUpdate::Main().
+  // TODO(omaha3): Remove when Run() is used. See TODO in KDSUpdate::Main().
   Stop();
 
   AppManager::DeleteInstance();
@@ -276,7 +276,7 @@ HRESULT Worker::EnsureSingleInstance() {
   }
 
   NamedObjectAttributes attr;
-  GetNamedObjectAttributes(kGoogleUpdate3SingleInstance, is_machine_, &attr);
+  GetNamedObjectAttributes(kKDSUpdate3SingleInstance, is_machine_, &attr);
 
   single_instance_.reset(new ProgramInstance(attr.name));
   if (!single_instance_.get()) {
@@ -349,7 +349,7 @@ void Worker::Stop() {
   shutdown_handler_.reset();
   reactor_.reset();
 
-  // TODO(omaha3): Remove when Run() is used. See TODO in GoogleUpdate::Main().
+  // TODO(omaha3): Remove when Run() is used. See TODO in KDSUpdate::Main().
   // Until then this call is necessary to wait for threads to complete on
   // destruction.
   // TODO(omaha3): Is it correct that the thread pool does not wait for the
@@ -1105,7 +1105,7 @@ void Worker::WriteEventLog(int event_type,
                            int event_id,
                            const CString& event_description,
                            const CString& event_text) {
-  GoogleUpdateLogEvent log_event(event_type, event_id, is_machine_);
+  KDSUpdateLogEvent log_event(event_type, event_id, is_machine_);
   log_event.set_event_desc(event_description);
   log_event.set_event_text(event_text);
   log_event.WriteEvent();

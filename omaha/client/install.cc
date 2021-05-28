@@ -59,7 +59,7 @@ bool IsElevationRequired(bool is_machine) {
 namespace internal {
 
 // TODO(omaha3): Make this elevate the metainstaller instead of
-// GoogleUpdate.exe so the files are extracted to a secure location.
+// KDSUpdate.exe so the files are extracted to a secure location.
 // May need to add all languages to the metainstaller's version resources so
 // the user sees the localized string in the UAC.
 // TODO(omaha3): We will need to save the metainstaller for OneClick
@@ -471,7 +471,7 @@ HRESULT LaunchHandoffProcess(bool is_machine,
 
   CString cmd_line = builder.GetCommandLineArgs();
 
-  HRESULT hr = goopdate_utils::StartGoogleUpdateWithArgs(is_machine,
+  HRESULT hr = goopdate_utils::StartKDSUpdateWithArgs(is_machine,
                                                          StartMode::kForeground,
                                                          cmd_line,
                                                          process);
@@ -707,7 +707,7 @@ HRESULT Install(bool is_interactive,
   // the version of the installed Omaha before the setup code ran.
   CString current_version;
   app_registry_utils::GetAppVersion(*is_machine,
-                                    kGoogleUpdateAppId,
+                                    kKDSUpdateAppId,
                                     &current_version);
 
   bool has_setup_succeeded  = false;
