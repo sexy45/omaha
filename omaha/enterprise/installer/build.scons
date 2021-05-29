@@ -184,7 +184,7 @@ google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
             metainstaller_path,
             'StubProduct',
             version,
-            '{62BA0B16-6DA4-40F3-AF42-C5BF57999C83}',
+            '{5AE37FA1-853B-4815-97FA-4880A1183533}',
             '',
             'StubProduct',
             ('$MAIN_DIR/enterprise/installer/'
