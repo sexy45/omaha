@@ -2,47 +2,47 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <?define UpdateKeyPath = 'SOFTWARE\$(var.CompanyName)\Update' ?>
 
-  <!-- This fragment assumes machine install (ALLUSER=1). -->
+  <!-- This fragment assumes user install (ALLUSER=0). -->
 
-  <Fragment Id='FragmentGoogleUpdate' >
-    <!-- Detect whether product is already registered with Google Update. -->
+  <Fragment Id='FragmentKDSUpdate' >
+    <!-- Detect whether product is already registered with KDS Update. -->
     <Property Id='PRODUCT_REGISTERED_VERSION'>
       <RegistrySearch Id='$(var.ProductNameLegalIdentifier)RegistrationSearch'
-                      Root='HKLM'
+                      Root='HKCU'
                       Key='$(var.UpdateKeyPath)\Clients\$(var.ProductGuid)'
                       Name='pv' Type='raw' />
     </Property>
 
-    <Binary Id='GoogleUpdateSetup'
-            SourceFile='$(var.GoogleUpdateMetainstallerPath)' />
+    <Binary Id='KDSUpdateSetup'
+            SourceFile='$(var.KDSUpdateMetainstallerPath)' />
 
     <!-- This fragment needs a component that can be referenced.
          Components must be in Directory[Ref] elements and cannot be empty.
          Thus, we have a registry value write that has no effect.
          To avoid multiple Directory elements with the 'ProgramFilesFolder' Id,
          assume that the product MSI has defined a it and reference it here. -->
-    <DirectoryRef Id='ProgramFilesFolder'>
-      <Directory Id='GoogleProgramDir' Name='$(var.CompanyName)'>
+    <DirectoryRef Id='LocalAppDataFolder'>
+      <Directory Id='KDSProgramDir' Name='$(var.CompanyName)'>
         <Directory Id='UpdateDir' Name='Update'>
 
-          <Component Id='ComponentGoogleUpdate'
+          <Component Id='ComponentKDSUpdate'
                      Guid='6B528A57-0CD8-4b26-85F8-1CA05523B8F1'>
             <!-- Clear the last UI string before running the installer so we know
                  that any value present upon rollback is fresh. -->
             <RemoveRegistryValue Key='$(var.UpdateKeyPath)\ClientState\$(var.ProductGuid)'
                                  Name='LastInstallerResultUIString'
-                                 Root='HKLM' />
+                                 Root='HKCU' />
             <RemoveRegistryValue Key='$(var.UpdateKeyPath)'
                                  Name='LastInstallerResultUIString'
-                                 Root='HKLM' />
-            <?ifdef UsingGoogleUpdate_1_2_171_OrLater?>
+                                 Root='HKCU' />
+            <?ifdef UsingKDSUpdate_1_2_171_OrLater?>
             <RegistryValue Id='NonEmptyComponent' Action='write'
-                           Root='HKLM'
+                           Root='HKCU'
                            Key='$(var.UpdateKeyPath)\ClientState\$(var.ProductGuid)'
                            Name='EnterpriseInstall' Type='string' Value='$(var.ProductVersion)' />
             <?else?>
             <RegistryValue Id='NonEmptyComponent' Action='write'
-                           Root='HKLM'
+                           Root='HKCU'
                            Key='$(var.UpdateKeyPath)\ClientState\$(var.ProductGuid)'
                            Name='EnterpriseInstall' Type='integer' Value='1' />
             <?endif?>
@@ -52,21 +52,21 @@
       </Directory>
     </DirectoryRef>
 
-    <CustomAction Id='InstallGoogleUpdateAndRegister'
-      BinaryKey='GoogleUpdateSetup'
+    <CustomAction Id='InstallKDSUpdateAndRegister'
+      BinaryKey='KDSUpdateSetup'
       Impersonate='no'
       Execute='deferred'
-      ExeCommand='/install "runtime=true&amp;needsadmin=True" /installsource enterprisemsi /silent'
+      ExeCommand='/install "runtime=true" /installsource enterprisemsi /silent'
       Return='check' />
 
     <InstallExecuteSequence>
 
-      <Custom Action='InstallGoogleUpdateAndRegister'
+      <Custom Action='InstallKDSUpdateAndRegister'
               Before='InstallFiles'>
-        (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
+        (($ComponentKDSUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
 
-      <!-- Google Update will uninstall itself if the product is the only
+      <!-- KDS Update will uninstall itself if the product is the only
            registered product, so no need to have an uninstall operation.
            Uninstall actions would not run when expected anyway if Omaha updates
            the product using a normal MSI installer (without this fragment).

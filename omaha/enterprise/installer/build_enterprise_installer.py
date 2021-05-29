@@ -39,8 +39,8 @@ def BuildKDSUpdateFragment(env,
                               product_guid,
                               product_custom_params,
                               wixobj_base_name,
-                              google_update_wxs_template_path,
-                              company_name = 'Google'):
+                              kds_update_wxs_template_path,
+                              company_name = 'KDS'):
   """Build an update fragment into a WiX object.
 
   Takes a supplied wix fragment, and turns it into a .wixobj object for later
@@ -55,7 +55,7 @@ def BuildKDSUpdateFragment(env,
         built for
     product_custom_params: custom values to be appended to the Omaha tag
     wixobj_base_name: root of name for the wixobj
-    google_update_wxs_template_path: path to the fragment source
+    kds_update_wxs_template_path: path to the fragment source
 
   Returns:
     Output object for the built wixobj.
@@ -68,11 +68,11 @@ def BuildKDSUpdateFragment(env,
 
   product_name_legal_identifier = product_name.replace(' ', '')
 
-  intermediate_base_name = wixobj_base_name + '_google_update_fragment'
+  intermediate_base_name = wixobj_base_name + '_kds_update_fragment'
 
   copy_target = env.Command(
       target=intermediate_base_name + '.wxs',
-      source=google_update_wxs_template_path,
+      source=kds_update_wxs_template_path,
       action='@copy /y $SOURCE $TARGET',
   )
 
