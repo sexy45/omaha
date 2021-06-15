@@ -55,26 +55,26 @@ namespace omaha {
 // TODO(omaha): We should probably move these to a separate
 // const_com_customization.h in goopdate\.
 TEST(OmahaCustomizationTest, Constants_ComProgIds) {
-  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
-  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassMachine"),
+  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassUser"), kProgIDOnDemandUser);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassMachine"),
                   kProgIDOnDemandMachine);
-  EXPECT_GU_STREQ(_T("KDSUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.OnDemandCOMClassSvc"), kProgIDOnDemandSvc);
 
-  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
-  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebMachine"),
+  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebUser"), kProgIDUpdate3WebUser);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebMachine"),
                   kProgIDUpdate3WebMachine);
-  EXPECT_GU_STREQ(_T("KDSUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.Update3WebSvc"), kProgIDUpdate3WebSvc);
 
-  EXPECT_GU_STREQ(_T("KDSUpdate.CoreClass"), kProgIDKDSUpdateCoreService);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.CoreClass"), kProgIDKDSUpdateCoreService);
 
-  EXPECT_GU_STREQ(_T("KDSUpdate.ProcessLauncher"), kProgIDProcessLauncher);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.ProcessLauncher"), kProgIDProcessLauncher);
 
-  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusUser"), kProgIDPolicyStatusUser);
-  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusMachine"),
+  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusUser"), kProgIDPolicyStatusUser);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusMachine"),
                   kProgIDPolicyStatusMachine);
-  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusMachineFallback"),
+  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusMachineFallback"),
                   kProgIDPolicyStatusMachineFallback);
-  EXPECT_GU_STREQ(_T("KDSUpdate.PolicyStatusSvc"), kProgIDPolicyStatusSvc);
+  EXPECT_GU_STREQ(_T("GoogleUpdate.PolicyStatusSvc"), kProgIDPolicyStatusSvc);
 }
 
 }  // namespace omaha
