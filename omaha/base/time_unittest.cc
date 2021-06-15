@@ -141,7 +141,8 @@ TEST(TimeTest, RFC822TimeParsing) {
   ASSERT_EQ(time.wYear , 2005);
   ASSERT_EQ(time.wMonth , 5);
   ASSERT_EQ(time.wDay , 16);
-  ASSERT_TRUE(time.wHour == 15 || time.wHour == 14);  // daylight saving time
+  //ASSERT_TRUE(time.wHour == 15 || time.wHour == 14);  // daylight saving time
+  ASSERT_TRUE(time.wHour == 18 || time.wHour == 17);  // EST/EDT
   ASSERT_EQ(time.wMinute , 44);
   ASSERT_EQ(time.wSecond , 18);
 
@@ -161,7 +162,8 @@ TEST(TimeTest, RFC822TimeParsing) {
   ASSERT_EQ(time.wYear , 2005);
   ASSERT_EQ(time.wMonth , 5);
   ASSERT_EQ(time.wDay , 16);
-  ASSERT_TRUE(time.wHour == 15 || time.wHour == 14);  // daylight saving time
+  //ASSERT_TRUE(time.wHour == 15 || time.wHour == 14);  // daylight saving time
+  ASSERT_TRUE(time.wHour == 18 || time.wHour == 17);  // EST/EDT
   ASSERT_EQ(time.wMinute , 56);
   ASSERT_EQ(time.wSecond , 18);
 }
