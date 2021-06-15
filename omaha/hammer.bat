@@ -18,6 +18,8 @@ rem -- Set all environment variables used by Hammer and Omaha. --
 :: VS2017/VC14.1 is 1910.
 :: VS2019/VC16.0 is 1920.
 
+echo "%VisualStudioVersion%"
+
 if "%VisualStudioVersion%"=="" goto error_no_vc
 if "%VisualStudioVersion%"=="12.0" goto vc120
 if "%VisualStudioVersion%"=="14.0" goto vc140
@@ -46,7 +48,8 @@ goto set_env_variables
 :: Change these variables to match the local build environment.
 
 :: Directory where the Go programming language toolchain is installed.
-set GOROOT=C:\Go-1.14.6-amd64
+::set GOROOT=C:\Go-1.14.6-amd64
+set GOROOT=C:\Go
 
 :: This directory is needed to find protoc.exe, which is the protocol buffer
 :: compiler. From the release page https://github.com/google/protobuf/releases,
