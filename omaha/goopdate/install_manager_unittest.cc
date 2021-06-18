@@ -157,6 +157,8 @@ class InstallManagerInstallAppTest : public AppTestBase {
   static void TearDownTestCase() {
   }
 
+
+
   virtual void SetUp() {
     AppTestBase::SetUp();
 
@@ -168,6 +170,9 @@ class InstallManagerInstallAppTest : public AppTestBase {
 
     installer_wrapper_.reset(new InstallerWrapper(is_machine_));
     EXPECT_SUCCEEDED(installer_wrapper_->Initialize());
+   
+    const TCHAR kSessionId[] = _T("{00000000-0000-0000-0000-000000000000}"); 
+    app_bundle_->put_sessionId(CComBSTR(kSessionId));
 
     ASSERT_SUCCEEDED(app_bundle_->createApp(CComBSTR(kAppId), &app_));
 
