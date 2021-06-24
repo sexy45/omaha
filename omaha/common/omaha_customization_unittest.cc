@@ -346,12 +346,12 @@ TEST(OmahaCustomizationTest, DISABLED_IsInternalUser) {
 //
 
 TEST(OmahaCustomizationTest, GetGoogleUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\"),
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\"),
                GetGoogleUserPath());
 }
 
 TEST(OmahaCustomizationTest, GetKDSUpdateUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\")
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\")
                                      + PRODUCT_NAME + _T("\\"),
                GetKDSUpdateUserPath());
 }
@@ -361,7 +361,7 @@ TEST(OmahaCustomizationTest, GetKDSUpdateMachinePath) {
   CString expected_machine_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES | CSIDL_FLAG_DONT_VERIFY,
                                  &expected_machine_path));
-  expected_machine_path.Append(_T("\\") SHORT_COMPANY_NAME
+  expected_machine_path.Append(_T("\\") REG_KEY_NAME
                                _T("\\") PRODUCT_NAME);
   EXPECT_STREQ(expected_machine_path, GetKDSUpdateMachinePath());
 }

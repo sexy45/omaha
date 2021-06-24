@@ -64,7 +64,7 @@ CString GetLocalAppDataPath() {
 }
 
 CString GetGoogleUserPath() {
-  return GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\");
+  return GetLocalAppDataPath() + REG_KEY_NAME + _T("\\");
 }
 
 // TODO(omaha): make GetKDSUpdateUserPath and GetKDSUpdateMachinePath
@@ -76,7 +76,7 @@ CString GetKDSUpdateUserPath() {
 CString GetKDSUpdateMachinePath() {
   CString program_files;
   GetFolderPath(CSIDL_PROGRAM_FILES, &program_files);
-  return program_files + _T("\\") + SHORT_COMPANY_NAME
+  return program_files + _T("\\") + REG_KEY_NAME
                         + _T("\\") + PRODUCT_NAME;
 }
 

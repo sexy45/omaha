@@ -614,6 +614,8 @@ HRESULT FixKDSUpdate(const TCHAR* app_guid,
     return E_INVALIDARG;
   }
 
+CORE_LOG(L2,(_T("BINGO 1")));
+
   CPath download_target_path;
   CPath parent_dir;
   HRESULT hr = omaha::GetDownloadTargetPath(&download_target_path,
@@ -621,6 +623,10 @@ HRESULT FixKDSUpdate(const TCHAR* app_guid,
   if (FAILED(hr)) {
     return hr;
   }
+
+CORE_LOG(L2,(_T("BINGO_2")));
+CORE_LOG(L2,(_T("target: %s"),  download_target_path.m_strPath));
+//CORE_LOG(LE, (_T("[AddSwitch failed][%s][0x%x]")                    current_switch_name, hr));
 
   hr = omaha::DownloadRepairFile(download_target_path,
                                  app_guid,
