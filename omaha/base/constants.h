@@ -176,7 +176,7 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 #define INSTALL_WORKING_DIR_NAME  _T("Install")
 
 // Directories relative to \Google
-#define OMAHA_REL_COMPANY_DIR SHORT_COMPANY_NAME
+#define OMAHA_REL_COMPANY_DIR REG_KEY_NAME
 #define OMAHA_REL_CRASH_DIR OMAHA_REL_COMPANY_DIR _T("\\CrashReports")
 #define OMAHA_REL_POLICY_RESPONSES_DIR OMAHA_REL_COMPANY_DIR _T("\\Policies")
 
