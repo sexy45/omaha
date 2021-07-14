@@ -245,7 +245,7 @@ AddOption(
     type='string',
     default=os.environ.get(
         'TIMESTAMP_SERVER',
-        'http://timestamp.verisign.com/scripts/timestamp.dll'
+        'http://timestamp.digicert.com/scripts/timestamp.dll'
     )
 )
 
