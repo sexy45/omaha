@@ -58,7 +58,12 @@ CString BuildMsiCommandLine(const CString& arguments,
                       enclosed_installer_data_file_path);
   }
 
-  SafeCStringAppendFormat(&command_line, _T("%s %s /qn /i \"%s\""),
+  //SafeCStringAppendFormat(&command_line, _T("%s %s /qn /i \"%s\""),
+  //                        arguments,
+  //                        kMsiSuppressAllRebootsCmdLine,
+  //                        msi_file_path);
+
+  SafeCStringAppendFormat(&command_line, _T("%s %s /i \"%s\""),
                           arguments,
                           kMsiSuppressAllRebootsCmdLine,
                           msi_file_path);

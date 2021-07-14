@@ -31,7 +31,7 @@
 
 #include "omaha/enterprise/installer/custom_actions/msi_custom_action.h"
 
-#define SOFTWARE_GOOGLE_UPDATE L"Software\\KDS\\Update"
+#define SOFTWARE_GOOGLE_UPDATE L"Software\\Kings Distrubuted Systems\\Update"
 #define SOFTWARE_GOOGLE_UPDATE_CLIENTSTATE \
     SOFTWARE_GOOGLE_UPDATE L"\\ClientState"
 
