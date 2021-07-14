@@ -96,7 +96,7 @@ const TCHAR kRegistryHiveOverrideRoot[] =
     _T("HKCU\\Software\\Kings Distrubuted Systems\\Update\\UnitTest\\");
 
 //const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
-const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://kds.omaha-consulting.com/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
+const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
 const int kExpectedUrlForDummyAppAndNoOmahaValuesLength =
     arraysize(kExpectedUrlForDummyAppAndNoOmahaValues) - 1;
 
@@ -476,7 +476,7 @@ INSTANTIATE_TEST_CASE_P(IsDomain,
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_AllValues_MachineApp) {
   //const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
-  const TCHAR kExpectedUrlFormat[] = _T("https://kds.omaha-consulting.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=%s&osvers");
+  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=%s&osvers");
 
   EnableUsageStats(true);
   EXPECT_HRESULT_SUCCEEDED(RegKey::SetValue(kFullMachineOmahaClientKeyPath,
@@ -499,7 +499,7 @@ TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_AllValues_UserApp) {
   //const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
-  const TCHAR kExpectedUrlFormat[] = _T("https://kds.omaha-consulting.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=0.0.0.0&userid=%s&osver"); //NOLINT
+  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=0.0.0.0&userid=%s&osver"); //NOLINT
 
   EnableUsageStats(true);
   EXPECT_HRESULT_SUCCEEDED(RegKey::SetValue(kFullUserOmahaClientKeyPath,
@@ -535,8 +535,8 @@ TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_EmptyAppInfo) {
   //const TCHAR kExpectedUrl[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
-  //const TCHAR kExpectedUrl[] = _T("https://kds.omaha-consulting.com/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
-  const TCHAR kExpectedUrl[] = _T("https://kds.omaha-consulting.com/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=10.0&servicepack=");
+  //const TCHAR kExpectedUrl[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
+  const TCHAR kExpectedUrl[] = _T("https://updates.kingsds.networks.network/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=10.0&servicepack=");
 
   EXPECT_EQ(kDummyNoFileError, FixKDSUpdate(_T(""),
                                                _T(""),

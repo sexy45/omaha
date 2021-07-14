@@ -218,14 +218,14 @@ TEST(OmahaCustomizationTest, Constants_BrandCode) {
 TEST(OmahaCustomizationTest, Constants_Addresses) {
   EXPECT_STREQ(_T("www.kingsds.network"), kGoogleHttpServer);
   EXPECT_STREQ(_T("tools.kingsds.network"), kGoopdateServer);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/update2"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"),
                kUrlUpdateCheck);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/update2"), kUrlPing);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/crash_report"), kUrlCrashReport);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"), kUrlPing);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/crash_report"), kUrlCrashReport);
   EXPECT_STREQ(_T("https://kingsds.network/support/installer/?"), kUrlMoreInfo);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/check2?crx3=true"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/check2?crx3=true"),
                kUrlCodeRedCheck);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/tbproxy/usagestats"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/tbproxy/usagestats"),
                kUrlUsageStatsReport);
 }
 
