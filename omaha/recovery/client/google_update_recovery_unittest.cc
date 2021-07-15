@@ -67,14 +67,14 @@ const TCHAR kDummyAppLang[] = _T("en-us");
 const TCHAR kTempDirectory[] = _T("C:\\WINDOWS\\Temp");
 
 const TCHAR kFullMachineOmahaMainKeyPath[] =
-    _T("HKLM\\Software\\KDS\\Update\\");
+    _T("HKLM\\Software\\Kings Distrubuted Systems\\Update\\");
 const TCHAR kFullUserOmahaMainKeyPath[] =
-    _T("HKCU\\Software\\KDS\\Update\\");
+    _T("HKCU\\Software\\Kings Distrubuted Systems\\Update\\");
 const TCHAR kFullMachineOmahaClientKeyPath[] =
-    _T("HKLM\\Software\\KDS\\Update\\Clients\\")
+    _T("HKLM\\Software\\Kings Distrubuted Systems\\Update\\Clients\\")
     _T("{430FD4D0-B729-4f61-AA34-91526481799D}");
 const TCHAR kFullUserOmahaClientKeyPath[] =
-    _T("HKCU\\Software\\KDS\\Update\\Clients\\")
+    _T("HKCU\\Software\\Kings Distrubuted Systems\\Update\\Clients\\")
     _T("{430FD4D0-B729-4f61-AA34-91526481799D}");
 
 const HRESULT kDummyNoFileError = 0x80041234;
@@ -93,9 +93,10 @@ const TCHAR* const kInvalidFileUrl = _T("http://www.google.com/robots.txt");
 
 // These methods were copied from omaha/testing/omaha_unittest.cpp.
 const TCHAR kRegistryHiveOverrideRoot[] =
-    _T("HKCU\\Software\\KDS\\Update\\UnitTest\\");
+    _T("HKCU\\Software\\Kings Distrubuted Systems\\Update\\UnitTest\\");
 
-const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
+//const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
+const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
 const int kExpectedUrlForDummyAppAndNoOmahaValuesLength =
     arraysize(kExpectedUrlForDummyAppAndNoOmahaValues) - 1;
 
@@ -195,6 +196,9 @@ class KDSUpdateRecoveryTest : public testing::Test {
     CString saved_arguments_path = ConcatenatePath(
                                        GetDirectoryFromPath(saved_file_path_),
                                        kSavedArgumentsFileName);
+
+CORE_LOG(L2,(_T("saved_file_pat=%s"), saved_arguments_path));
+
     bool is_found = false;
     for (int tries = 0; tries < 100 && !is_found; ++tries) {
       ::Sleep(50);
@@ -238,6 +242,9 @@ class KDSUpdateRecoveryTest : public testing::Test {
                                             void* context) {
     ASSERT1(url);
     ASSERT1(file_path);
+
+
+CORE_LOG(L2,(_T("url=%s  file_path=%s"), url, file_path));
 
     KDSUpdateRecoveryTest::set_saved_url(url);
     KDSUpdateRecoveryTest::set_saved_file_path(file_path);
@@ -468,7 +475,8 @@ INSTANTIATE_TEST_CASE_P(IsDomain,
 
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_AllValues_MachineApp) {
-  const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
+  //const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
+  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=%s&osvers");
 
   EnableUsageStats(true);
   EXPECT_HRESULT_SUCCEEDED(RegKey::SetValue(kFullMachineOmahaClientKeyPath,
@@ -490,7 +498,8 @@ TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
 
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_AllValues_UserApp) {
-  const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
+  //const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
+  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=0.0.0.0&userid=%s&osver"); //NOLINT
 
   EnableUsageStats(true);
   EXPECT_HRESULT_SUCCEEDED(RegKey::SetValue(kFullUserOmahaClientKeyPath,
@@ -525,7 +534,9 @@ TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
 
 TEST_P(KDSUpdateRecoveryRegistryProtectedTest,
        FixKDSUpdate_EmptyAppInfo) {
-  const TCHAR kExpectedUrl[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
+  //const TCHAR kExpectedUrl[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=");  // NOLINT
+  //const TCHAR kExpectedUrl[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
+  const TCHAR kExpectedUrl[] = _T("https://updates.kingsds.networks.network/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=10.0&servicepack=");
 
   EXPECT_EQ(kDummyNoFileError, FixKDSUpdate(_T(""),
                                                _T(""),

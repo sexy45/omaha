@@ -218,14 +218,14 @@ TEST(OmahaCustomizationTest, Constants_BrandCode) {
 TEST(OmahaCustomizationTest, Constants_Addresses) {
   EXPECT_STREQ(_T("www.kingsds.network"), kGoogleHttpServer);
   EXPECT_STREQ(_T("tools.kingsds.network"), kGoopdateServer);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/update2"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"),
                kUrlUpdateCheck);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/update2"), kUrlPing);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/crash_report"), kUrlCrashReport);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"), kUrlPing);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/crash_report"), kUrlCrashReport);
   EXPECT_STREQ(_T("https://kingsds.network/support/installer/?"), kUrlMoreInfo);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/service/check2?crx3=true"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/check2?crx3=true"),
                kUrlCodeRedCheck);
-  EXPECT_STREQ(_T("https://kds.omaha-consulting.com/tbproxy/usagestats"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/tbproxy/usagestats"),
                kUrlUsageStatsReport);
 }
 
@@ -346,12 +346,12 @@ TEST(OmahaCustomizationTest, DISABLED_IsInternalUser) {
 //
 
 TEST(OmahaCustomizationTest, GetGoogleUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\"),
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\"),
                GetGoogleUserPath());
 }
 
 TEST(OmahaCustomizationTest, GetKDSUpdateUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\")
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\")
                                      + PRODUCT_NAME + _T("\\"),
                GetKDSUpdateUserPath());
 }
@@ -361,7 +361,7 @@ TEST(OmahaCustomizationTest, GetKDSUpdateMachinePath) {
   CString expected_machine_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES | CSIDL_FLAG_DONT_VERIFY,
                                  &expected_machine_path));
-  expected_machine_path.Append(_T("\\") SHORT_COMPANY_NAME
+  expected_machine_path.Append(_T("\\") REG_KEY_NAME
                                _T("\\") PRODUCT_NAME);
   EXPECT_STREQ(expected_machine_path, GetKDSUpdateMachinePath());
 }

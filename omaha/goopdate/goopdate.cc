@@ -395,10 +395,10 @@ GoopdateImpl::~GoopdateImpl() {
   // Bug 994348 does not repro anymore.
   // If the assert fires, clean up the key, and fix the code if we have unit
   // tests or application code that create the key.
-  ASSERT(!RegKey::HasKey(_T("HKEY_USERS\\.DEFAULT\\Software\\KDS\\Update")),
+  ASSERT(!RegKey::HasKey(_T("HKEY_USERS\\.DEFAULT\\Software\\Kings Distrubuted Systems\\Update")),
          (_T("This assert has fired because it has found the registry key at ")
-          _T("'HKEY_USERS\\.DEFAULT\\Software\\KDS\\Update'. ")
-          _T("Please delete the key and report to omaha-core team if ")
+          _T("'HKEY_USERS\\.DEFAULT\\Software\\Kings Distrubuted Systems\\Update'. ")
+          _T("Please delete the key and report to Kings Distrubuted Systems team if ")
           _T("the assert fires again.")));
 
   // The global metrics collection must be uninitialized before the metrics

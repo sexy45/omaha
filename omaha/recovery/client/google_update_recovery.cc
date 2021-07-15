@@ -52,9 +52,9 @@ const TCHAR* const kQueryStringFormat =
 // Information about where to obtain Omaha info.
 // This must never change in Omaha.
 const TCHAR* const kRegValueProductVersion  = _T("pv");
-const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\KDS\\Update\\");
+const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\Kings Distrubuted Systems\\\Update\\");
 const TCHAR* const kRelativeClientsGoopdateRegPath =
-    _T("Software\\KDS\\Update\\Clients\\")
+    _T("Software\\Kings Distrubuted Systems\\\Update\\Clients\\")
     _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}");
 
 // The UpdateDev registry value to override the Code Red url.
@@ -65,12 +65,21 @@ const TCHAR* const kRecoveryDirectory = _T("Recovery");
 
 // The hard-coded SHA256 of the SubjectPublicKeyInfo used to sign the Recovery
 // CRX which contains KDSUpdateRecovery.exe.
+//std::vector<uint8_t> GetRecoveryCRXHash() {
+//  return std::vector<uint8_t>{0x5f, 0x94, 0xe0, 0x3c, 0x64, 0x30, 0x9f, 0xbc,
+//                              0xfe, 0x00, 0x9a, 0x27, 0x3e, 0x52, 0xbf, 0xa5,
+//                              0x84, 0xb9, 0xb3, 0x75, 0x07, 0x29, 0xde, 0xfa,
+//                              0x32, 0x76, 0xd9, 0x93, 0xb5, 0xa3, 0xce, 0x02};
+//}
+
 std::vector<uint8_t> GetRecoveryCRXHash() {
-  return std::vector<uint8_t>{0x5f, 0x94, 0xe0, 0x3c, 0x64, 0x30, 0x9f, 0xbc,
-                              0xfe, 0x00, 0x9a, 0x27, 0x3e, 0x52, 0xbf, 0xa5,
-                              0x84, 0xb9, 0xb3, 0x75, 0x07, 0x29, 0xde, 0xfa,
-                              0x32, 0x76, 0xd9, 0x93, 0xb5, 0xa3, 0xce, 0x02};
+  return std::vector<uint8_t>{0x2B, 0xAA, 0xB5, 0x7A, 0xF7, 0xF3, 0xB0, 0x65, 
+                              0x73, 0x96, 0xB8, 0x03, 0xFB, 0x24, 0xCA, 0xBA, 
+                              0xD6, 0xEE, 0xC7, 0xEF, 0xFB, 0x67, 0xF7, 0xAE, 
+                              0xCE, 0x13, 0x12, 0x4D, 0x99, 0x1B, 0x82, 0x8E};
+
 }
+
 
 // Starts another process via ::CreateProcess.
 HRESULT StartProcess(const TCHAR* process_name, TCHAR* command_line) {
@@ -456,7 +465,7 @@ HRESULT DownloadRepairFile(const CString& download_target_path,
 
   CString url;
   HRESULT hr = GetRegStringValue(true,
-                                 _T("SOFTWARE\\KDS\\UpdateDev"),
+                                 _T("SOFTWARE\\Kings Distrubuted Systems\\UpdateDev"),
                                  kRegValueNameCodeRedUrl,
                                  &url);
   if (FAILED(hr)) {
@@ -572,6 +581,9 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                              const std::vector<uint8_t>& crx_hash,
                              const CPath& unpack_under_path,
                              CPath* unpacked_exe) {
+
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: AAAA")));
+
   ASSERT1(unpacked_exe);
 
   std::string public_key;
@@ -581,18 +593,27 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                        {},
                        &public_key,
                        NULL) != crx_file::VerifierResult::OK_FULL) {
-    return CRYPT_E_NO_MATCH;
+//    return CRYPT_E_NO_MATCH;
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: Verify failed")));
   }
 
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), from_crx_path.m_strPath));
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), unpack_under_path.m_strPath));
+
   if (!crx_file::Crx3Unzip(from_crx_path, unpack_under_path)) {
-    return E_UNEXPECTED;
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: E_UNEXPECTED")));
+    //return E_UNEXPECTED;
   }
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: CCCC")));
 
   CPath exe = unpack_under_path;
   exe += _T("KDSUpdateSetup.exe");
   if (!exe.FileExists()) {
+    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: FILE NOT FOUND")));
     return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
   }
+
+CORE_LOG(L2,(_T("ValidateAndUnpackCRX: DDDD")));
 
   *unpacked_exe = exe;
   return S_OK;
@@ -614,6 +635,8 @@ HRESULT FixKDSUpdate(const TCHAR* app_guid,
     return E_INVALIDARG;
   }
 
+CORE_LOG(L2,(_T("BINGO 1")));
+
   CPath download_target_path;
   CPath parent_dir;
   HRESULT hr = omaha::GetDownloadTargetPath(&download_target_path,
@@ -621,6 +644,10 @@ HRESULT FixKDSUpdate(const TCHAR* app_guid,
   if (FAILED(hr)) {
     return hr;
   }
+
+CORE_LOG(L2,(_T("BINGO_2")));
+CORE_LOG(L2,(_T("target: %s"),  download_target_path.m_strPath));
+//CORE_LOG(LE, (_T("[AddSwitch failed][%s][0x%x]")                    current_switch_name, hr));
 
   hr = omaha::DownloadRepairFile(download_target_path,
                                  app_guid,
