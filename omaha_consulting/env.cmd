@@ -12,5 +12,5 @@ set SHA2_TIMESTAMP_SERVER=http://timestamp.digicert.com
 
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
 
-call %~dp0\python\Scripts\activate.bat
+rem call %~dp0\python\Scripts\activate.bat
 rem call C:\Python27\python\Scripts\activate.bat

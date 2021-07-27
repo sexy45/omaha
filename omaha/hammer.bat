@@ -2,7 +2,8 @@
 
 :: Hammer does not need this variable but the unit
 :: tests do.
-set OMAHA_PSEXEC_DIR=%ProgramFiles(x86)%\pstools
+::set OMAHA_PSEXEC_DIR=%ProgramFiles(x86)%\pstools
+set OMAHA_PSEXEC_DIR=c:\pstools
 
 setlocal
 
@@ -64,7 +65,8 @@ set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
 set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\src
 
 :: Directory where Python (python.exe) is installed.
-set OMAHA_PYTHON_DIR=%~dp0\..\omaha_consulting\python\Scripts
+::set OMAHA_PYTHON_DIR=%~dp0\..\omaha_consulting\python\Scripts
+set OMAHA_PYTHON_DIR=C:\Python27
 
 :: Directory in WiX where candle.exe and light.exe are installed.
 set OMAHA_WIX_DIR=%WIX%\bin
@@ -80,7 +82,8 @@ set OMAHA_SIGNTOOL_SDK_DIR="%WindowsSdkVerBinPath%\x86"
 set PYTHONPATH=%OMAHA_PYTHON_DIR%
 
 :: Directory of Scons (http://www.scons.org/).
-set SCONS_DIR=%~dp0\..\omaha_consulting\python\scons-1.3.1
+::set SCONS_DIR=%~dp0\..\omaha_consulting\python\scons-1.3.1
+set SCONS_DIR=c:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
 set SCT_DIR=%~dp0\..\omaha_consulting\swtoolkit-0.9.1
