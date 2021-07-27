@@ -1,3 +1,9 @@
+# KDS Update
+
+KDS Update is a branded fork of Omaha, an open-source vesion of Google Update.  The build instructions are targeted at creating a build machine. 
+
+[KDS Update Build Instructions](./KDS-BuildScripts/README.md)
+
 # Omaha
 
 ## This is not an official Google product.
@@ -7,3 +13,6 @@ Omaha is the open-source version of Google Update, a program to install requeste
 For a quick overview of how Omaha works, you can see [this unofficial tutorial](https://fman.io/blog/google-omaha-tutorial/). Please note that it was written by a third party so we cannot guarantee its availability, accuracy or safety.
 
 We know that keeping software updated is both important and hard, and so by open-sourcing this project, our hope is that perhaps we can help others solve this problem. So, if you'd like to get involved, or even use Omaha to support your own software projects, then just follow the instructions in the [Developer Setup Guide](omaha_consulting/DeveloperSetupGuide.md), and you'll be good to go!
+
+
+
