@@ -80,8 +80,9 @@ Download Url: [https://go.microsoft.com/fwlink/?linkid=2083338](https://go.micro
 .Net 3.5 is required by Wix.
 
 No script, just execute following powershell command.
-
+```
 Enable-WindowsOptionalFeature -Online -FeatureName &quot;NetFx3&quot; -All
+```
 
 ### **Wix 3.11**
 Script: [wix.ps1](.\BuildScripts\wix.ps1)   
@@ -128,7 +129,7 @@ Script: [build-links.ps1](.\BuildScripts\build-links.ps1)
 A single script to install all the build tools. Will also add the symbolic links to the source code.  
 Assumes the source repository has already been pulled.
 
-Script: install-all-buildtools.ps1](.\BuildScripts\.ps1) 
+Script: [install-all-buildtools.ps1](.\BuildScripts\install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
 - Use command window.
