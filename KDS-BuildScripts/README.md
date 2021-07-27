@@ -110,9 +110,8 @@ Destination: c:\go
 Download Url: [https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi](https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi)
 
 ### **PSTools**
-Script [pstools.ps1](.\BuildScripts\pstools.ps1) 
-Destination: c:\ptools
-
+Script [pstools.ps1](.\BuildScripts\pstools.ps1)  
+Destination: c:\ptools  
 Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://download.sysinternals.com/files/PSTools.zip)
 
 ### **System Environment Path and Variables**
