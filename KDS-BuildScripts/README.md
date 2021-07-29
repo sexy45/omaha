@@ -35,7 +35,7 @@ set-executionpolicy remotesigned
 Need to install git to download the scripts, or directly access them from GitLab.
 
 Script: [git-install.ps1](.\BuildScripts\git-install.ps1)   
-Gitlab Url: FIXME  
+Gitlab Url: [https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1](https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1)  
 Source Url: [https://github.com/tomlarse/Install-Git](https://github.com/tomlarse/Install-Git)  
 Destination: c:\Program Files\Git  
 
