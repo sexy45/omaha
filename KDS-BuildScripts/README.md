@@ -7,6 +7,8 @@ The scripts associated with these instructions will download the necessary packa
 [Developer Setup Guilde](..\doc\DeveloperSetupGuide.md)  
 [Omaha Consulting Setup Guilde](..\omaha_consulting\DeveloperSetupGuide.md)
 
+[Quick Instructions](#quick-instructions)
+
 
 ## **Required build tools:**
 - Visual Studio 2019
@@ -144,3 +146,11 @@ hammer --all
 ```
 
 
+# Quick Instructions
+Starting with newly commissioned Windows machine ...
+* Install git.
+* Setup SSH and register public SSH key with GitLab.
+* Clone repository.
+* Set PowerShell to execute unsigned remote scripts.
+* Run PowerShell script _install-all-buildtools.ps1_
+* Build with _hammer_ tool.
