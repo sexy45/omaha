@@ -122,18 +122,18 @@ Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://down
 ### **System Environment Path and Variables**
 The system path has to be augmented to include python, and an Omaha specific environment variable for the python directory needs to be made pervasive.
 
-Script: [environment.ps1](.\KDS-BuildScripts\environment.ps1)
+Script: [environment.ps1](./KDS-BuildScripts/environment.ps1)
 
 ### **Source Symbolic Links**
 Add symbolic links to the repository linking the third-party libraries with the correct location in the Omaha directory structure.
 
-Script: [build-links.ps1](.\KDS-BuildScripts\build-links.ps1) 
+Script: [build-links.ps1](./KDS-BuildScripts/build-links.ps1) 
 
 ### **Single Install All Script**
 A single script to install all the build tools. Will also add the symbolic links to the source code.  
 Assumes the source repository has already been pulled.
 
-Script: [install-all-buildtools.ps1](.\KDS-BuildScripts\install-all-buildtools.ps1) 
+Script: [install-all-buildtools.ps1](./KDS-BuildScripts/install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
 - Use command window.
