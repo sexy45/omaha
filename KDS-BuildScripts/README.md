@@ -4,11 +4,14 @@ These instructions complement the original developer notes.  They are targeted a
 
 The scripts associated with these instructions will download the necessary packages from the internet and install them.
 
-[Developer Setup Guilde](..\doc\DeveloperSetupGuide.md)  
-[Omaha Consulting Setup Guilde](..\omaha_consulting\DeveloperSetupGuide.md)
+Auxilary Documents
+* [Developer Setup Guide](..\doc\DeveloperSetupGuide.md)  
+* [Omaha Consulting Setup Guide](..\omaha_consulting\DeveloperSetupGuide.md)
 
-[Quick Instructions](#quick-instructions)
-
+Suplimentary Sections
+* [Quick Instructions](#quick-instructions)  
+* [Signing](#signing)  
+* [Meta Installer: KDSWorkerSetup.exe](#meta-installer)
 
 ## **Required build tools:**
 - Visual Studio 2019
@@ -154,3 +157,46 @@ Starting with newly commissioned Windows machine ...
 * Set PowerShell to execute unsigned remote scripts.
 * Run PowerShell script _install-all-buildtools.ps1_
 * Build with _hammer_ tool.
+
+
+# Signing
+
+Supply the following parameters to the _hammer_ command when building the _release (opt-win)_ version.  
+```
+--authenticode_file=<path\to\pfx>  
+--authenticode_password=<...> 
+--sha1_authenticode_file=<path\to\pfx>  
+--sha2_authenticode_file=<...> 
+--sha1_authenticode_password=<...> 
+--sha2_authenticode_password=<...>
+```
+
+#### Build Signed Release
+```
+cd c:\kds-update\omaha\omaha 
+hammer MODE=opt-win --authenticode_file=<path\to\pfx> --authenticode_password=<...> --sha1_authenticode_file=<path\to\pfx> --sha2_authenticode_file=<...> --sha1_authenticode_password=<...> --sha2_authenticode_password=<...>
+```
+
+# Meta Installer
+
+The meta installer is a small distrubutable program that downloads and installs from the KDS Omaha server the update programs, and the latest version of DCP Worker.
+
+Target:  **KDSUpdateSetup.exe**  
+DCP Worker App Guid:  {EF1FFA8B-49A9-475D-9698-DC379FF1257C}
+
+
+#### Release Version
+``` 
+cd c:\kds-update\omaha\omaha
+scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
+
+```
+
+Debug Version
+```
+cd c:\kds-update\omaha\omaha  
+scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
+```
+
+[Tagged Meta Installer Guide](..\doc\TaggedMetainstaller.md)  
+
