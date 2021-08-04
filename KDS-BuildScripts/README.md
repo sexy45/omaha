@@ -198,5 +198,5 @@ cd c:\kds-update\omaha\omaha
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
 ```
 
-[Tagged Meta Installer Guide](../doc/TaggedMetainstaller.md)  
+[Tagged Meta Installer Guide](../doc/TaggedMetainstallers.md)  
 
