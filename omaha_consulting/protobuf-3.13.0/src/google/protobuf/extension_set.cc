@@ -1895,8 +1895,10 @@ void ExtensionSet::GrowCapacity(size_t minimum_new_capacity) {
   }
 }
 
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // static
 constexpr uint16 ExtensionSet::kMaximumFlatCapacity;
+#endif //  (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 void ExtensionSet::Erase(int key) {
   if (PROTOBUF_PREDICT_FALSE(is_large())) {
