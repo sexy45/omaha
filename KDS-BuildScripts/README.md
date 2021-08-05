@@ -62,9 +62,6 @@ git clone --branch development git@gitlab.com:Distributed-Compute-Protocol/eliot
 
 ### **Visual Studio 2019**
 
-*Important: Need to use version 16.9.1.*
-
-Version 16.10.1 does not work (July/2021).  
 Only need to install native desktop workload, with all recommenced components (Microsoft.VisualStudio.Workload.NativeDesktop).
 
 Comes as a 90 free trail with no license key. The command line setup can be adjusted to accommodate a license key.
