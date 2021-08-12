@@ -189,6 +189,6 @@ kds_update_wixobj = build_enterprise_installer.BuildKDSUpdateFragment(
             'StubProduct',
             ('$MAIN_DIR/enterprise/installer/'
                 'kds_update_machine_installer_fragment.wxs.xml'),
-            company_name = 'KDS'
+            company_name = 'Kings Distributed Systems'
 )
 print("KDS update WiX fragment location: {}".format(kds_update_wixobj))
