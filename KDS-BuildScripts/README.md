@@ -62,9 +62,6 @@ git clone --branch development git@gitlab.com:Distributed-Compute-Protocol/eliot
 
 ### **Visual Studio 2019**
 
-*Important: Need to use version 16.9.1.*
-
-Version 16.10.1 does not work (July/2021).  
 Only need to install native desktop workload, with all recommenced components (Microsoft.VisualStudio.Workload.NativeDesktop).
 
 Comes as a 90 free trail with no license key. The command line setup can be adjusted to accommodate a license key.
@@ -116,7 +113,7 @@ Download Url: [https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi]
 
 ### **PSTools**
 Script [pstools.ps1](./KDS-BuildScripts/pstools.ps1)  
-Destination: c:\ptools  
+Destination: c:\pstools  
 Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://download.sysinternals.com/files/PSTools.zip)
 
 ### **System Environment Path and Variables**
@@ -136,13 +133,13 @@ Assumes the source repository has already been pulled.
 Script: [install-all-buildtools.ps1](./KDS-BuildScripts/install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
-- Use command window.
+- Open the Visual Studio "x64_x86 Cross Tools Command Prompt for VS 2019" command window as administrator.
 - Apply Omaha environment variables.
 - Build with &quot;hammer&quot;.
 - [Hammer Options](../doc/HammerOptions.md)
 
 ```
-cd c:\kds-update\omaha
+cd c:\kds-update
 omaha_consulting\env.cmd
 cd omaha
 hammer --all
@@ -173,7 +170,7 @@ Supply the following parameters to the _hammer_ command when building the _relea
 
 #### Build Signed Release
 ```
-cd c:\kds-update\omaha\omaha 
+cd c:\kds-update\omaha 
 hammer MODE=opt-win --authenticode_file=<path\to\pfx> --authenticode_password=<...> --sha1_authenticode_file=<path\to\pfx> --sha2_authenticode_file=<...> --sha1_authenticode_password=<...> --sha2_authenticode_password=<...>
 ```
 
@@ -187,14 +184,14 @@ DCP Worker App Guid:  {EF1FFA8B-49A9-475D-9698-DC379FF1257C}
 
 #### Release Version
 ``` 
-cd c:\kds-update\omaha\omaha
+cd c:\kds-update\omaha
 scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
 
 ```
 
 Debug Version
 ```
-cd c:\kds-update\omaha\omaha  
+cd c:\kds-update\omaha 
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
 ```
 
