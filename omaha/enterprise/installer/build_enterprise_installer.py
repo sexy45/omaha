@@ -40,7 +40,8 @@ def BuildKDSUpdateFragment(env,
                               product_custom_params,
                               wixobj_base_name,
                               kds_update_wxs_template_path,
-                              company_name = 'KDS'):
+                              company_name = 'KDS'
+                  ):
   """Build an update fragment into a WiX object.
 
   Takes a supplied wix fragment, and turns it into a .wixobj object for later
