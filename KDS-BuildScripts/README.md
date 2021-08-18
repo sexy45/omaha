@@ -188,7 +188,6 @@ DCP Worker App Guid:  {EF1FFA8B-49A9-475D-9698-DC379FF1257C}
 ``` 
 cd c:\kds-update\omaha
 scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe DCPWorkerSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP%20Worker&needsadmin=True&usagestats=1&lang=en"
-
 ```
 
 #### Debug Version
