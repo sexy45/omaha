@@ -182,11 +182,11 @@ version = '0.0.1.0'
 kds_update_wixobj = build_enterprise_installer.BuildKDSUpdateFragment(
             env,
             metainstaller_path,
-            'StubProduct',
+            'DCP Worker',
             version,
-            '{5AE37FA1-853B-4815-97FA-4880A1183533}',
+            '{EF1FFA8B-49A9-475D-9698-DC379FF1257C}',
             '',
-            'StubProduct',
+            'DCP Worker',
             ('$MAIN_DIR/enterprise/installer/'
                 'kds_update_machine_installer_fragment.wxs.xml'),
             company_name = 'KDS'
