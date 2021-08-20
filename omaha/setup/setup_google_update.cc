@@ -58,9 +58,9 @@ HRESULT VerifyCOMLocalServerRegistration(bool is_machine) {
 #if 0
   // Validate the following:
   // * LocalServer32 under CLSID_OnDemandMachineAppsClass or
-  //   CLSID_OnDemandUserAppsClass should be ...Google\Update\GoogleUpdate.exe.
+  //   CLSID_OnDemandUserAppsClass should be ...KDS\Update\KDSUpdate.exe.
   // * InProcServer32 under CLSID of IID_IGoogleUpdate should be
-  //   ...Google\Update\{version}\goopdate.dll.
+  //   ...KDS\Update\{version}\goopdate.dll.
   // * ProxyStubClsid32 under IGoogleUpdate interface should be the CLSID of the
   //   proxy, which is IID_IGoogleUpdate.
 
@@ -278,7 +278,7 @@ HRESULT SetupGoogleUpdate::InstallRegistryValues() {
 
   // Set the version so the constant shell will know which version to use.
   // TODO(omaha3): This should be the atomic switch of the version, but it must
-  // be called before registering the COM servers because GoogleUpdate.exe needs
+  // be called before registering the COM servers because KDSUpdate.exe needs
   // the pv to find goopdate.dll. We may need to support rolling this back.
   hr = RegKey::SetValue(omaha_clients_key_path,
                         kRegValueProductVersion,
@@ -564,7 +564,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
     return E_UNEXPECTED;
   }
 
-  // In the Google\\Update directory, run over all files and directories.
+  // In the KDS\\Update directory, run over all files and directories.
   WIN32_FIND_DATA file_data = {0};
   CPath find_files(install_path);
   VERIFY1(find_files.Append(_T("*.*")));
@@ -602,7 +602,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
                _tcsicmp(file_data.cFileName, install_dir) &&
                !(file_data.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)) {
       // Unregister the previous version OneClick if it exists. Ignore
-      // failures. The file is named npGoogleOneClick*.dll.
+      // failures. The file is named npKDSOneClick*.dll.
       CPath old_oneclick(file_or_directory);
       VERIFY1(old_oneclick.Append(ONECLICK_PLUGIN_NAME _T("*.dll")));
       WIN32_FIND_DATA old_oneclick_file_data = {};
@@ -615,7 +615,7 @@ HRESULT SetupGoogleUpdate::UninstallPreviousVersions() {
       }
 
       // Unregister the previous version of the plugin if it exists. Ignore
-      // failures. The file is named npGoogleUpdate*.dll.
+      // failures. The file is named npKDSUpdate*.dll.
       CPath old_plugin(file_or_directory);
       VERIFY1(old_plugin.Append(UPDATE_PLUGIN_NAME _T("*.dll")));
       WIN32_FIND_DATA old_plugin_file_data = {};

@@ -161,7 +161,7 @@ class MetaInstaller {
   }
 
   ~MetaInstaller() {
-    // When a crash happens while running GoogleUpdate and breakpad gets it
+    // When a crash happens while running KDSUpdate and breakpad gets it
     // GooogleUpdate.exe is started with the /report to report the crash.
     // In a crash, the temp directory and the contained files can't be deleted.
     if (exit_code_ != GOOPDATE_E_CRASH) {
@@ -350,7 +350,7 @@ class MetaInstaller {
     }
 
     CPath google_update_temp_dir(program_files_dir);
-    google_update_temp_dir.Append(kShortCompanyName);
+    google_update_temp_dir.Append(kFullCompanyName);
     if (!::CreateDirectory(google_update_temp_dir, NULL) &&
         ::GetLastError() != ERROR_ALREADY_EXISTS) {
       return false;

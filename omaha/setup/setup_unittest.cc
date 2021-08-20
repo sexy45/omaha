@@ -49,23 +49,23 @@ const int kProcessesCleanupWait = 30000;
 const TCHAR* const kFutureVersionString = _T("9.8.7.6");
 
 const TCHAR* const kAppMachineClientsPath =
-    _T("HKLM\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKLM\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\Clients\\{50DA5C89-FF97-4536-BF3F-DF54C2F02EA8}\\");
 const TCHAR* const kAppMachineClientStatePath =
-    _T("HKLM\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKLM\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\ClientState\\{50DA5C89-FF97-4536-BF3F-DF54C2F02EA8}\\");
 const TCHAR* const kApp2MachineClientsPath =
-    _T("HKLM\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKLM\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\Clients\\{CB8E8A3C-7295-4529-B083-D5F76DCD4CC2}\\");
 
 const TCHAR* const kAppUserClientsPath =
-    _T("HKCU\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKCU\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\Clients\\{50DA5C89-FF97-4536-BF3F-DF54C2F02EA8}\\");
 const TCHAR* const kAppUserClientStatePath =
-    _T("HKCU\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKCU\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\ClientState\\{50DA5C89-FF97-4536-BF3F-DF54C2F02EA8}\\");
 const TCHAR* const kApp2UserClientsPath =
-    _T("HKCU\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+    _T("HKCU\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
     _T("\\Clients\\{CB8E8A3C-7295-4529-B083-D5F76DCD4CC2}\\");
 
 
@@ -115,7 +115,7 @@ class SetupTest : public testing::Test {
  protected:
   typedef std::vector<uint32> Pids;
 
-  // Returns the path to the long-running GoogleUpdate.exe.
+  // Returns the path to the long-running KDSUpdate.exe.
   static CString CopyGoopdateAndLongRunningFiles(const CString& omaha_path,
                                                  const CString& version) {
     CopyGoopdateFiles(omaha_path, version);
@@ -154,7 +154,7 @@ class SetupTest : public testing::Test {
         not_listening_exe_opposite_path_(!is_machine ?
                                          not_listening_machine_exe_path_ :
                                          not_listening_user_exe_path_) {
-    omaha_exe_path_ = ConcatenatePath(omaha_path_, _T("GoogleUpdate.exe"));
+    omaha_exe_path_ = ConcatenatePath(omaha_path_, _T("KDSUpdate.exe"));
   }
 
   virtual void SetUp() {
@@ -247,7 +247,7 @@ class SetupTest : public testing::Test {
     EXPECT_EQ(WAIT_TIMEOUT, ::WaitForSingleObject(get(install_process), 0));
 
     if (vista_util::IsUserAdmin()) {
-      // GoogleUpdate running from the opposite directory should always be
+      // KDSUpdate running from the opposite directory should always be
       // ignored. Using a command line that would not be ignored if it were not
       // an opposite.
       LaunchProcess(not_listening_exe_opposite_path_,
@@ -459,7 +459,7 @@ class SetupTest : public testing::Test {
                                                      0));
   }
 
-  // Launches an instance of GoogleUpdate.exe that doesn't exit.
+  // Launches an instance of KDSUpdate.exe that doesn't exit.
   void StopGoogleUpdateAndWaitProcessesDoNotStopTest() {
     LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
         is_machine_,
@@ -1096,7 +1096,7 @@ TEST_F(SetupRegistryProtectedMachineTest, SetRuntimeMode) {
 // StopGoogleUpdateAndWait tests.
 //
 // These are "large" tests.
-// They kill currently running GoogleUpdate processes, including the core, owned
+// They kill currently running KDSUpdate processes, including the core, owned
 // by the current user or SYSTEM.
 // A core may already be running, so if a core process is found, it is used for
 // the tests. Otherwise, they launch a core from a previous build.

@@ -47,7 +47,7 @@ class SetupGoogleUpdate {
   // Uninstalls appropriate launch mechanism(s).
   void UninstallLaunchMechanisms();
 
-  // Installs the scheduled task which runs the GoogleUpdate core.
+  // Installs the scheduled task which runs the KDSUpdate core.
   HRESULT InstallScheduledTask();
 
   // Installs the service and scheduled task.
@@ -84,7 +84,7 @@ class SetupGoogleUpdate {
 
   // Uninstall previous versions after an overinstall of the new version. We do
   // the following:
-  //   * Delete all sub-directories under Google\\Update, except the running
+  //   * Delete all sub-directories under KDS\\Update, except the running
   //     version's directory and the cache directory.
   HRESULT UninstallPreviousVersions();
 
@@ -106,4 +106,3 @@ class SetupGoogleUpdate {
 }  // namespace omaha
 
 #endif  // OMAHA_SETUP_SETUP_GOOGLE_UPDATE_H__
-

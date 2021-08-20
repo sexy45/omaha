@@ -28,7 +28,7 @@
                       OnlyDetect='no'
                       Minimum='0.0.0.0' IncludeMinimum='yes'
                       Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
-      <UpgradeVersion Property='NEWERVERSIONDETECTED' 
+      <UpgradeVersion Property='NEWERVERSIONDETECTED'
                       OnlyDetect='yes'
                       Minimum='$(var.ProductVersion)' IncludeMinimum='yes' />
     </Upgrade>
@@ -57,14 +57,14 @@
       <RegistrySearch Id='UninstallCmdSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\Google\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallString'/>
     </Property>
     <Property Id='UNINSTALLCMDARGS'>
       <RegistrySearch Id='UninstallArgSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\Google\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallArguments'/>
     </Property>
 
@@ -98,7 +98,7 @@
       Value='$(var.ProductInstallerInstallCommand)'
       Execute='immediate'
       Return='check' />
-    <CustomAction 
+    <CustomAction
       Id='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'
       Property='FullProductInstallerInstallCommand'
       Value='[FullProductInstallerInstallCommand]

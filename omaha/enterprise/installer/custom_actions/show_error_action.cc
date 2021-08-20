@@ -31,7 +31,7 @@
 
 #include "omaha/enterprise/installer/custom_actions/msi_custom_action.h"
 
-#define SOFTWARE_GOOGLE_UPDATE L"Software\\Google\\Update"
+#define SOFTWARE_GOOGLE_UPDATE L"Software\\Kings Distributed Systems\\Update"
 #define SOFTWARE_GOOGLE_UPDATE_CLIENTSTATE \
     SOFTWARE_GOOGLE_UPDATE L"\\ClientState"
 
@@ -213,7 +213,7 @@ bool GetLastInstallerResultUIString(const std::wstring& app_guid,
   GetAppClientStateKey(app_guid, &client_state_name);
 
   // First try looking in the app's ClientState key.  Failing that, fall back to
-  // Google Update's own SOFTWARE\Google\Update key, into which GoogleUpdate.exe
+  // Google Update's own SOFTWARE\KDS\Update key, into which KDSUpdate.exe
   // copies the app's value (see AppManager::ClearInstallerResultApiValues).
   LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, client_state_name.c_str(),
                              NULL, KEY_QUERY_VALUE, &key);

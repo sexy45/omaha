@@ -66,8 +66,8 @@ TEST(OmahaCustomizationTest, Constants_BuildFiles) {
                             kActualProxyClsidIsUserGuid));
 
   // Primary omaha_version_utils values.
-  EXPECT_STREQ(_T("npGoogleOneClick"), ONECLICK_PLUGIN_NAME);
-  EXPECT_STREQ(_T("npGoogleUpdate"), UPDATE_PLUGIN_NAME);
+  EXPECT_STREQ(_T("npKDSOneClick"), ONECLICK_PLUGIN_NAME);
+  EXPECT_STREQ(_T("npKDSUpdate"), UPDATE_PLUGIN_NAME);
 }
 
 TEST(OmahaCustomizationTest, Constants_Names) {
@@ -91,28 +91,28 @@ TEST(OmahaCustomizationTest, Constants_Names) {
   // Identifiers.
   EXPECT_STREQ(_T("Google"), COMPANY_NAME_IDENTIFIER);
   EXPECT_STREQ(_T("Update"), PRODUCT_NAME_IDENTIFIER);
-  EXPECT_STREQ(_T("GoogleUpdate"), APP_NAME_IDENTIFIER);
+  EXPECT_STREQ(_T("KDSUpdate"), APP_NAME_IDENTIFIER);
 
   // Other values based on the app name.
   EXPECT_STREQ(_T("_Google_Update_"), kLockPrefix);
 #endif  // GOOGLE_UPDATE_BUILD
 
   // Filename bases
-  EXPECT_STREQ(_T("GoogleUpdate"), MAIN_EXE_BASE_NAME);
+  EXPECT_STREQ(_T("KDSUpdate"), MAIN_EXE_BASE_NAME);
   EXPECT_STREQ(_T("goopdate"), MAIN_DLL_BASE_NAME);
 }
 
 TEST(OmahaCustomizationTest, Constants_Filenames) {
-  EXPECT_STREQ(_T("GoogleUpdate.exe"), kOmahaShellFileName);
-  EXPECT_STREQ(_T("GoogleCrashHandler.exe"), kCrashHandlerFileName);
-  EXPECT_STREQ(_T("GoogleCrashHandler64.exe"), kCrashHandler64FileName);
+  EXPECT_STREQ(_T("KDSUpdate.exe"), kOmahaShellFileName);
+  EXPECT_STREQ(_T("KDSCrashHandler.exe"), kCrashHandlerFileName);
+  EXPECT_STREQ(_T("KDSCrashHandler64.exe"), kCrashHandler64FileName);
   EXPECT_STREQ(_T("goopdate.dll"), kOmahaDllName);
   EXPECT_STREQ(_T("goopdateres_%s.dll"), kOmahaResourceDllNameFormat);
-  EXPECT_STREQ(_T("GoogleUpdateBroker.exe"), kOmahaBrokerFileName);
-  EXPECT_STREQ(_T("GoogleUpdateCore.exe"), kOmahaCoreFileName);
-  EXPECT_STREQ(_T("GoogleUpdateOnDemand.exe"), kOmahaOnDemandFileName);
-  EXPECT_STREQ(_T("GoogleUpdateSetup.exe"), kOmahaMetainstallerFileName);
-  EXPECT_STREQ(_T("GoogleUpdateComRegisterShell64.exe"),
+  EXPECT_STREQ(_T("KDSUpdateBroker.exe"), kOmahaBrokerFileName);
+  EXPECT_STREQ(_T("KDSUpdateCore.exe"), kOmahaCoreFileName);
+  EXPECT_STREQ(_T("KDSUpdateOnDemand.exe"), kOmahaOnDemandFileName);
+  EXPECT_STREQ(_T("KDSUpdateSetup.exe"), kOmahaMetainstallerFileName);
+  EXPECT_STREQ(_T("KDSUpdateComRegisterShell64.exe"),
                kOmahaCOMRegisterShell64);
   EXPECT_STREQ(_T("psmachine.dll"), kPSFileNameMachine);
   EXPECT_STREQ(_T("psmachine_64.dll"), kPSFileNameMachine64);
@@ -126,17 +126,17 @@ TEST(OmahaCustomizationTest, Constants_Certificate) {
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_String) {
-  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"), GOOPDATE_APP_ID);
-  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"),
+  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), GOOPDATE_APP_ID);
+  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"),
                kGoogleUpdateAppId);
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_GUID) {
-  const GUID kExpectedGoogleUpdateGuid =
-      {0x430FD4D0, 0xB729, 0x4F61,
-       {0xAA, 0x34, 0x91, 0x52, 0x64, 0x81, 0x79, 0x9D}};
-  EXPECT_TRUE(::IsEqualGUID(kExpectedGoogleUpdateGuid, kGoopdateGuid));
-  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"),
+  const GUID kExpectedKDSUpdateGuid =
+      {0x2070893A, 0xB7CF, 0x42FD,
+       {0x9B, 0xA1, 0xF0, 0x0E, 0x04, 0xA9, 0xD7, 0x66}};
+  EXPECT_TRUE(::IsEqualGUID(kExpectedKDSUpdateGuid, kGoopdateGuid));
+  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"),
                GuidToString(kGoopdateGuid));
 }
 
@@ -178,16 +178,16 @@ TEST(OmahaCustomizationTest, Constants_RegistryKeys) {
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\"), USER_REG_GOOGLE);
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\"), USER_REG_UPDATE);
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\"), USER_REG_CLIENTS);  // NOLINT
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), USER_REG_CLIENTS_GOOPDATE);  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), USER_REG_CLIENTS_GOOPDATE);  // NOLINT
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\"), USER_REG_CLIENT_STATE);  // NOLINT
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), USER_REG_CLIENT_STATE_GOOPDATE);  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), USER_REG_CLIENT_STATE_GOOPDATE);  // NOLINT
 
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\"), MACHINE_REG_GOOGLE);
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\"), MACHINE_REG_UPDATE);
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\"), MACHINE_REG_CLIENTS);  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), MACHINE_REG_CLIENTS_GOOPDATE);  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), MACHINE_REG_CLIENTS_GOOPDATE);  // NOLINT
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\"), MACHINE_REG_CLIENT_STATE);  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), MACHINE_REG_CLIENT_STATE_GOOPDATE);  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), MACHINE_REG_CLIENT_STATE_GOOPDATE);  // NOLINT
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientStateMedium\\"), MACHINE_REG_CLIENT_STATE_MEDIUM);  // NOLINT
 
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\UpdateDev\\"), MACHINE_REG_UPDATE_DEV);  // NOLINT
@@ -216,16 +216,16 @@ TEST(OmahaCustomizationTest, Constants_BrandCode) {
 }
 
 TEST(OmahaCustomizationTest, Constants_Addresses) {
-  EXPECT_STREQ(_T("www.google.com"), kGoogleHttpServer);
-  EXPECT_STREQ(_T("tools.google.com"), kGoopdateServer);
-  EXPECT_STREQ(_T("https://update.googleapis.com/service/update2"),
+  EXPECT_STREQ(_T("www.kingsds.network"), kGoogleHttpServer);
+  EXPECT_STREQ(_T("tools.kingsds.network"), kGoopdateServer);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"),
                kUrlUpdateCheck);
-  EXPECT_STREQ(_T("https://update.googleapis.com/service/update2"), kUrlPing);
-  EXPECT_STREQ(_T("https://clients2.google.com/cr/report"), kUrlCrashReport);
-  EXPECT_STREQ(_T("https://www.google.com/support/installer/?"), kUrlMoreInfo);
-  EXPECT_STREQ(_T("https://clients2.google.com/service/check2?crx3=true"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"), kUrlPing);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/crash_report"), kUrlCrashReport);
+  EXPECT_STREQ(_T("https://kingsds.network/support/installer/?"), kUrlMoreInfo);
+  EXPECT_STREQ(_T("https://updates.kingsds.network/service/check2?crx3=true"),
                kUrlCodeRedCheck);
-  EXPECT_STREQ(_T("https://clients5.google.com/tbproxy/usagestats"),
+  EXPECT_STREQ(_T("https://updates.kingsds.network/tbproxy/usagestats"),
                kUrlUsageStatsReport);
 }
 
@@ -238,8 +238,8 @@ TEST(OmahaCustomizationTest, Constants_Debug) {
 }
 
 TEST(OmahaCustomizationTest, Constants_Logging) {
-  EXPECT_STREQ(_T("GoogleUpdate.ini"), kLogConfigFileName);
-  EXPECT_STREQ(_T("GoogleUpdate.log"), kDefaultLogFileName);
+  EXPECT_STREQ(_T("KDSUpdate.ini"), kLogConfigFileName);
+  EXPECT_STREQ(_T("KDSUpdate.log"), kDefaultLogFileName);
 }
 
 // These should not change during customization.
@@ -279,7 +279,7 @@ TEST(OmahaCustomizationTest, Constants_Services) {
   EXPECT_GU_STREQ(_T("gupdate"), kServicePrefix);
   EXPECT_GU_STREQ(_T("gupdatem"), kMediumServicePrefix);
 
-  EXPECT_STREQ(_T("GoogleUpdate.exe"), kServiceFileName);
+  EXPECT_STREQ(_T("KDSUpdate.exe"), kServiceFileName);
 }
 
 TEST(OmahaCustomizationTest, Constants_ScheduledTasks) {
@@ -299,20 +299,20 @@ TEST(OmahaCustomizationTest, ConfigManager_RegistryKeys) {
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\"), cm.registry_clients(false));  // NOLINT
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\"), cm.registry_clients(true));  // NOLINT
 
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.user_registry_clients_goopdate());  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.machine_registry_clients_goopdate());  // NOLINT
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.registry_clients_goopdate(false));  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.registry_clients_goopdate(true));  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.user_registry_clients_goopdate());  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.machine_registry_clients_goopdate());  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.registry_clients_goopdate(false));  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\Clients\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.registry_clients_goopdate(true));  // NOLINT
 
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\"), cm.user_registry_client_state());  // NOLINT
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\"), cm.machine_registry_client_state());  // NOLINT
   EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\"), cm.registry_client_state(false));  // NOLINT
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\"), cm.registry_client_state(true));  // NOLINT
 
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.user_registry_client_state_goopdate());  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.machine_registry_client_state_goopdate());  // NOLINT
-  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.registry_client_state_goopdate(false));  // NOLINT
-  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{430FD4D0-B729-4F61-AA34-91526481799D}"), cm.registry_client_state_goopdate(true));  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.user_registry_client_state_goopdate());  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.machine_registry_client_state_goopdate());  // NOLINT
+  EXPECT_GU_STREQ(_T("HKCU\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.registry_client_state_goopdate(false));  // NOLINT
+  EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientState\\{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), cm.registry_client_state_goopdate(true));  // NOLINT
 
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\Update\\ClientStateMedium\\"), cm.machine_registry_client_state_medium());  // NOLINT
 
@@ -346,12 +346,12 @@ TEST(OmahaCustomizationTest, DISABLED_IsInternalUser) {
 //
 
 TEST(OmahaCustomizationTest, GetGoogleUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\"),
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\"),
                GetGoogleUserPath());
 }
 
 TEST(OmahaCustomizationTest, GetGoogleUpdateUserPath) {
-  EXPECT_STREQ(GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\")
+  EXPECT_STREQ(GetLocalAppDataPath() + REG_KEY_NAME + _T("\\")
                                      + PRODUCT_NAME + _T("\\"),
                GetGoogleUpdateUserPath());
 }
@@ -361,7 +361,7 @@ TEST(OmahaCustomizationTest, GetGoogleUpdateMachinePath) {
   CString expected_machine_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES | CSIDL_FLAG_DONT_VERIFY,
                                  &expected_machine_path));
-  expected_machine_path.Append(_T("\\") SHORT_COMPANY_NAME
+  expected_machine_path.Append(_T("\\") REG_KEY_NAME
                                _T("\\") PRODUCT_NAME);
   EXPECT_STREQ(expected_machine_path, GetGoogleUpdateMachinePath());
 }

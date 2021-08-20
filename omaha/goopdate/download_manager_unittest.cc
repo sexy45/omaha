@@ -212,13 +212,13 @@ TEST_F(DownloadManagerUserTest, DownloadApp_MultiplePackagesInOneApp) {
   EXPECT_NE(-1, actual_pings.Find(
       _T("eventtype=1, eventresult=1, errorcode=0, extracode1=0, ")
       _T("url=http://dl.google.com/update2/UpdateData.bin, ")
-      _T("downloader=bits, error=0x0, downloaded_bytes=2048, ")
+      _T("downloader=winhttp, error=0x0, downloaded_bytes=2048, ")
       _T("total_bytes=2048, download_time=")));
 
   EXPECT_NE(-1, actual_pings.Find(
       _T("eventtype=1, eventresult=1, errorcode=0, extracode1=0, ")
       _T("url=http://dl.google.com/update2/UpdateData1.bin, ")
-      _T("downloader=bits, error=0x0, downloaded_bytes=2048, ")
+      _T("downloader=winhttp, error=0x0, downloaded_bytes=2048, ")
       _T("total_bytes=2048, download_time=")));
 
   EXPECT_NE(-1, actual_pings.Find(
@@ -1237,7 +1237,7 @@ TEST(DownloadManagerTest, GetMessageForError) {
 
   EXPECT_STREQ(
       _T("Unable to connect to the Internet. If you use a firewall, please ")
-      _T("whitelist GoogleUpdate.exe."),
+      _T("whitelist KDSUpdate.exe."),
       DownloadManager::GetMessageForError(
           ErrorContext(GOOPDATE_E_NO_NETWORK), kEnglish));
 

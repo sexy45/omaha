@@ -44,7 +44,7 @@ class WebServicesClientTest : public testing::Test,
     web_service_client_.reset(new WebServicesClient(false));
 
     update_request_.reset(xml::UpdateRequest::Create(false,
-                                                     _T("unittest_sessionid"),
+                                                     _T("{00000000-0000-0000-0000-000000000000}"),
                                                      _T("unittest_instsource"),
                                                      CString()));
     update_response_.reset(xml::UpdateResponse::Create());
@@ -80,6 +80,11 @@ class WebServicesClientTest : public testing::Test,
 INSTANTIATE_TEST_CASE_P(IsForeground, WebServicesClientTest, ::testing::Bool());
 
 TEST_F(WebServicesClientTest, Send) {
+
+  xml::request::App app;
+  app.app_id = _T("{21CD0965-0B0E-47cf-B421-2D191C16C0E2}");
+  update_request_->AddApp(app);
+
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->Initialize(update_check_url_,
                                                            HeadersVector(),
                                                            false));
@@ -93,7 +98,7 @@ TEST_F(WebServicesClientTest, Send) {
   xml::response::Response response(update_response_->response());
   EXPECT_STREQ(_T("3.0"), response.protocol);
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString cookie;
   EXPECT_HRESULT_FAILED(network_request->QueryHeadersString(
@@ -109,6 +114,11 @@ TEST_F(WebServicesClientTest, Send) {
 }
 
 TEST_P(WebServicesClientTest, SendUsingCup) {
+
+  xml::request::App app;
+  app.app_id = _T("{21CD0965-0B0E-47cf-B421-2D191C16C0E2}");
+  update_request_->AddApp(app);
+
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->Initialize(update_check_url_,
                                                            HeadersVector(),
                                                            true));
@@ -126,7 +136,7 @@ TEST_P(WebServicesClientTest, SendUsingCup) {
   xml::response::Response response(update_response_->response());
   EXPECT_STREQ(_T("3.0"), response.protocol);
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString no_request_age_header;
   network_request->QueryHeadersString(
@@ -203,7 +213,7 @@ TEST_F(WebServicesClientTest, SendForcingHttps) {
                                                      update_response_.get()));
   EXPECT_TRUE(web_service_client_->is_http_success());
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString app_ids_header;
   network_request->QueryHeadersString(
@@ -219,11 +229,20 @@ TEST_F(WebServicesClientTest, SendForcingHttps) {
   xml::response::Response response(update_response_->response());
   EXPECT_STREQ(_T("3.0"), response.protocol);
   ASSERT_EQ(2, response.apps.size());
-  EXPECT_STREQ(_T("error-unknownApplication"), response.apps[0].status);
-  EXPECT_STREQ(_T("error-unknownApplication"), response.apps[1].status);
+  
+  //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[0].status);
+  //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[1].status);
+
+  EXPECT_STREQ(_T("ok"), response.apps[0].status);
+  EXPECT_STREQ(_T("ok"), response.apps[1].status);
 }
 
 TEST_F(WebServicesClientTest, SendWithCustomHeader) {
+  
+  xml::request::App app;
+  app.app_id = _T("{21CD0965-0B0E-47cf-B421-2D191C16C0E2}");
+  update_request_->AddApp(app);
+
   HeadersVector headers;
   headers.push_back(std::make_pair(_T("X-RequestAge"), _T("200")));
 
@@ -239,7 +258,7 @@ TEST_F(WebServicesClientTest, SendWithCustomHeader) {
   xml::response::Response response(update_response_->response());
   EXPECT_STREQ(_T("3.0"), response.protocol);
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString request_age_header;
   network_request->QueryHeadersString(
@@ -250,22 +269,32 @@ TEST_F(WebServicesClientTest, SendWithCustomHeader) {
   EXPECT_STREQ(_T("200"), request_age_header);
 }
 
-TEST_P(WebServicesClientTest, SendString) {
+TEST_P(WebServicesClientTest, SendString) {    
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->Initialize(update_check_url_,
                                                            HeadersVector(),
                                                            false));
 
   // Test sending a user update check request.
   CString request_string =
-    _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-    _T("<request protocol=\"3.0\" testsource=\"dev\"></request>");
+    //_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+    //_T("<request protocol=\"3.0\" testsource=\"dev\"></request>");
+    _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?> ")
+    _T("<request protocol=\"3.0\" updaterversion=\"1.3.99.0\" xshell_version=\"1.3.99.0\" ismachine=\"0\" ")
+		_T("sessionid=\"{00000000-0000-0000-0000-000000000000}\" ")
+		_T("requestid=\"{00000000-0000-0000-0000-000000000000}\" > ")
+		_T("<hw physmemory=\"32\" sse=\"1\" sse2=\"1\" sse3=\"1\" ssse3=\"1\" sse41=\"1\" sse42=\"1\" avx=\"1\"/> ")
+		_T("<os platform=\"\" version=\"\" sp=\"\" arch=\"x64\"/> ")
+    _T("<app appid=\"{00000000-0000-0000-0000-000000000000}\" version=\"\" nextversion=\"\" lang=\"\" brand=\"\" client=\"\"> ")
+    _T("</app> ")
+    _T("</request> ");
+
   std::unique_ptr<xml::UpdateResponse> response(xml::UpdateResponse::Create());
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->SendString(GetParam(),
                                                            &request_string,
                                                            response.get()));
   EXPECT_TRUE(web_service_client_->is_http_success());
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString interactive_header;
   network_request->QueryHeadersString(
@@ -296,15 +325,25 @@ TEST_F(WebServicesClientTest, SendStringWithCustomHeader) {
 
   // Test sending a user update check request.
   CString request_string =
-    _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-    _T("<request protocol=\"3.0\" testsource=\"dev\"></request>");
+    //_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+    //_T("<request protocol=\"3.0\" testsource=\"dev\"></request>");
+    _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?> ")
+    _T("<request protocol=\"3.0\" updaterversion=\"1.3.99.0\" xshell_version=\"1.3.99.0\" ismachine=\"0\" ")
+		_T("sessionid=\"{00000000-0000-0000-0000-000000000000}\" ")
+		_T("requestid=\"{00000000-0000-0000-0000-000000000000}\" > ")
+		_T("<hw physmemory=\"32\" sse=\"1\" sse2=\"1\" sse3=\"1\" ssse3=\"1\" sse41=\"1\" sse42=\"1\" avx=\"1\"/> ")
+		_T("<os platform=\"\" version=\"\" sp=\"\" arch=\"x64\"/> ")
+    _T("<app appid=\"{00000000-0000-0000-0000-000000000000}\" version=\"\" nextversion=\"\" lang=\"\" brand=\"\" client=\"\"> ")
+    _T("</app> ")
+    _T("</request> ");
+
   std::unique_ptr<xml::UpdateResponse> response(xml::UpdateResponse::Create());
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->SendString(false,
                                                            &request_string,
                                                            response.get()));
   EXPECT_TRUE(web_service_client_->is_http_success());
 
-  NetworkRequest* network_request(network_request());
+  NetworkRequest* network_request(this->network_request());
 
   CString foobar_header;
   network_request->QueryHeadersString(

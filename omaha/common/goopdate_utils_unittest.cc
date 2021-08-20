@@ -990,7 +990,7 @@ class GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest
     : public GoopdateUtilsRegistryProtectedTest {
  protected:
   virtual void SetUp() {
-    // The tests start GoogleUpdate processes running as user and these
+    // The tests start KDSUpdate processes running as user and these
     // processes need the following registry value.
     ASSERT_SUCCEEDED(RegKey::SetValue(USER_REG_UPDATE,
                                       kRegValueInstalledVersion,
@@ -1108,8 +1108,8 @@ TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
   CString path = BuildGoogleUpdateExePath(true);
   CString program_files_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &program_files_path));
-  EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+  EXPECT_STREQ(program_files_path + _T("\\") + REG_KEY_NAME +
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 }
 
@@ -1119,15 +1119,15 @@ TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
   CString path = BuildGoogleUpdateExePath(true);
   CString program_files_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &program_files_path));
-  EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+  EXPECT_STREQ(program_files_path + _T("\\") + REG_KEY_NAME +
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 
   // Test when the key exists but the value doesn't.
   ASSERT_SUCCEEDED(RegKey::CreateKey(MACHINE_REG_CLIENTS_GOOPDATE));
   path = BuildGoogleUpdateExePath(true);
-  EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
-               _T("\\") + PRODUCT_NAME + _T("\\GoogleUpdate.exe"),
+  EXPECT_STREQ(program_files_path + _T("\\") + REG_KEY_NAME +
+               _T("\\") + PRODUCT_NAME + _T("\\KDSUpdate.exe"),
                path);
 }
 
@@ -1143,8 +1143,8 @@ TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
   CString user_appdata;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_LOCAL_APPDATA, &user_appdata));
   CString expected_path;
-  expected_path.Format(_T("%s\\") SHORT_COMPANY_NAME _T("\\")
-                       PRODUCT_NAME _T("\\GoogleUpdate.exe"),
+  expected_path.Format(_T("%s\\") REG_KEY_NAME _T("\\")
+                       PRODUCT_NAME _T("\\KDSUpdate.exe"),
                        user_appdata);
   EXPECT_STREQ(expected_path, path);
 }
@@ -1154,8 +1154,8 @@ TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
   CString user_appdata;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_LOCAL_APPDATA, &user_appdata));
   CString expected_path;
-  expected_path.Format(_T("%s\\") SHORT_COMPANY_NAME _T("\\")
-                       PRODUCT_NAME _T("\\GoogleUpdate.exe"),
+  expected_path.Format(_T("%s\\") REG_KEY_NAME _T("\\")
+                       PRODUCT_NAME _T("\\KDSUpdate.exe"),
                        user_appdata);
 
   // Test when the key doesn't exist.
@@ -1169,7 +1169,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether program_files\Google\Update\GoogleUpdate.exe exists.
+// value depends on whether program_files\KDS\Update\KDSUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
        StartGoogleUpdateWithArgs_MachineVersionVersionDoesNotExist) {
@@ -1185,7 +1185,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether <user_folder>\Google\Update\GoogleUpdate.exe exists.
+// value depends on whether <user_folder>\KDS\Update\KDSUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 //
 // TODO(omaha): This test is disabled because StartGoogleUpdateWithArgs fails on
@@ -1207,7 +1207,7 @@ TEST(GoopdateUtilsTest, BuildInstallDirectory_Machine) {
   const CPath dir = BuildInstallDirectory(true, _T("1.2.3.0"));
   CString program_files_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &program_files_path));
-  EXPECT_STREQ(program_files_path + _T("\\") + SHORT_COMPANY_NAME +
+  EXPECT_STREQ(program_files_path + _T("\\") + REG_KEY_NAME +
                _T("\\") + PRODUCT_NAME + _T("\\1.2.3.0"), dir);
 }
 

@@ -17,11 +17,11 @@
 // formats:
 //
 // Legacy Format:
-// ROOT\\Software\\Google\\Update\\Clients\\{app-guid}
+// ROOT\\Software\\KDS\\Update\\Clients\\{app-guid}
 //   <command-id> = REG_SZ (command line)
 //
 // New Format:
-// ROOT\\Software\\Google\\Update\\Clients\\{app-guid}\\Commands\\<command-id>
+// ROOT\\Software\\KDS\\Update\\Clients\\{app-guid}\\Commands\\<command-id>
 //   CommandLine        = REG_SZ
 //   SendsPings         = DWORD
 //   WebAccessible      = DWORD

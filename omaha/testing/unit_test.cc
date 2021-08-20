@@ -64,7 +64,7 @@ CString GetLocalAppDataPath() {
 }
 
 CString GetGoogleUserPath() {
-  return GetLocalAppDataPath() + SHORT_COMPANY_NAME + _T("\\");
+  return GetLocalAppDataPath() + REG_KEY_NAME + _T("\\");
 }
 
 // TODO(omaha): make GetGoogleUpdateUserPath and GetGoogleUpdateMachinePath
@@ -76,7 +76,7 @@ CString GetGoogleUpdateUserPath() {
 CString GetGoogleUpdateMachinePath() {
   CString program_files;
   GetFolderPath(CSIDL_PROGRAM_FILES, &program_files);
-  return program_files + _T("\\") + SHORT_COMPANY_NAME
+  return program_files + _T("\\") + REG_KEY_NAME
                         + _T("\\") + PRODUCT_NAME;
 }
 
@@ -224,7 +224,7 @@ void TerminateAllGoogleUpdateProcesses() {
 
 // The exit code of psexec is the pid it started when -d is used.
 // Wait for psexec to exit, get the exit code, and use it to get a handle
-// to the GoogleUpdate.exe instance.
+// to the KDSUpdate.exe instance.
 void LaunchProcessAsSystem(const CString& launch_cmd, HANDLE* process) {
   ASSERT_TRUE(process);
 

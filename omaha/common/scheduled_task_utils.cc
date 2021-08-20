@@ -1050,16 +1050,16 @@ HRESULT CreateAndSetVersionedTaskNameUAInRegistry(bool machine) {
 
 // Returns the task name Omaha used to install in Omaha 1.2.x.
 CString GetOmaha1LegacyTaskName(bool is_machine) {
-  const CString kLegacyOmaha1TaskNameMachine = _T("GoogleUpdateTask");
-  const CString kLegacyOmaha1TaskNameUser = _T("GoogleUpdateTaskUser");
+  const CString kLegacyOmaha1TaskNameMachine = _T("KDSUpdateTask");
+  const CString kLegacyOmaha1TaskNameUser = _T("KDSUpdateTaskUser");
   return is_machine ? kLegacyOmaha1TaskNameMachine : kLegacyOmaha1TaskNameUser;
 }
 
 // Returns the task name Omaha used to install in Omaha 2 before the
-// "GoogleUpdate.exe does not run all the time" refactoring.
+// "KDSUpdate.exe does not run all the time" refactoring.
 CString GetOmaha2LegacyTaskName(bool is_machine) {
-  const CString& kLegacyOmaha2TaskNameUserPrefix = _T("GoogleUpdateTaskUser");
-  const CString& kLegacyOmaha2TaskNameMachine = _T("GoogleUpdateTaskMachine");
+  const CString& kLegacyOmaha2TaskNameUserPrefix = _T("KDSUpdateTaskUser");
+  const CString& kLegacyOmaha2TaskNameMachine = _T("KDSUpdateTaskMachine");
   if (is_machine) {
     return kLegacyOmaha2TaskNameMachine;
   }

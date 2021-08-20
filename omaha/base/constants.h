@@ -54,6 +54,8 @@ const TCHAR* const kFullCompanyName = _T(FULL_COMPANY_NAME_ANSI);
 #define SHORT_COMPANY_NAME _T(SHORT_COMPANY_NAME_ANSI)
 const TCHAR* const kShortCompanyName = SHORT_COMPANY_NAME;
 
+#define REG_KEY_NAME _T(REG_KEY_NAME_ANSI)
+
 // Product name.
 // PRODUCT_NAME == "Update"
 #define PRODUCT_NAME _T(PRODUCT_NAME_ANSI)
@@ -80,7 +82,7 @@ const TCHAR* const kCompanyInternalLanGroupName = COMPANY_DOMAIN_BASE;
 
 // The base name of the main executable. Everything except the ".exe".
 // Most files start with the main .exe's base name.
-// MAIN_EXE_BASE_NAME = "GoogleUpdate"
+// MAIN_EXE_BASE_NAME = "KDSUpdate"
 #define MAIN_EXE_BASE_NAME  _T(MAIN_EXE_BASE_NAME_ANSI)
 
 // Base name of the main DLL.
@@ -126,7 +128,7 @@ const TCHAR* const kPSFileNameUser     = _T("psuser.dll");
 const TCHAR* const kPSFileNameUser64   = _T("psuser_64.dll");
 
 // TODO(omaha): Replace the following literal in clickonce\build.scons.
-// '%s/GoogleUpdateSetup.exe'
+// '%s/KDSUpdateSetup.exe'
 
 const TCHAR* const kLegacyHelperInstallerGuid =
     _T("{A92DAB39-4E2C-4304-9AB6-BC44E68B55E2}");
@@ -146,10 +148,10 @@ const TCHAR* const kTemporaryFilenamePrefix = _T("gup");
 // Omaha's app ID
 //
 // TODO(omaha): Rename all of these "Omaha".
-#define GOOPDATE_APP_ID _T("{430FD4D0-B729-4F61-AA34-91526481799D}")
+#define GOOPDATE_APP_ID _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}")
 const TCHAR* const kGoogleUpdateAppId = GOOPDATE_APP_ID;
-const GUID kGoopdateGuid = {0x430FD4D0, 0xB729, 0x4F61,
-                            {0xAA, 0x34, 0x91, 0x52, 0x64, 0x81, 0x79, 0x9D}};
+const GUID kGoopdateGuid = {0x2070893A, 0xB7CF, 0x42FD,
+                            {0x9B, 0xA1, 0xF0, 0x0E, 0x04, 0xA9, 0xD7, 0x66}};
 
 // Chrome AppIDs
 #define CHROME_APP_ID _T("{8A69D345-D564-463C-AFF1-A69D9E530F96}")
@@ -174,11 +176,11 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 #define INSTALL_WORKING_DIR_NAME  _T("Install")
 
 // Directories relative to \Google
-#define OMAHA_REL_COMPANY_DIR SHORT_COMPANY_NAME
+#define OMAHA_REL_COMPANY_DIR REG_KEY_NAME
 #define OMAHA_REL_CRASH_DIR OMAHA_REL_COMPANY_DIR _T("\\CrashReports")
 #define OMAHA_REL_POLICY_RESPONSES_DIR OMAHA_REL_COMPANY_DIR _T("\\Policies")
 
-// Directories relative to \Google\Update
+// Directories relative to \KDS\Update
 #define OMAHA_REL_GOOPDATE_INSTALL_DIR \
     OMAHA_REL_COMPANY_DIR _T("\\") PRODUCT_NAME
 #define OMAHA_REL_LOG_DIR OMAHA_REL_GOOPDATE_INSTALL_DIR _T("\\Log")
@@ -201,14 +203,14 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 #define USER_KEY_NAME _T("HKCU")
 #define USER_KEY USER_KEY_NAME _T("\\")
 #define USERS_KEY _T("HKU\\")
-#define COMPANY_MAIN_KEY _T("Software\\") SHORT_COMPANY_NAME _T("\\")
+#define COMPANY_MAIN_KEY _T("Software\\") REG_KEY_NAME _T("\\")
 #define GOOPDATE_MAIN_KEY COMPANY_MAIN_KEY PRODUCT_NAME _T("\\")
 #define GOOPDATE_REG_RELATIVE_CLIENTS GOOPDATE_MAIN_KEY _T("Clients\\")
 #define GOOPDATE_REG_RELATIVE_CLIENT_STATE GOOPDATE_MAIN_KEY _T("ClientState\\")
 #define GOOPDATE_REG_RELATIVE_CLIENT_STATE_MEDIUM \
     GOOPDATE_MAIN_KEY _T("ClientStateMedium\\")
 #define COMPANY_POLICIES_MAIN_KEY \
-    _T("Software\\Policies\\") SHORT_COMPANY_NAME _T("\\")
+    _T("Software\\Policies\\") REG_KEY_NAME _T("\\")
 #define GOOPDATE_POLICIES_RELATIVE COMPANY_POLICIES_MAIN_KEY \
     PRODUCT_NAME _T("\\")
 #define CLOUD_MANAGEMENT_POLICIES_RELATIVE COMPANY_POLICIES_MAIN_KEY \
@@ -236,7 +238,7 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 
 #define REG_UPDATE_DEV COMPANY_MAIN_KEY PRODUCT_NAME _T("Dev\\")
 
-// Expands to HKEY_LOCAL_MACHINE\SOFTWARE\Google\UpdateDev
+// Expands to HKEY_LOCAL_MACHINE\SOFTWARE\KDS\UpdateDev
 #define MACHINE_REG_UPDATE_DEV MACHINE_KEY REG_UPDATE_DEV
 
 //
@@ -512,7 +514,7 @@ const TCHAR kHeaderUserAgent[]           = _T("User-Agent");
 const TCHAR kHeaderXLastHR[]             = _T("X-Last-HR");
 const TCHAR kHeaderXLastHTTPStatusCode[] = _T("X-Last-HTTP-Status-Code");
 
-// The "mid" value if it exists in HKLM\SOFTWARE\Google\UpdateDev.
+// The "mid" value if it exists in HKLM\SOFTWARE\KDS\UpdateDev.
 const TCHAR kHeaderXMID[]                = _T("X-MID");
 
 // The 407 retry count in the case of authenticated proxies.

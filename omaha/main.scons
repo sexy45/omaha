@@ -71,6 +71,12 @@ _PRODUCT_NAME = 'Update'
 _COMPANY_DOMAIN_BASE = 'kingsds'
 _COMPANY_DOMAIN = 'kingsds.network'
 _MAIN_EXE_BASE_NAME = 'KDSUpdate'
+
+#
+#  Make distinction between SHORT COMPANY NAME and the use registry key.
+#
+_REG_KEY_NAME = 'Kings Distributed Systems'
+
 # TODO(omaha): Use this throughout the build files where goopdate and
 # goopdateres are referenced.
 _MAIN_DLL_BASE_NAME = 'goopdate'
@@ -239,7 +245,7 @@ AddOption(
     type='string',
     default=os.environ.get(
         'TIMESTAMP_SERVER',
-        'http://timestamp.verisign.com/scripts/timestamp.dll'
+        'http://timestamp.digicert.com/scripts/timestamp.dll'
     )
 )
 
@@ -569,6 +575,10 @@ win_env.AppendUnique(
                     # longer implies that compiler generated copy/move
                     # constructors and copy/move assignment operators are non
                     # trivial
+        '/wd5245',  # 'function': unreferenced function with internal linkage
+                    # has been removed
+        '/wd5246',  # 'member': the initialization of a subobject should be
+                    # wrapped in braces
         #
         # Disable static analysis warnings.
         #
@@ -641,6 +651,7 @@ win_env.AppendUnique(
             omaha_version_utils.GetUPDATE_PLUGIN_NAME()),
         'CRASH_HANDLER_NAME=_T(\\"%s\\")' %
             omaha_version_utils.GetCRASH_HANDLER_NAME(),
+        'REG_KEY_NAME_ANSI=\\"%s\\"' % _REG_KEY_NAME,
         ],
 
     LIBS = [

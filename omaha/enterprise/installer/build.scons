@@ -117,7 +117,7 @@ def _BuildSampleForTest():
             prefix + msi_base_name + '_' + combo[0],
             '$MAIN_DIR/enterprise/installer',
             msi_custom_action_dll,
-            '$STAGING_DIR/%sGoogleUpdateSetup.exe' % prefix,
+            '$STAGING_DIR/%sKDSUpdateSetup.exe' % prefix,
             output_dir = '$TARGET_ROOT/Test_Installers'
         )
 
@@ -168,7 +168,7 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 # Applications with MSI installers
 #
 # To bundle Google Update with a product that has an MSI installer:
-#  * Build a .wixobj that contains the Google Update installation fragment
+#  * Build a .wixobj that contains the KDS Update installation fragment
 #    by calling BuildGoogleUpdateFragment().
 #  * Include the ComponentGoogleUpdate component in the appropriate feature in
 #    the product's WiX code.
@@ -177,18 +177,18 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 #  omaha/test/test_foo.wxs.xml
 #  omaha/test/build.scons
 
-metainstaller_path = '$STAGING_DIR/GoogleUpdateSetup.exe'
+metainstaller_path = '$STAGING_DIR/KDSUpdateSetup.exe'
 version = '0.0.1.0'
 google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
             env,
             metainstaller_path,
-            'StubProduct',
+            'DCP',
             version,
-            '{5AE37FA1-853B-4815-97FA-4880A1183533}',
+            '{EF1FFA8B-49A9-475D-9698-DC379FF1257C}',
             '',
-            'StubProduct',
+            'DCP',
             ('$MAIN_DIR/enterprise/installer/'
                 'google_update_machine_installer_fragment.wxs.xml'),
-            company_name = 'Google'
+            company_name = 'KDS'
 )
-print("Google update WiX fragment location: {}".format(google_update_wixobj))
+print("KDS update WiX fragment location: {}".format(kds_update_wixobj))

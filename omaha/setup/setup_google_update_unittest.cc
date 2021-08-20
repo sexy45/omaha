@@ -384,7 +384,7 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   }
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   if (IsTestRunByLocalSystem()) {
@@ -440,7 +440,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_STREQ(GetVersionString(), product_version);
 }
 
-// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 // TODO(omaha): Fails when run by itself on Windows Vista.
 TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
@@ -476,9 +476,9 @@ TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {
 
   CString expected_shell_path;
   EXPECT_SUCCEEDED(GetFolderPath(CSIDL_PROGRAM_FILES, &expected_shell_path));
-  expected_shell_path.Append(_T("\\") SHORT_COMPANY_NAME
+  expected_shell_path.Append(_T("\\") REG_KEY_NAME
                              _T("\\") PRODUCT_NAME
-                             _T("\\GoogleUpdate.exe"));
+                             _T("\\KDSUpdate.exe"));
   CString shell_path;
   EXPECT_SUCCEEDED(
       RegKey::GetValue(MACHINE_REG_UPDATE, _T("path"), &shell_path));

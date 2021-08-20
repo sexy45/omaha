@@ -98,7 +98,7 @@ class Setup {
   // Tells other instances to stop.
   HRESULT StopGoogleUpdate();
 
-  // Returns how long to wait before terminating GoogleUpdate.exe forcefully.
+  // Returns how long to wait before terminating KDSUpdate.exe forcefully.
   int GetForceKillWaitTimeMs() const;
 
   // Tells other instances to stop then waits for them to exit.
@@ -111,14 +111,14 @@ class Setup {
   // Releases all the shutdown events.
   void ReleaseShutdownEvents();
 
-  // Waits for other instances of GoogleUpdate.exe to exit.
+  // Waits for other instances of KDSUpdate.exe to exit.
   HRESULT WaitForOtherInstancesToExit(const Pids& pids,
                                       int wait_time_before_kill_ms);
 
-  // Gets the list of all the GoogleUpdate.exe processes to wait for.
+  // Gets the list of all the KDSUpdate.exe processes to wait for.
   HRESULT GetPidsToWaitFor(Pids* pids) const;
 
-  // Gets a list of GoogleUpdate.exe processes for user or machine that are
+  // Gets a list of KDSUpdate.exe processes for user or machine that are
   // running from the respective official directory, except "/install" or
   // "/registerproduct" instances.
   // In the machine case we search in all the accounts since the workers can be
@@ -136,7 +136,7 @@ class Setup {
 #if 0
   // Given a guid, finds and copies the offline manifest and binaries from the
   // current module directory to the offline_dir passed in. offline_dir is
-  // typically the Google\Update\Offline\ directory. The offline manifest is
+  // typically the KDS\Update\Offline\ directory. The offline manifest is
   // copied to offline_dir\{GUID}.gup. The binaries are in the format
   // "Installer.msi.{GUID}", and they are copied to the offline_dir under the
   // subdirectory {GUID}, as Installer.msi.
@@ -171,7 +171,7 @@ class Setup {
   // Initializes the Setup Lock with correct name and security attributes.
   static bool InitSetupLock(bool is_machine, GLock* setup_lock);
 
-  // Returns true if GoogleUpdate can be uninstalled now.
+  // Returns true if KDSUpdate can be uninstalled now.
   bool CanUninstallGoogleUpdate() const;
 
   // The state of the RuntimeMode in the registry.
@@ -201,4 +201,3 @@ class Setup {
 }  // namespace omaha
 
 #endif  // OMAHA_SETUP_SETUP_H__
-

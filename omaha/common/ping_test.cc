@@ -102,7 +102,7 @@ TEST_F(PingTest, BuildOmahaPing) {
   expected_shell_version_substring.Format(_T(" shell_version=\"%s\" "),
                                           GetShellVersionString());
   CString expected_ping_request_substring;
-  expected_ping_request_substring.Format(_T("<app appid=\"{430FD4D0-B729-4F61-AA34-91526481799D}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"10\" extracode1=\"20\"/><event eventtype=\"2\" eventresult=\"1\" errorcode=\"30\" extracode1=\"40\"/></app>"));  // NOLINT
+  expected_ping_request_substring.Format(_T("<app appid=\"{2070893A-B7CF-42FD-9BA1-F00E04A9D766}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"10\" extracode1=\"20\"/><event eventtype=\"2\" eventresult=\"1\" errorcode=\"30\" extracode1=\"40\"/></app>"));  // NOLINT
 
   CString actual_ping_request;
   install_ping_no_shell.BuildRequestString(&actual_ping_request);
@@ -143,7 +143,7 @@ TEST_F(PingTest, BuildOmahaPing) {
 
 TEST_F(PingTest, BuildAppsPing) {
   const TCHAR* const kOmahaUserClientStatePath =
-      _T("HKCU\\Software\\") SHORT_COMPANY_NAME _T("\\") PRODUCT_NAME
+      _T("HKCU\\Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
       _T("\\ClientState\\") GOOPDATE_APP_ID;
 
   const CString expected_pv           = _T("1.3.99.0");
@@ -192,14 +192,14 @@ TEST_F(PingTest, BuildAppsPing) {
                     34,
                     6));
 
-  Ping apps_ping(false, _T("unittest"), _T("InstallSource_Foo"));
+  Ping apps_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("InstallSource_Foo"));
   std::vector<CString> apps;
   apps.push_back(GOOPDATE_APP_ID);
   apps_ping.LoadAppDataFromRegistry(apps);
   apps_ping.BuildAppsPing(ping_event);
 
   CString expected_ping_request_substring;
-  expected_ping_request_substring.Format(_T("<app appid=\"{430FD4D0-B729-4F61-AA34-91526481799D}\" version=\"1.3.99.0\" nextversion=\"\" lang=\"en\" brand=\"GGLS\" client=\"someclientid\" experiments=\"a=a\" installage=\"2\" installdate=\"9086\" iid=\"{7C0B6E56-B24B-436b-A960-A6EA201E886F}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"34\" extracode1=\"6\"/></app>"));  // NOLINT
+  expected_ping_request_substring.Format(_T("<app appid=\"{2070893A-B7CF-42FD-9BA1-F00E04A9D766}\" version=\"1.3.99.0\" nextversion=\"\" lang=\"en\" brand=\"GGLS\" client=\"someclientid\" experiments=\"a=a\" installage=\"2\" installdate=\"9086\" iid=\"{7C0B6E56-B24B-436b-A960-A6EA201E886F}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"34\" extracode1=\"6\"/></app>"));  // NOLINT
 
   CString actual_ping_request;
   apps_ping.BuildRequestString(&actual_ping_request);
@@ -209,7 +209,7 @@ TEST_F(PingTest, BuildAppsPing) {
 }
 
 TEST_F(PingTest, DISABLED_SendString) {
-  CString request_string = _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"unittest\" installsource=\"taggedmi\" testsource=\"dev\" requestid=\"{EC821C33-E4EE-4E75-BC85-7E9DFC3652F5}\" periodoverridesec=\"7407360\"><os platform=\"win\" version=\"6.0\" sp=\"Service Pack 1\"/><app appid=\"{430FD4D0-B729-4F61-AA34-91526481799D}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"10\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app></request>");   // NOLINT
+  CString request_string = _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{00000000-0000-0000-0000-000000000000}\" installsource=\"taggedmi\" testsource=\"dev\" requestid=\"{EC821C33-E4EE-4E75-BC85-7E9DFC3652F5}\" periodoverridesec=\"7407360\"><os platform=\"win\" version=\"6.0\" sp=\"Service Pack 1\"/><app appid=\"{2070893A-B7CF-42FD-9BA1-F00E04A9D766}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"10\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app></request>");   // NOLINT
   EXPECT_HRESULT_SUCCEEDED(Ping::SendString(false,
                                             HeadersVector(),
                                             request_string));
@@ -219,7 +219,7 @@ TEST_F(PingTest, DISABLED_SendString) {
 }
 
 TEST_F(PingTest, DISABLED_HandlePing) {
-  CString request_string = _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"unittest\" installsource=\"taggedmi\" testsource=\"dev\" requestid=\"{EC821C33-E4EE-4E75-BC85-7E9DFC3652F5}\" periodoverridesec=\"7407360\"><os platform=\"win\" version=\"6.0\" sp=\"Service Pack 1\"/><app appid=\"{430FD4D0-B729-4F61-AA34-91526481799D}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"10\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app></request>");   // NOLINT
+  CString request_string = _T("<?xml version=\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{00000000-0000-0000-0000-000000000000}\" installsource=\"taggedmi\" testsource=\"dev\" requestid=\"{EC821C33-E4EE-4E75-BC85-7E9DFC3652F5}\" periodoverridesec=\"7407360\"><os platform=\"win\" version=\"6.0\" sp=\"Service Pack 1\"/><app appid=\"{2070893A-B7CF-42FD-9BA1-F00E04A9D766}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"10\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app></request>");   // NOLINT
 
   CStringA request_string_utf8(WideToUtf8(request_string));
   CStringA ping_string_utf8;
@@ -248,7 +248,7 @@ TEST_F(PingTest, SendInProcess) {
   command_line_extra_args.language   = _T("en");
 
   // User ping.
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   install_ping.LoadAppDataFromExtraArgs(command_line_extra_args);
   install_ping.BuildOmahaPing(_T("1.0.0.0"), _T("2.0.0.0"), ping_event);
 
@@ -329,7 +329,7 @@ TEST_F(PingTest, PersistAndSendPersistedPings) {
   command_line_extra_args.language   = _T("en");
 
   // User ping.
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   install_ping.LoadAppDataFromExtraArgs(command_line_extra_args);
   install_ping.BuildOmahaPing(_T("1.0.0.0"), _T("2.0.0.0"), ping_event);
 
@@ -353,8 +353,8 @@ TEST_F(PingTest, PersistAndSendPersistedPings) {
   EXPECT_HRESULT_SUCCEEDED(RegKey::GetValue(ping_subkey_path,
                                             Ping::kRegValuePersistedPingString,
                                             &persisted_ping));
-  EXPECT_NE(-1, persisted_ping.Find(_T("sessionid=\"unittest\"")));
-  EXPECT_NE(-1, persisted_ping.Find(_T("<app appid=\"{430FD4D0-B729-4F61-AA34-91526481799D}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app>")));  // NOLINT
+  EXPECT_NE(-1, persisted_ping.Find(_T("sessionid=\"{00000000-0000-0000-0000-000000000000}\"")));
+  EXPECT_NE(-1, persisted_ping.Find(_T("<app appid=\"{2070893A-B7CF-42FD-9BA1-F00E04A9D766}\" version=\"1.0.0.0\" nextversion=\"2.0.0.0\" lang=\"en\" brand=\"GGLS\" client=\"a client id\" iid=\"{DE06587E-E5AB-4364-A46B-F3AC733007B3}\"><event eventtype=\"2\" eventresult=\"1\" errorcode=\"0\" extracode1=\"0\"/></app>")));  // NOLINT
 
   EXPECT_HRESULT_SUCCEEDED(Ping::SendPersistedPings(false));
 
@@ -380,7 +380,7 @@ TEST_F(PingTest, DISABLED_SendUsingGoogleUpdate) {
   command_line_extra_args.language   = _T("en");
 
   // User ping and wait for completion.
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   install_ping.LoadAppDataFromExtraArgs(command_line_extra_args);
   install_ping.BuildOmahaPing(_T("1.0.0.0"), _T("2.0.0.0"), ping_event);
 
@@ -393,7 +393,7 @@ TEST_F(PingTest, DISABLED_SendUsingGoogleUpdate) {
 
 TEST_F(PingTest, Send_Empty) {
   CommandLineExtraArgs command_line_extra_args;
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   EXPECT_EQ(S_FALSE, install_ping.Send(false));
 }
 
@@ -412,7 +412,7 @@ TEST_F(PingTest, DISABLED_Send) {
   command_line_extra_args.language   = _T("en");
 
   // User ping and wait for completion.
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   install_ping.LoadAppDataFromExtraArgs(command_line_extra_args);
   install_ping.BuildOmahaPing(_T("1.0.0.0"), _T("2.0.0.0"), ping_event);
 
@@ -435,7 +435,7 @@ TEST_F(PingTest, DISABLED_SendFireAndForget) {
   command_line_extra_args.language   = _T("en");
 
   // User ping and do not wait for completion.
-  Ping install_ping(false, _T("unittest"), _T("taggedmi"));
+  Ping install_ping(false, _T("{00000000-0000-0000-0000-000000000000}"), _T("taggedmi"));
   install_ping.LoadAppDataFromExtraArgs(command_line_extra_args);
   install_ping.BuildOmahaPing(_T("1.0.0.0"), _T("2.0.0.0"), ping_event);
 
@@ -496,4 +496,3 @@ TEST_F(PersistedPingsTest, AddPingEvents) {
 }
 
 }  // namespace omaha
-

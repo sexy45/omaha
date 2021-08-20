@@ -87,7 +87,7 @@ CString GetSzValue(const CString& full_key_name, const CString& value_name);
 GUID StringToGuid(const CString& str);
 
 const TCHAR* const kRegistryHiveOverrideRoot =
-    _T("HKCU\\Software\\") _T(SHORT_COMPANY_NAME_ANSI)
+    _T("HKCU\\Software\\") _T(REG_KEY_NAME_ANSI)
     _T("\\") _T(PRODUCT_NAME_ANSI)
     _T("\\UnitTest\\");
 const TCHAR* const kCsidlSystemIdsRegKey =
@@ -102,8 +102,8 @@ const TCHAR* const kCsidlProgramFilesRegValue =
 // Overrides the HKLM and HKCU registry hives so that accesses go to the
 // specified registry key instead. The function creates the
 // hive_override_key_name. In other words, overriding HKCU with
-// "HKCU\\Software\\Google\\Update\\UnitTest\\" and accessing HKCU\\Foo results
-// in an access at "HKCU\\Software\\Google\\Update\\UnitTest\\Foo".
+// "HKCU\\Software\\KDS\\Update\\UnitTest\\" and accessing HKCU\\Foo results
+// in an access at "HKCU\\Software\\KDS\\Update\\UnitTest\\Foo".
 // This method is most often used in SetUp().
 void OverrideRegistryHives(const CString& hive_override_key_name);
 
@@ -148,7 +148,7 @@ bool IsBuildSystem();
 // Sets TestSource=buildsystem.
 void SetBuildSystemTestSource();
 
-// Terminates all processes named GoogleUpdate.exe or GoogleCrashHandler.exe.
+// Terminates all processes named KDSUpdate.exe or KDSCrashHandler.exe.
 void TerminateAllGoogleUpdateProcesses();
 
 // Launches a process and returns its handle.

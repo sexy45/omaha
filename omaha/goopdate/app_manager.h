@@ -66,7 +66,7 @@ class AppManager {
 
   static AppManager* Instance();
 
-  // Reads the "pv" value from Google\Update\Clients\{app_guid}, and is used by
+  // Reads the "pv" value from KDS\Update\Clients\{app_guid}, and is used by
   // the Update3WebControl. This method does not take any locks, and is not
   // recommended for use in any other scenario.
   static HRESULT ReadAppVersionNoLock(bool is_machine, const GUID& app_guid,

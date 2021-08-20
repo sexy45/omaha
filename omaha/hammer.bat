@@ -2,7 +2,8 @@
 
 :: Hammer does not need this variable but the unit
 :: tests do.
-set OMAHA_PSEXEC_DIR=%ProgramFiles(x86)%\pstools
+::set OMAHA_PSEXEC_DIR=%ProgramFiles(x86)%\pstools
+set OMAHA_PSEXEC_DIR=c:\pstools
 
 setlocal
 
@@ -17,6 +18,8 @@ rem -- Set all environment variables used by Hammer and Omaha. --
 :: VS2015/VC14 is 1900.
 :: VS2017/VC14.1 is 1910.
 :: VS2019/VC16.0 is 1920.
+
+echo "%VisualStudioVersion%"
 
 if "%VisualStudioVersion%"=="" goto error_no_vc
 if "%VisualStudioVersion%"=="12.0" goto vc120
@@ -45,8 +48,8 @@ goto set_env_variables
 
 :: Change these variables to match the local build environment.
 
-:: Directory where the Go programming language toolchain is installed.
-set GOROOT=C:\Go-1.14.6-amd64
+::set GOROOT=C:\Go-1.14.6-amd64
+set GOROOT=C:\Go
 
 :: This directory is needed to find protoc.exe, which is the protocol buffer
 :: compiler. From the release page https://github.com/google/protobuf/releases,
@@ -61,7 +64,8 @@ set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
 set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\src
 
 :: Directory where Python (python.exe) is installed.
-set OMAHA_PYTHON_DIR=%~dp0\..\omaha_consulting\python\Scripts
+::set OMAHA_PYTHON_DIR=%~dp0\..\omaha_consulting\python\Scripts
+set OMAHA_PYTHON_DIR=C:\Python27
 
 :: Directory in WiX where candle.exe and light.exe are installed.
 set OMAHA_WIX_DIR=%WIX%\bin
@@ -77,7 +81,8 @@ set OMAHA_SIGNTOOL_SDK_DIR="%WindowsSdkVerBinPath%\x86"
 set PYTHONPATH=%OMAHA_PYTHON_DIR%
 
 :: Directory of Scons (http://www.scons.org/).
-set SCONS_DIR=%~dp0\..\omaha_consulting\python\scons-1.3.1
+::set SCONS_DIR=%~dp0\..\omaha_consulting\python\scons-1.3.1
+set SCONS_DIR=c:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
 set SCT_DIR=%~dp0\..\omaha_consulting\swtoolkit-0.9.1
