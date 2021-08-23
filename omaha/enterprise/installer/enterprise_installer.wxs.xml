@@ -57,14 +57,14 @@
       <RegistrySearch Id='UninstallCmdSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\Kings Distributed Systems\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallString'/>
     </Property>
     <Property Id='UNINSTALLCMDARGS'>
       <RegistrySearch Id='UninstallArgSearch'
                       Root='HKLM'
                       Type='raw'
-                      Key='Software\KDS\Update\ClientState\$(var.ProductGuid)'
+                      Key='Software\Kings Distributed Systems\Update\ClientState\$(var.ProductGuid)'
                       Name='UninstallArguments'/>
     </Property>
 
