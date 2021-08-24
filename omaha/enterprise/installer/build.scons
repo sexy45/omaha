@@ -191,4 +191,4 @@ google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
                 'google_update_machine_installer_fragment.wxs.xml'),
             company_name = 'KDS'
 )
-print("KDS update WiX fragment location: {}".format(kds_update_wixobj))
+print("KDS update WiX fragment location: {}".format(google_update_wixobj))
