@@ -27,4 +27,3 @@ third_party/libzip
 third_party/lzma/files/**/obj/
 third_party/zlib
 omaha_consulting/python
-omaha/DCPWorkerSetup.exe
