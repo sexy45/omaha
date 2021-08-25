@@ -60,7 +60,7 @@
       BinaryKey='KDSUpdateSetup'
       Impersonate='no'
       Execute='deferred'
-      ExeCommand='/install "runtime=true&amp;needsadmin=True" /installsource enterprisemsi /silent'
+      ExeCommand='/install "runtime=true&amp;needsadmin=True&amp;usagestats=1" /installsource enterprisemsi /silent'
       Return='check' />
 
     <InstallExecuteSequence>
