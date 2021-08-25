@@ -651,8 +651,7 @@ win_env.AppendUnique(
             omaha_version_utils.GetUPDATE_PLUGIN_NAME()),
         'CRASH_HANDLER_NAME=_T(\\"%s\\")' %
             omaha_version_utils.GetCRASH_HANDLER_NAME(),
-
-        'REG_KEY_NAME_ANSI=\\"%s\\"' % _REG_KEY_NAME,            
+        'REG_KEY_NAME_ANSI=\\"%s\\"' % _REG_KEY_NAME,
         ],
 
     LIBS = [
