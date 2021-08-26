@@ -1169,7 +1169,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether program_files\KDS\Update\KDSUpdate.exe exists.
+// value depends on whether "program_files\Kings Distributed Systems\Update\KDSUpdate.exe" exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
        StartGoogleUpdateWithArgs_MachineVersionVersionDoesNotExist) {
@@ -1185,7 +1185,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether <user_folder>\KDS\Update\KDSUpdate.exe exists.
+// value depends on whether "<user_folder>\Kings Distributed Systems\Update\KDSUpdate.exe" exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 //
 // TODO(omaha): This test is disabled because StartGoogleUpdateWithArgs fails on

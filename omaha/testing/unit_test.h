@@ -102,8 +102,8 @@ const TCHAR* const kCsidlProgramFilesRegValue =
 // Overrides the HKLM and HKCU registry hives so that accesses go to the
 // specified registry key instead. The function creates the
 // hive_override_key_name. In other words, overriding HKCU with
-// "HKCU\\Software\\KDS\\Update\\UnitTest\\" and accessing HKCU\\Foo results
-// in an access at "HKCU\\Software\\KDS\\Update\\UnitTest\\Foo".
+// "HKCU\\Software\\Kings Distributed Systems\\Update\\UnitTest\\" and accessing HKCU\\Foo results
+// in an access at "HKCU\\Software\\Kings Distributed Systems\\Update\\UnitTest\\Foo".
 // This method is most often used in SetUp().
 void OverrideRegistryHives(const CString& hive_override_key_name);
 
