@@ -48,6 +48,7 @@ goto set_env_variables
 
 :: Change these variables to match the local build environment.
 
+:: Directory where the Go programming language toolchain is installed.
 ::set GOROOT=C:\Go-1.14.6-amd64
 set GOROOT=C:\Go
 
