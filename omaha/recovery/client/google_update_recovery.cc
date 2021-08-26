@@ -52,9 +52,9 @@ const TCHAR* const kQueryStringFormat =
 // Information about where to obtain Omaha info.
 // This must never change in Omaha.
 const TCHAR* const kRegValueProductVersion  = _T("pv");
-const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\Kings Distributed Systems\\\Update\\");
+const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\Kings Distributed Systems\\Update\\");
 const TCHAR* const kRelativeClientsGoopdateRegPath =
-    _T("Software\\Kings Distributed Systems\\\Update\\Clients\\")
+    _T("Software\\Kings Distributed Systems\\Update\\Clients\\")
     _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}");
 
 // The UpdateDev registry value to override the Code Red url.
