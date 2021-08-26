@@ -132,10 +132,10 @@ TEST(OmahaCustomizationTest, Constants_OmahaAppId_String) {
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_GUID) {
-  const GUID kExpectedKDSUpdateGuid =
+  const GUID kExpectedGoogleUpdateGuid =
       {0x2070893A, 0xB7CF, 0x42FD,
        {0x9B, 0xA1, 0xF0, 0x0E, 0x04, 0xA9, 0xD7, 0x66}};
-  EXPECT_TRUE(::IsEqualGUID(kExpectedKDSUpdateGuid, kGoopdateGuid));
+  EXPECT_TRUE(::IsEqualGUID(kExpectedGoogleUpdateGuid, kGoopdateGuid));
   EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"),
                GuidToString(kGoopdateGuid));
 }
