@@ -254,13 +254,20 @@ TEST(OmahaCustomizationTest, Constants_ObjectNames_Pipes) {
 TEST(OmahaCustomizationTest, Constants_ObjectNames_MutexesAndEvents) {
   EXPECT_STREQ(_T("{C18F3F85-CDD6-4B48-8DE5-98F98C90D77C}"), kSetupMutex);
   EXPECT_STREQ(_T("{3D6E7A03-E2FD-4B99-9973-6CDE9B235AA0}"), kShutdownEvent);
-  EXPECT_STREQ(_T("{CC3AF33C-7A64-4D95-BCE1-F40F32DD862C}"), kCoreSingleInstance);
-  EXPECT_STREQ(_T("{8C1217E3-7EA4-4698-8CCC-79E062C32317}"), kCrashHandlerSingleInstance);
-  EXPECT_STREQ(_T("{04B54C42-9095-4DA0-B721-F042075A154C}"), kUpdateAppsSingleInstance);
-  EXPECT_STREQ(_T("%s-{86D25F1C-A1F8-48F5-818D-CAA22C1064BB}"), kInstallAppSingleInstance);
-  EXPECT_STREQ(_T("{B9D46B77-416A-4985-A29D-1750CB595C7D}"), kInstallManagerSerializer);
-  EXPECT_STREQ(_T("{99955AB6-659D-4168-8405-9DBF20E82EF6}"), kMetricsSerializer);
-  EXPECT_STREQ(_T("{93C8DE3A-E199-4156-ACE6-C3342002BA0F}"), kRegistryAccessMutex);
+  EXPECT_STREQ(_T("{CC3AF33C-7A64-4D95-BCE1-F40F32DD862C}"),
+               kCoreSingleInstance);
+  EXPECT_STREQ(_T("{8C1217E3-7EA4-4698-8CCC-79E062C32317}"),
+               kCrashHandlerSingleInstance);
+  EXPECT_STREQ(_T("{04B54C42-9095-4DA0-B721-F042075A154C}"),
+               kUpdateAppsSingleInstance);
+  EXPECT_STREQ(_T("%s-{86D25F1C-A1F8-48F5-818D-CAA22C1064BB}"),
+               kInstallAppSingleInstance);
+  EXPECT_STREQ(_T("{B9D46B77-416A-4985-A29D-1750CB595C7D}"),
+               kInstallManagerSerializer);
+  EXPECT_STREQ(_T("{99955AB6-659D-4168-8405-9DBF20E82EF6}"),
+               kMetricsSerializer);
+  EXPECT_STREQ(_T("{93C8DE3A-E199-4156-ACE6-C3342002BA0F}"),
+               kRegistryAccessMutex);
 }
 
 TEST(OmahaCustomizationTest, Constants_ObjectNames_SharedMemory) {

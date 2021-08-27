@@ -80,7 +80,6 @@ std::vector<uint8_t> GetRecoveryCRXHash() {
 
 }
 
-
 // Starts another process via ::CreateProcess.
 HRESULT StartProcess(const TCHAR* process_name, TCHAR* command_line) {
   if (!process_name && !command_line) {

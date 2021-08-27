@@ -232,7 +232,6 @@ TEST_F(WebServicesClientTest, SendForcingHttps) {
   
   //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[0].status);
   //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[1].status);
-
   EXPECT_STREQ(_T("ok"), response.apps[0].status);
   EXPECT_STREQ(_T("ok"), response.apps[1].status);
 }
@@ -269,7 +268,7 @@ TEST_F(WebServicesClientTest, SendWithCustomHeader) {
   EXPECT_STREQ(_T("200"), request_age_header);
 }
 
-TEST_P(WebServicesClientTest, SendString) {    
+TEST_P(WebServicesClientTest, SendString) {
   EXPECT_HRESULT_SUCCEEDED(web_service_client_->Initialize(update_check_url_,
                                                            HeadersVector(),
                                                            false));
