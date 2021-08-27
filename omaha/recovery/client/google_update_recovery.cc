@@ -574,7 +574,7 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                              const CPath& unpack_under_path,
                              CPath* unpacked_exe) {
 
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: AAAA")));
+  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: AAAA")));
 
   ASSERT1(unpacked_exe);
 
@@ -585,18 +585,18 @@ CORE_LOG(L2,(_T("ValidateAndUnpackCRX: AAAA")));
                        {},
                        &public_key,
                        NULL) != crx_file::VerifierResult::OK_FULL) {
-//    return CRYPT_E_NO_MATCH;
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: Verify failed")));
+    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: Verify failed")));
+    //return CRYPT_E_NO_MATCH;
   }
 
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), from_crx_path.m_strPath));
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), unpack_under_path.m_strPath));
+  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), from_crx_path.m_strPath));
+  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), unpack_under_path.m_strPath));
 
   if (!crx_file::Crx3Unzip(from_crx_path, unpack_under_path)) {
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: E_UNEXPECTED")));
+    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: E_UNEXPECTED")));
     //return E_UNEXPECTED;
   }
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: CCCC")));
+  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: CCCC")));
 
   CPath exe = unpack_under_path;
   exe += _T("KDSUpdateSetup.exe");
@@ -605,7 +605,7 @@ CORE_LOG(L2,(_T("ValidateAndUnpackCRX: CCCC")));
     return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
   }
 
-CORE_LOG(L2,(_T("ValidateAndUnpackCRX: DDDD")));
+  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: DDDD")));
 
   *unpacked_exe = exe;
   return S_OK;
@@ -627,7 +627,7 @@ HRESULT FixGoogleUpdate(const TCHAR* app_guid,
     return E_INVALIDARG;
   }
 
-CORE_LOG(L2,(_T("BINGO 1")));
+  CORE_LOG(L2,(_T("BINGO 1")));
 
   CPath download_target_path;
   CPath parent_dir;
@@ -637,9 +637,9 @@ CORE_LOG(L2,(_T("BINGO 1")));
     return hr;
   }
 
-CORE_LOG(L2,(_T("BINGO_2")));
-CORE_LOG(L2,(_T("target: %s"),  download_target_path.m_strPath));
-//CORE_LOG(LE, (_T("[AddSwitch failed][%s][0x%x]")                    current_switch_name, hr));
+  CORE_LOG(L2,(_T("BINGO_2")));
+  CORE_LOG(L2,(_T("target: %s"),  download_target_path.m_strPath));
+  //CORE_LOG(LE, (_T("[AddSwitch failed][%s][0x%x]")                    current_switch_name, hr));
 
   hr = omaha::DownloadRepairFile(download_target_path,
                                  app_guid,
