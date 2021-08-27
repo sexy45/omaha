@@ -58,7 +58,7 @@ HRESULT VerifyCOMLocalServerRegistration(bool is_machine) {
 #if 0
   // Validate the following:
   // * LocalServer32 under CLSID_OnDemandMachineAppsClass or
-  //   CLSID_OnDemandUserAppsClass should be ""...Kings Distributed Systems\Update\KDSUpdate.exe".
+  //   CLSID_OnDemandUserAppsClass should be "...Kings Distributed Systems\Update\KDSUpdate.exe".
   // * InProcServer32 under CLSID of IID_IGoogleUpdate should be
   //   "...Kings Distributed Systems\Update\{version}\goopdate.dll".
   // * ProxyStubClsid32 under IGoogleUpdate interface should be the CLSID of the
