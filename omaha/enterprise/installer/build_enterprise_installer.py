@@ -34,13 +34,13 @@ import enterprise.installer.utils as ei_utils
 
 def BuildGoogleUpdateFragment(env,
                               metainstaller_path,
+                              company_name,
                               product_name,
                               product_version,
                               product_guid,
                               product_custom_params,
                               wixobj_base_name,
-                              google_update_wxs_template_path,
-                              company_name = 'Kings Distributed Systems'):
+                              google_update_wxs_template_path):
   """Build an update fragment into a WiX object.
 
   Takes a supplied wix fragment, and turns it into a .wixobj object for later
@@ -49,6 +49,7 @@ def BuildGoogleUpdateFragment(env,
   Args:
     env: environment to build with
     metainstaller_path: path to the Omaha metainstaller to include
+    company_name: name of the company the fragment is being built for
     product_name: name of the product the fragment is being built for
     product_version: product version to be installed
     product_guid: Omaha application ID of the product the fragment is being
@@ -227,6 +228,7 @@ def _BuildMsiForExe(env,
 
 
 def BuildEnterpriseInstaller(env,
+                             company_name,
                              product_name,
                              product_version,
                              product_guid,
@@ -247,6 +249,7 @@ def BuildEnterpriseInstaller(env,
 
   Args:
     env: environment to build with
+    company_name: name of the company for whom the product is being built
     product_name: name of the product being built
     product_version: product version to be installed
     product_guid: product's Omaha application ID
@@ -282,6 +285,7 @@ def BuildEnterpriseInstaller(env,
   google_update_wixobj_output = BuildGoogleUpdateFragment(
       env,
       metainstaller_path,
+      company_name,
       product_name,
       product_version,
       product_guid,
