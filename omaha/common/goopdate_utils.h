@@ -62,7 +62,7 @@ typedef HRESULT (*RegisterOrUnregisterFunction)(void* data, bool is_register);
 CString BuildGoogleUpdateExeDir(bool is_machine);
 
 // Builds the path of the Google Update version found in the registry. The
-// command line is of the form "<install location>\kdsupdate.exe"
+// command line is of the form "<install location>\googleupdate.exe"
 CString BuildGoogleUpdateExePath(bool is_machine);
 
 // Builds the path of the crash handler. The command line is of the form
@@ -84,8 +84,8 @@ bool IsRunningFromDir(int csidl);
 // If running the installed machine instance, returns HKLM. Else returns HKCU.
 CString GetHKRoot();
 
-// Returns the version of KDSUpdate.exe that is installed in the official
-// location. Returns an empty CString if KDSUpdate.exe is missing.
+// Returns the version of GoogleUpdate.exe that is installed in the official
+// location. Returns an empty CString if GoogleUpdate.exe is missing.
 CString GetInstalledShellVersion(bool is_machine);
 
 // Starts an instance of the Google Update version found in the registry.
@@ -96,7 +96,7 @@ HRESULT StartGoogleUpdateWithArgs(bool is_machine,
                                   const TCHAR* args,
                                   HANDLE* process);
 
-// Starts an instance of KDSCrashHandler.exe, and KDSCrashHandler64.exe
+// Starts an instance of GoogleCrashHandler.exe, and GoogleCrashHandler64.exe
 // if we're running on a 64-bit OS.
 HRESULT StartCrashHandler(bool is_machine);
 
@@ -104,7 +104,7 @@ HRESULT StartCrashHandler(bool is_machine);
 // elevated mode using the "Runas" verb.
 HRESULT StartElevatedMetainstaller(const TCHAR* args, DWORD* exit_code);
 
-// Registers security and sets the security values for the KDSUpdate
+// Registers security and sets the security values for the GoogleUpdate
 // process when running as a COM server.
 HRESULT InitializeSecurity();
 

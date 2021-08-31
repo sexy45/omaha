@@ -108,6 +108,7 @@ def _BuildSampleForTest():
 
         build_enterprise_installer.BuildEnterpriseInstaller(
             env,
+            'Kings Distributed Systems',
             product_name, product_version, product_guid,
             product_custom_params,
             product_installer_path,
@@ -168,7 +169,7 @@ if BUILDING_WITH_GOOGLE_UPDATE:
 # Applications with MSI installers
 #
 # To bundle Google Update with a product that has an MSI installer:
-#  * Build a .wixobj that contains the KDS Update installation fragment
+#  * Build a .wixobj that contains the Google Update installation fragment
 #    by calling BuildGoogleUpdateFragment().
 #  * Include the ComponentGoogleUpdate component in the appropriate feature in
 #    the product's WiX code.
@@ -182,13 +183,13 @@ version = '0.0.1.0'
 google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
             env,
             metainstaller_path,
+            'Kings Distributed Systems',
             'DCP',
             version,
             '{EF1FFA8B-49A9-475D-9698-DC379FF1257C}',
             '',
             'DCP',
             ('$MAIN_DIR/enterprise/installer/'
-                'google_update_machine_installer_fragment.wxs.xml'),
-            company_name = 'Kings Distributed Systems'
+                'google_update_machine_installer_fragment.wxs.xml')
 )
 print("KDS update WiX fragment location: {}".format(google_update_wixobj))

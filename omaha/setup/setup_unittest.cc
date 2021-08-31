@@ -115,7 +115,7 @@ class SetupTest : public testing::Test {
  protected:
   typedef std::vector<uint32> Pids;
 
-  // Returns the path to the long-running KDSUpdate.exe.
+  // Returns the path to the long-running GoogleUpdate.exe.
   static CString CopyGoopdateAndLongRunningFiles(const CString& omaha_path,
                                                  const CString& version) {
     CopyGoopdateFiles(omaha_path, version);
@@ -247,7 +247,7 @@ class SetupTest : public testing::Test {
     EXPECT_EQ(WAIT_TIMEOUT, ::WaitForSingleObject(get(install_process), 0));
 
     if (vista_util::IsUserAdmin()) {
-      // KDSUpdate running from the opposite directory should always be
+      // GoogleUpdate running from the opposite directory should always be
       // ignored. Using a command line that would not be ignored if it were not
       // an opposite.
       LaunchProcess(not_listening_exe_opposite_path_,
@@ -459,7 +459,7 @@ class SetupTest : public testing::Test {
                                                      0));
   }
 
-  // Launches an instance of KDSUpdate.exe that doesn't exit.
+  // Launches an instance of GoogleUpdate.exe that doesn't exit.
   void StopGoogleUpdateAndWaitProcessesDoNotStopTest() {
     LaunchProcessAndExpectStopGoogleUpdateAndWaitKillsProcess(
         is_machine_,
@@ -1096,7 +1096,7 @@ TEST_F(SetupRegistryProtectedMachineTest, SetRuntimeMode) {
 // StopGoogleUpdateAndWait tests.
 //
 // These are "large" tests.
-// They kill currently running KDSUpdate processes, including the core, owned
+// They kill currently running GoogleUpdate processes, including the core, owned
 // by the current user or SYSTEM.
 // A core may already be running, so if a core process is found, it is used for
 // the tests. Otherwise, they launch a core from a previous build.

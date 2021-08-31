@@ -86,7 +86,7 @@ bool EnsurePrivateNamespaceAvailable() {
   NamedObjectAttributes attr;
   GetAdminDaclSecurityAttributes(&attr.sa, GENERIC_ALL);
   // The private namespace created here will be used to create objects of the
-  // form "KDSUpdate\xyz". As the article "Object Namespaces" on MSDN
+  // form "GoogleUpdate\xyz". As the article "Object Namespaces" on MSDN
   // explains, these kernel objects are safe from squatting attacks from lower
   // integrity processes.
   HANDLE namespace_handle =

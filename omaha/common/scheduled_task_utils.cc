@@ -1056,7 +1056,7 @@ CString GetOmaha1LegacyTaskName(bool is_machine) {
 }
 
 // Returns the task name Omaha used to install in Omaha 2 before the
-// "KDSUpdate.exe does not run all the time" refactoring.
+// "GoogleUpdate.exe does not run all the time" refactoring.
 CString GetOmaha2LegacyTaskName(bool is_machine) {
   const CString& kLegacyOmaha2TaskNameUserPrefix = _T("KDSUpdateTaskUser");
   const CString& kLegacyOmaha2TaskNameMachine = _T("KDSUpdateTaskMachine");

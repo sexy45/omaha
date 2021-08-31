@@ -350,7 +350,7 @@ GoopdateImpl::GoopdateImpl(Goopdate* goopdate, bool is_local_system)
   // fails to allocate memory.
   VERIFY1(set_new_handler(&GoopdateImpl::OutOfMemoryHandler) == 0);
 
-  // Install the exception handler.  If KDSCrashHandler is running, this will
+  // Install the exception handler.  If GoogleCrashHandler is running, this will
   // connect to it for out-of-process handling; if not, it will install an
   // in-process breakpad crash handler with a callback to upload it.
   VERIFY_SUCCEEDED(InstallExceptionHandler());
@@ -564,7 +564,7 @@ HRESULT GoopdateImpl::DoMain(HINSTANCE instance,
   cmd_show_ = cmd_show;
 
   // The system terminates the process without displaying a retry dialog box
-  // for the user. KDSUpdate has no user state to be saved, therefore
+  // for the user. GoogleUpdate has no user state to be saved, therefore
   // prompting the user for input is meaningless.
   VERIFY_SUCCEEDED(SetProcessSilentShutdown());
 

@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-
-  <!--
   <?define UpdateKeyPath = 'SOFTWARE\$(var.CompanyName)\Update' ?>
-  -->
-  <?define UpdateKeyPath = 'SOFTWARE\Kings Distributed Systems\Update' ?>
 
   <!-- This fragment assumes machine install (ALLUSER=1). -->
 
   <Fragment Id='FragmentGoogleUpdate' >
-    <!-- Detect whether product is already registered with KDS Update. -->
+    <!-- Detect whether product is already registered with Google Update. -->
     <Property Id='PRODUCT_REGISTERED_VERSION'>
       <RegistrySearch Id='$(var.ProductNameLegalIdentifier)RegistrationSearch'
                       Root='HKLM'
@@ -70,7 +66,7 @@
         (($ComponentGoogleUpdate>2) OR REINSTALL) AND (NOT DISABLE_UPDATES)
       </Custom>
 
-      <!-- KDS Update will uninstall itself if the product is the only
+      <!-- Google Update will uninstall itself if the product is the only
            registered product, so no need to have an uninstall operation.
            Uninstall actions would not run when expected anyway if Omaha updates
            the product using a normal MSI installer (without this fragment).

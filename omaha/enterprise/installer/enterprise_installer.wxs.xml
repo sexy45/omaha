@@ -28,7 +28,7 @@
                       OnlyDetect='no'
                       Minimum='0.0.0.0' IncludeMinimum='yes'
                       Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
-      <UpgradeVersion Property='NEWERVERSIONDETECTED'
+      <UpgradeVersion Property='NEWERVERSIONDETECTED' 
                       OnlyDetect='yes'
                       Minimum='$(var.ProductVersion)' IncludeMinimum='yes' />
     </Upgrade>
@@ -98,7 +98,7 @@
       Value='$(var.ProductInstallerInstallCommand)'
       Execute='immediate'
       Return='check' />
-    <CustomAction
+    <CustomAction 
       Id='AppendDisableUpdateRegistrationArgToInstallerInstallCommandProperty'
       Property='FullProductInstallerInstallCommand'
       Value='[FullProductInstallerInstallCommand]

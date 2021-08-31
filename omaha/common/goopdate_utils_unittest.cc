@@ -990,7 +990,7 @@ class GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest
     : public GoopdateUtilsRegistryProtectedTest {
  protected:
   virtual void SetUp() {
-    // The tests start KDSUpdate processes running as user and these
+    // The tests start GoogleUpdate processes running as user and these
     // processes need the following registry value.
     ASSERT_SUCCEEDED(RegKey::SetValue(USER_REG_UPDATE,
                                       kRegValueInstalledVersion,
@@ -1169,7 +1169,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithUserFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether "program_files\Kings Distributed Systems\Update\KDSUpdate.exe" exists.
+// value depends on whether program_files\Google\Update\GoogleUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
        StartGoogleUpdateWithArgs_MachineVersionVersionDoesNotExist) {
@@ -1185,7 +1185,7 @@ TEST_F(GoopdateUtilsRegistryProtectedWithMachineFolderPathsTest,
 }
 
 // The version is no longer used by StartGoogleUpdateWithArgs, so the return
-// value depends on whether "<user_folder>\Kings Distributed Systems\Update\KDSUpdate.exe" exists.
+// value depends on whether <user_folder>\Google\Update\GoogleUpdate.exe exists.
 // The arguments must be valid to avoid displaying invalid command line error.
 //
 // TODO(omaha): This test is disabled because StartGoogleUpdateWithArgs fails on

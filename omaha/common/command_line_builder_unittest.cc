@@ -221,14 +221,14 @@ TEST(CommandLineBuilder, BuildUpdateWithSessionId) {
       cmd_line);
 }
 
-// The /update builder works when not used with KDSUpdate.exe.
+// The /update builder works when not used with GoogleUpdate.exe.
 TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithNonGoogleUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
   CString cmd_line = builder.GetCommandLine(_T("C:\\KDSUpdateSetup_en.exe"));
   EXPECT_STREQ(_T("\"C:\\KDSUpdateSetup_en.exe\" /update"), cmd_line);
 }
 
-// The /update builder should not be used with KDSUpdate.exe directly.
+// The /update builder should not be used with GoogleUpdate.exe directly.
 TEST(CommandLineBuilder, BuildUpdateAndGetCommandLineWithGoogleUpdateExe) {
   CommandLineBuilder builder(COMMANDLINE_MODE_UPDATE);
   ExpectAsserts expect_asserts;
@@ -490,3 +490,4 @@ TEST(CommandLineBuilder, BuildHealthCheck) {
 }
 
 }  // namespace omaha
+

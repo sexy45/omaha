@@ -114,7 +114,7 @@ HRESULT Goopdump::Main(const TCHAR* cmd_line, int argc, TCHAR** argv) {
   data_dumpers.clear();
 
   if (args_.is_monitor) {
-    // We want to monitor activity from KDSUpdate.exe.
+    // We want to monitor activity from GoogleUpdate.exe.
     // Examples include:
     // * Process start with arguments
     // * Process exit

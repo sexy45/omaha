@@ -15,7 +15,7 @@
 //
 // Unit test for the extractor and the ApplyTag class.
 //
-// TODO(omaha): eliminate the dependency on the hardcoded "KDSUpdate.exe"
+// TODO(omaha): eliminate the dependency on the hardcoded "GoogleUpdate.exe"
 // program name.
 
 #include "omaha/base/extractor.h"

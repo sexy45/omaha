@@ -384,7 +384,7 @@ class App : public ModelObject {
   // Returns the time interval between update is available and user cancel.
   int GetTimeSinceDownloadStart() const;
 
-  // Deletes "InstallerProgress" under "Kings Distributed Systems\\Update\\ClientState\\{AppID}".
+  // Deletes "InstallerProgress" under Google\\Update\\ClientState\\{AppID}.
   HRESULT ResetInstallProgress();
 
  private:

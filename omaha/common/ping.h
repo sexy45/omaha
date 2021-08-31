@@ -193,7 +193,7 @@ class Ping {
                   const CString& install_source,
                   const CString& request_id);
 
-  // Sends pings using the installed KDSUpdate, which runs in the
+  // Sends pings using the installed GoogleUpdate, which runs in the
   // ping mode. the function waits for the pings to be sent if wait_timeout_ms
   // is not zero. Returns S_OK if the pings have been successfully sent.
   HRESULT SendUsingGoogleUpdate(const CString& request_string,
@@ -258,3 +258,4 @@ HRESULT SendReliablePing(Ping* ping, bool is_fire_and_forget);
 }  // namespace omaha
 
 #endif  // OMAHA_COMMON_PING_H_
+

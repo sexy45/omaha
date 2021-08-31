@@ -206,7 +206,7 @@ TEST(CommandLineSimpleTest, GetCmdLineTail11) {
 // /install without "extraargs").
 
 // TODO(omaha): This is an Omaha1 back-compat issue.  Omaha2 should _never_
-// call kdsupdate.exe with no arguments.  So when we stop supporting Omaha1
+// call googleupdate.exe with no arguments.  So when we stop supporting Omaha1
 // handoffs we should remove this support.
   // Parse empty command line.
 TEST_F(CommandLineTest, ParseCommandLine_Empty) {

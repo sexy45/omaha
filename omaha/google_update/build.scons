@@ -14,7 +14,7 @@
 # limitations under the License.
 # ========================================================================
 
-# We always build the shell as KDSUpdate_signed.exe.
+# We always build the shell as GoogleUpdate_signed.exe.
 # For official builds, we copy the saved constant shell to the output directory.
 # For unofficial builds, we copy the built shell.
 # Otherwise, the goopdate.dll certificate check fails.
