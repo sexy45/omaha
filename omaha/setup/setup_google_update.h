@@ -84,7 +84,7 @@ class SetupGoogleUpdate {
 
   // Uninstall previous versions after an overinstall of the new version. We do
   // the following:
-  //   * Delete all sub-directories under KDS\\Update, except the running
+  //   * Delete all sub-directories under "Kings Distributed Systems\\Update", except the running
   //     version's directory and the cache directory.
   HRESULT UninstallPreviousVersions();
 

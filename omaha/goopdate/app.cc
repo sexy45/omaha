@@ -514,7 +514,7 @@ HRESULT App::GetInstallProgress(LONG* install_progress_percentage,
   *install_time_remaining_ms = kCurrentStateProgressUnknown;
 
   // Installation progress is reported in "InstallerProgress" under
-  // KDS\\Update\\ClientState\\{AppID}. It is a value that goes from 0% to
+  // "Kings Distributed Systems\\Update\\ClientState\\{AppID}". It is a value that goes from 0% to
   // 100%.
   const CString base_key_name(ConfigManager::Instance()->registry_client_state(
       app_bundle_->is_machine()));

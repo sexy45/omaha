@@ -28,7 +28,7 @@ import re
 import sys
 
 
-MAIN_POLICY_KEY = r'Software\Policies\KDS\Update'
+MAIN_POLICY_KEY = r'Software\Policies\Kings Distributed Systems\Update'
 
 ADMX_HEADER = '<policyDefinitions revision="1.0" schemaVersion="1.0">'
 
@@ -117,20 +117,20 @@ ADMX_POLICIES = r'''
         displayName="$(string.Pol_UpdateCheckSuppressedPeriod)"
         explainText="$(string.Explain_UpdateCheckSuppressedPeriod)"
         presentation="$(presentation.Pol_UpdateCheckSuppressedPeriod)"
-        key="Software\Policies\KDS\Update">
+        key="Software\Policies\Kings Distributed Systems\Update">
       <parentCategory ref="Cat_Preferences" />
       <supportedOn ref="Sup_KDSUpdate1_3_33_5" />
       <elements>
         <decimal id="Part_UpdateCheckSuppressedStartHour"
-            key="Software\Policies\KDS\Update"
+            key="Software\Policies\Kings Distributed Systems\Update"
             valueName="UpdatesSuppressedStartHour"
             required="true" minValue="0" maxValue="23" />
         <decimal id="Part_UpdateCheckSuppressedStartMin"
-            key="Software\Policies\KDS\Update"
+            key="Software\Policies\Kings Distributed Systems\Update"
             valueName="UpdatesSuppressedStartMin"
             required="true" minValue="0" maxValue="59" />
         <decimal id="Part_UpdateCheckSuppressedDurationMin"
-            key="Software\Policies\KDS\Update"
+            key="Software\Policies\Kings Distributed Systems\Update"
             valueName="UpdatesSuppressedDurationMin"
             required="true" minValue="1" maxValue="960" />
       </elements>

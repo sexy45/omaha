@@ -69,7 +69,7 @@ bool IsOfflineInstallForApp(const CString& app_id);
 // CopyOfflineManifest() and CopyOfflineFilesForApp() find and copy the offline
 // manifest and offline files respectively, from the current module directory to
 // the offline_dir. offline_dir is typically an unique directory under the
-// KDS\Update\Offline\ directory.
+// "Kings Distributed Systems\Update\Offline\" directory.
 // The offline manifest is copied to offline_dir\<kOfflineManifestFileName>.
 // The binaries are in the format "file.<app_id>". Each file is copied to the
 // offline_dir under the subdirectory "<app_id>", as "file". For instance,

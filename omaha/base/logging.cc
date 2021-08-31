@@ -892,7 +892,7 @@ bool Logging::UnregisterWriter(LogWriter* log_writer) {
   return true;
 }
 
-// The primary configuration file under %PROGRAMFILES%\KDS\Update is
+// The primary configuration file under "%PROGRAMFILES%\Kings Distributed Systems\Update" is
 // removed on uninstall. This is midly inconvenient during development
 // therefore a fallback location for the configuration file is desired.
 CString Logging::GetCurrentConfigurationFilePath() const {

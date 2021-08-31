@@ -189,6 +189,6 @@ google_update_wixobj = build_enterprise_installer.BuildGoogleUpdateFragment(
             'DCP',
             ('$MAIN_DIR/enterprise/installer/'
                 'google_update_machine_installer_fragment.wxs.xml'),
-            company_name = 'KDS'
+            company_name = 'Kings Distributed Systems'
 )
 print("KDS update WiX fragment location: {}".format(google_update_wixobj))

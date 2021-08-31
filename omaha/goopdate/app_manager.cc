@@ -959,7 +959,7 @@ void AppManager::ClearInstallerResultApiValues(const GUID& app_guid) {
   RegKey::DeleteValue(client_state_key_name,
                       kRegValueLastInstallerSuccessLaunchCmdLine);
 
-  // Also delete any values from KDS\Update.
+  // Also delete any values from "Kings Distributed Systems\Update".
   // TODO(Omaha): This is a temporary fix for bug 1539293. See TODO below.
   RegKey::DeleteValue(update_key_name,
                       kRegValueLastInstallerResult);
@@ -989,7 +989,7 @@ void AppManager::ClearInstallerResultApiValues(const GUID& app_guid) {
                       kRegValueInstallerSuccessLaunchCmdLine,
                       kRegValueLastInstallerSuccessLaunchCmdLine);
 
-  // Copy over to the KDS\Update key.
+  // Copy over to the "Kings Distributed Systems\Update" key.
   // TODO(Omaha3): This is a temporary fix for bug 1539293. Once Pack V2 is
   // deprecated (Pack stops taking offline installers for new versions of
   // Omaha apps), remove this. (It might be useful to leave the CopyValue calls

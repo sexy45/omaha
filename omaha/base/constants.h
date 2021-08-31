@@ -180,7 +180,7 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 #define OMAHA_REL_CRASH_DIR OMAHA_REL_COMPANY_DIR _T("\\CrashReports")
 #define OMAHA_REL_POLICY_RESPONSES_DIR OMAHA_REL_COMPANY_DIR _T("\\Policies")
 
-// Directories relative to \KDS\Update
+// Directories relative to "\Kings Distributed Systems\Update"
 #define OMAHA_REL_GOOPDATE_INSTALL_DIR \
     OMAHA_REL_COMPANY_DIR _T("\\") PRODUCT_NAME
 #define OMAHA_REL_LOG_DIR OMAHA_REL_GOOPDATE_INSTALL_DIR _T("\\Log")
@@ -238,7 +238,7 @@ const TCHAR* const kChromeAppId = CHROME_APP_ID;
 
 #define REG_UPDATE_DEV COMPANY_MAIN_KEY PRODUCT_NAME _T("Dev\\")
 
-// Expands to HKEY_LOCAL_MACHINE\SOFTWARE\KDS\UpdateDev
+// Expands to "HKEY_LOCAL_MACHINE\SOFTWARE\Kings Distributed Systems\UpdateDev"
 #define MACHINE_REG_UPDATE_DEV MACHINE_KEY REG_UPDATE_DEV
 
 //
@@ -514,7 +514,7 @@ const TCHAR kHeaderUserAgent[]           = _T("User-Agent");
 const TCHAR kHeaderXLastHR[]             = _T("X-Last-HR");
 const TCHAR kHeaderXLastHTTPStatusCode[] = _T("X-Last-HTTP-Status-Code");
 
-// The "mid" value if it exists in HKLM\SOFTWARE\KDS\UpdateDev.
+// The "mid" value if it exists in "HKLM\SOFTWARE\Kings Distributed Systems\UpdateDev".
 const TCHAR kHeaderXMID[]                = _T("X-MID");
 
 // The 407 retry count in the case of authenticated proxies.

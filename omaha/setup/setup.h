@@ -136,7 +136,7 @@ class Setup {
 #if 0
   // Given a guid, finds and copies the offline manifest and binaries from the
   // current module directory to the offline_dir passed in. offline_dir is
-  // typically the KDS\Update\Offline\ directory. The offline manifest is
+  // typically the "Kings Distributed Systems\Update\Offline\" directory. The offline manifest is
   // copied to offline_dir\{GUID}.gup. The binaries are in the format
   // "Installer.msi.{GUID}", and they are copied to the offline_dir under the
   // subdirectory {GUID}, as Installer.msi.
