@@ -605,3 +605,4 @@ void DataDumperGoopdate::DumpFileContents(const DumpLog& dump_log,
 }
 
 }  // namespace omaha
+
