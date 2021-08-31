@@ -9,8 +9,8 @@
 
   <supportedOn>
     <definitions>
-      <definition name="Sup_KDSUpdate1_3_34_3"
-          displayName="$(string.Sup_KDSUpdate1_3_34_3)" />
+      <definition name="Sup_GoogleUpdate1_3_34_3"
+          displayName="$(string.Sup_GoogleUpdate1_3_34_3)" />
     </definitions>
   </supportedOn>
 
@@ -30,7 +30,7 @@
         key="Software\Policies\Google\CloudManagement"
         valueName="EnrollmentMandatory">
       <parentCategory ref="Cat_CloudManagement"/>
-      <supportedOn ref="Sup_KDSUpdate1_3_34_3"/>
+      <supportedOn ref="Sup_GoogleUpdate1_3_34_3"/>
       <enabledValue>
         <decimal value="1"/>
       </enabledValue>
@@ -45,7 +45,7 @@
         presentation="$(presentation.Pol_EnrollmentToken)"
         key="Software\Policies\Google\CloudManagement">
       <parentCategory ref="Cat_CloudManagement"/>
-      <supportedOn ref="Sup_KDSUpdate1_3_34_3"/>
+      <supportedOn ref="Sup_GoogleUpdate1_3_34_3"/>
       <elements>
         <text id="Part_EnrollmentToken" maxLength="1024"
               valueName="EnrollmentToken"/>
