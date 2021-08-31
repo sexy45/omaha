@@ -490,3 +490,4 @@ TEST(CommandLineBuilder, BuildHealthCheck) {
 }
 
 }  // namespace omaha
+

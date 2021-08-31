@@ -496,3 +496,4 @@ TEST_F(PersistedPingsTest, AddPingEvents) {
 }
 
 }  // namespace omaha
+

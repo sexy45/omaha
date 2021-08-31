@@ -866,3 +866,4 @@ TEST_F(GoogleUpdateRecoveryTest, ProductionServerResponseTest) {
 }
 
 }  // namespace omaha
+
