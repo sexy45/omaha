@@ -162,7 +162,7 @@ def _GetMetainstallerPayloadFilenames(prefix,
       omaha_version[1] >= 3 and
       (omaha_version[2] > 36 or
        (omaha_version[2] == 36 and omaha_version[3] >= 61))):
-    # KDSUpdateHelper.msi was removed with version 1.3.36.61.
+    # GoogleUpdateHelper.msi was removed with version 1.3.36.61.
     payload_files.remove('KDSUpdateHelper.msi')
 
   for language in languages:

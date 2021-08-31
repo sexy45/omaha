@@ -59,7 +59,7 @@ bool IsElevationRequired(bool is_machine) {
 namespace internal {
 
 // TODO(omaha3): Make this elevate the metainstaller instead of
-// KDSUpdate.exe so the files are extracted to a secure location.
+// GoogleUpdate.exe so the files are extracted to a secure location.
 // May need to add all languages to the metainstaller's version resources so
 // the user sees the localized string in the UAC.
 // TODO(omaha3): We will need to save the metainstaller for OneClick

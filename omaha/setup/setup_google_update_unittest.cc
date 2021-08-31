@@ -384,7 +384,7 @@ TEST_F(SetupGoogleUpdateUserTest, FinishInstall_RunKeyDoesNotExist) {
   }
 }
 
-// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   if (IsTestRunByLocalSystem()) {
@@ -440,7 +440,7 @@ TEST_F(SetupGoogleUpdateUserTest, InstallRegistryValues) {
   EXPECT_STREQ(GetVersionString(), product_version);
 }
 
-// TODO(omaha): Assumes KDSUpdate.exe exists in the installed location, which
+// TODO(omaha): Assumes GoogleUpdate.exe exists in the installed location, which
 // is not always true when run independently.
 // TODO(omaha): Fails when run by itself on Windows Vista.
 TEST_F(SetupGoogleUpdateMachineTest, InstallRegistryValues) {

@@ -35,7 +35,7 @@ namespace omaha {
 
 namespace {
 
-// OMAHA_KEY_REL == "Software\Kings Distributed Systems\Update"
+// OMAHA_KEY_REL == "Software\Google\Update"
 #define OMAHA_KEY_REL \
     _T("Software\\") REG_KEY_NAME _T("\\") PRODUCT_NAME
 

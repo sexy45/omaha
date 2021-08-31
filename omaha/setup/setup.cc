@@ -141,7 +141,7 @@ void IncrementProcessWaitFailCount(CommandLineMode mode) {
   }
 }
 
-// Returns the pids of all other KDSUpdate.exe processes with the specified
+// Returns the pids of all other GoogleUpdate.exe processes with the specified
 // argument string. Checks processes for all users that it has privileges to
 // access.
 HRESULT GetPidsWithArgsForAllUsers(const CString& args,

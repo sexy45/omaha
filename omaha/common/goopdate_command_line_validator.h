@@ -29,7 +29,7 @@ struct CommandLineArgs;
 class CommandLineParser;
 class CommandLineValidator;
 
-// Validates all of the command line permutations for kdsupdate.exe.
+// Validates all of the command line permutations for googleupdate.exe.
 class GoopdateCommandLineValidator {
  public:
   typedef HRESULT (GoopdateCommandLineValidator::*ScenarioHandler)();

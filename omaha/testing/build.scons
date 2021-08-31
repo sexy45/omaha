@@ -133,7 +133,7 @@ unittest_support += env.Replicate('$STAGING_DIR/unittest_support/omaha_1.3.x/',
 #              '$STAGING_DIR/unittest_support/omaha_1.3.x_newer/',
 #              'unittest_support/omaha_1.2.x_newer/KDSUpdate.exe')
 
-# Copy longrunning.exe to KDSUpdate.exe for use in Setup.
+# Copy longrunning.exe to GoogleUpdate.exe for use in Setup.
 unittest_support += env.Replicate(
     target='$STAGING_DIR/unittest_support/does_not_shutdown/',
     source='$MAIN_DIR/testing/unittest_support/LongRunningSilent.exe',
@@ -652,7 +652,7 @@ else:
 # The tests depend on the unittest_support directory.
 omaha_unittest_env.Depends(test, unittest_support)
 
-# extractor_unittest.cc uses KDSUpdateSetup_repair.exe as a zero-length tag
+# extractor_unittest.cc uses GoogleUpdateSetup_repair.exe as a zero-length tag
 # cert-tagged exe.
 omaha_unittest_env.Depends(test, '$STAGING_DIR/KDSUpdateSetup_repair.exe')
 

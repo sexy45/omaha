@@ -767,7 +767,7 @@ HRESULT UnRegisterTypeLibForUser(REFGUID lib_id,
 
 // TODO(omaha): This method's name is much more specific than what it does. Can
 // we just copy the code to scheduled task and service code and eliminate it?
-// Reads the current value under "{HKLM|HKCU}\Kings Distributed Systems\Update\value_name". Returns
+// Reads the current value under {HKLM|HKCU}\Google\Update\value_name. Returns
 // default_val if value_name does not exist.
 CString GetCurrentVersionedName(bool is_machine,
                                 const TCHAR* value_name,
@@ -790,7 +790,7 @@ CString GetCurrentVersionedName(bool is_machine,
 }
 
 // Creates a unique name of the form "{prefix}1c9b3d6baf90df3" and stores it in
-// the registry under "HKLM/HKCU\Kings Distributed Systems\Update\value_name". Subsequent
+// the registry under HKLM/HKCU\Google\Update\value_name. Subsequent
 // invocations of GetCurrentTaskName() will return this new value.
 HRESULT CreateAndSetVersionedNameInRegistry(bool is_machine,
                                             const TCHAR* prefix,

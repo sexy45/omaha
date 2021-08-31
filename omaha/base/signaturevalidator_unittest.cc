@@ -60,7 +60,7 @@ TEST(CertInfoTest, CertInfo) {
   // ExtractAllCertificatesFromSignature() gets the certificate chain for the
   // first signature and the certificate chain for the corresponding timestamp,
   // excluding the root certificates.
-  // The following certificates are enumerated from KDSUpdate.exe signed
+  // The following certificates are enumerated from GoogleUpdate.exe signed
   // Friday, November 15, 2019 4:04:23 PM:
   // * "DigiCert Assured ID CA-1" hash
   //   19a09b5a36f4dd99727df783c17a51231a56c117.
