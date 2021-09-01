@@ -2,7 +2,7 @@
 
 $originalLocation = Get-Location
 
-Set-Location "c:\kds-update\omaha_consulting"
+Set-Location "$PSScriptRoot\..\omaha_consulting"
 
 cmd /c "mklink /D ..\third_party\breakpad %CD%\breakpad-master-2021-05-28"
 cmd /c "mklink /D ..\third_party\googletest %CD%\googletest-master-2021-05-28"
