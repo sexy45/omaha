@@ -48,7 +48,6 @@ goto set_env_variables
 :: Change these variables to match the local build environment.
 
 :: Directory where the Go programming language toolchain is installed.
-::set GOROOT=C:\Go-1.14.6-amd64
 set GOROOT=C:\Go
 
 :: This directory is needed to find protoc.exe, which is the protocol buffer
@@ -64,7 +63,6 @@ set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
 set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\src
 
 :: Directory where Python (python.exe) is installed.
-::set OMAHA_PYTHON_DIR=%~dp0\..\omaha_consulting\python\Scripts
 set OMAHA_PYTHON_DIR=C:\Python27
 
 :: Directory in WiX where candle.exe and light.exe are installed.
@@ -81,7 +79,6 @@ set OMAHA_SIGNTOOL_SDK_DIR="%WindowsSdkVerBinPath%\x86"
 set PYTHONPATH=%OMAHA_PYTHON_DIR%
 
 :: Directory of Scons (http://www.scons.org/).
-::set SCONS_DIR=%~dp0\..\omaha_consulting\python\scons-1.3.1
 set SCONS_DIR=c:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
