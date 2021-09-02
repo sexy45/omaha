@@ -9,5 +9,4 @@ cmd /c "C:\Python27\python.exe -m pip install pywin32==224"
 Write-Host "Installing scons ..."
 cmd /c "C:\Python27\python.exe C:\scons-1.3.1\setup.py install"
 
-#Remove-Item $exePath
 Write-Host "Installed" -ForegroundColor Green
