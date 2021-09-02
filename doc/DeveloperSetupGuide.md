@@ -33,13 +33,13 @@ The following packages are required to build Omaha:
     * The `OMAHA_PYTHON_DIR` is set to `C:\Python27`. Change this if you installed to a different location.
   * SCons 1.3.x (Be sure to use **1.3**, the 2.0 series is not backwards-compatible!)
     * Download SCons [here](http://sourceforge.net/projects/scons/files/scons/1.3.1/).
-    * Change this line in hammer.bat if you installed to a different location: `SCONS_DIR=C:\Python27\Lib\site-packages\scons-1.3.1`.
+    * Change this line in hammer.bat if you installed to a different location: `SCONS_DIR=C:\Python27\scons-1.3.1`.
   * Google Software Construction Toolkit
     * Get the SCT source [here](https://code.google.com/archive/p/swtoolkit/downloads), either via direct download or via SVN checkout.
     * Change this line in hammer.bat if you installed to a different location: `set SCT_DIR=C:\swtoolkit`.
   * The GO programming language
     * Download [here](https://golang.org/dl/) 
-    * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\go`.
+    * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\Go`.
   * Google Protocol Buffers (3.13.0 or higher) [here](https://github.com/google/protobuf/releases).
     * From the [release page](https://github.com/google/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `C:\protobuf`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the `src` sub-directory contents to `C:\protobuf\src`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
   * Third-party dependencies:
