@@ -113,7 +113,7 @@ Download Url: [https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi]
 
 ### **PSTools**
 Script [pstools.ps1](./KDS-BuildScripts/pstools.ps1)  
-Destination: c:\pstools  
+Destination: C:\Program Files (x86)\pstools
 Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://download.sysinternals.com/files/PSTools.zip)
 
 ### **System Environment Path and Variables**
