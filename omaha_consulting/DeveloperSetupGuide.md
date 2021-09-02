@@ -36,7 +36,7 @@ and the steps below. They were tested with revision 0d9965c.
     `mklink /D ..\third_party\libzip %CD%\libzip-1.7.3`
     `mklink /D ..\third_party\zlib %CD%\zlib-1.2.11`
 
- 8. Install Go 1.14.6 into `C:\Go-1.14.6-amd64`.
+ 8. Install Go 1.14.6 into `C:\Go`.
 
  9. Extract `PSTools.zip` into `C:\Program Files (x86)`, so you have
     `C:\Program Files (x86)\pstools\psexec.exe`.
