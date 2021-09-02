@@ -79,7 +79,7 @@ set OMAHA_SIGNTOOL_SDK_DIR="%WindowsSdkVerBinPath%\x86"
 set PYTHONPATH=%OMAHA_PYTHON_DIR%
 
 :: Directory of Scons (http://www.scons.org/).
-set SCONS_DIR=c:\Python27\scons-1.3.1
+set SCONS_DIR=C:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
 set SCT_DIR=%~dp0\..\omaha_consulting\swtoolkit-0.9.1
