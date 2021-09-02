@@ -13,5 +13,3 @@ Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -All
 
 & "$PSScriptRoot\environment.ps1"
 & "$PSScriptRoot\build-links.ps1"
-
-

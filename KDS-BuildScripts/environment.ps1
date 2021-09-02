@@ -10,5 +10,3 @@ $pythonPath = "C:\Python27"
 $oldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name path).path
 $newPath  =  "$pythonPath;$oldPath"  
 Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name path -Value $newPath
-
-

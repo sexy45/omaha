@@ -195,4 +195,3 @@ scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\opt-win\staging\KDSU
 cd c:\kds-update\omaha
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
-
