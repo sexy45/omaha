@@ -21,6 +21,5 @@ Write-Host "Installing..."
 $process = Start-Process -FilePath $exePath -ArgumentList $setupArguments -Wait -PassThru
 Write-Output $process.ExitCode 
 
-
 Remove-Item $exePath
 Write-Host "Installed" -ForegroundColor Green
