@@ -536,7 +536,7 @@ def CompileProtoBuf(env, input_proto_files):
   Returns:
     Output node list of generated .cc files.
   """
-  proto_compiler_path = '%s/protoc.exe' % os.getenv('OMAHA_PROTOBUF_BIN_DIR',
+  proto_compiler_path = '"%s/protoc.exe"' % os.getenv('OMAHA_PROTOBUF_BIN_DIR',
                                                     '$OBJ_ROOT/base/Default')
   proto_path = env['PROTO_PATH']
   cpp_out = env['CPP_OUT']
@@ -545,10 +545,10 @@ def CompileProtoBuf(env, input_proto_files):
              for base in [RelativePath(in_file, proto_path)
                           for in_file in input_proto_files]
              for ext in ('.pb.cc', '.pb.h')]
-  proto_arguments = (' --proto_path=%s --cpp_out=%s %s ' %
+  proto_arguments = (' --proto_path="%s" --cpp_out="%s" %s ' %
                      (proto_path,
                       cpp_out,
-                      ' '.join(input_proto_files)))
+                      ' '.join('"{0}"'.format(w) for w in input_proto_files)))
   proto_cmd_line = proto_compiler_path + proto_arguments
   compile_proto_buf = env.Command(
       target=targets,
