@@ -746,7 +746,7 @@ if not win_env.Bit('official_installers'):
   import proxy_clsid_utils
 
   # Generate uniqe proxy CLSIDs for each build.
-  win_env.Execute('python $MAIN_DIR\\tools\\proxy_clsid_utils.py')
+  win_env.Execute('python "$MAIN_DIR\\tools\\proxy_clsid_utils.py"')
   win_env.Append(
       CPPDEFINES = [
         'PROXY_CLSID_IS_MACHINE=%s' % proxy_clsid_utils.GetMachineProxyClsid(),
