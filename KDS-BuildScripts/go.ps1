@@ -61,5 +61,4 @@ Write-Host $msiArguments
 Write-Host "Installing..."
 Start-Process msiexec.exe -Wait -ArgumentList $msiArguments
 
-
 Write-Output "done"

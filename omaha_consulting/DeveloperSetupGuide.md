@@ -48,7 +48,6 @@ and the steps below. They were tested with revision 0d9965c.
 After the above steps, open an Administrator Command Prompt (don't forget the
 environment variables), `cd` into Omaha's source tree and type:
 
-
     call omaha_consulting\env.cmd
     cd omaha
     hammer -j32 --all --mode=all

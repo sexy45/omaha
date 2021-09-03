@@ -1,7 +1,7 @@
 set-executionpolicy remotesigned
 
 & "$PSScriptRoot\visualstudio.ps1"
-& "$PSScriptRoot\winskd.ps1"
+& "$PSScriptRoot\winsdk.ps1"
 
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -All
 
