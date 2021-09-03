@@ -74,7 +74,7 @@ Release History: [https://docs.microsoft.com/en-us/visualstudio/releases/2019/hi
 
 There may be issues with the SDK provided by Visual Studio, so it is necessary to install separately.
 
-Script: [winskd.ps1](./KDS-BuildScripts/winskd.ps1)  
+Script: [winsdk.ps1](./KDS-BuildScripts/winsdk.ps1)  
 Download Url: [https://go.microsoft.com/fwlink/?linkid=2083338](https://go.microsoft.com/fwlink/?linkid=2083338)
 
 ### **.Net 3.5**
