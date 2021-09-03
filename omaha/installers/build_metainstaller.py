@@ -90,7 +90,7 @@ def BuildMetaInstaller(
   tarball_output = env.Command(
       target=tarball_filename,    # Archive filename
       source=payload_contents,    # List of files to include in tarball
-      action='python.exe %s -o $TARGET $SOURCES' % (
+      action='python.exe "%s" -o $TARGET $SOURCES' % (
           env.File(installers_sources_path + '/generate_tarball.py').abspath),
   )
 
