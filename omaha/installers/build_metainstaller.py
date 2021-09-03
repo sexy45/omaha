@@ -104,7 +104,7 @@ def BuildMetaInstaller(
   bcj_output = env.Command(
       target=bcj_filename,
       source=tarball_output,
-      action='%s "$SOURCES" "$TARGET"' % bcj2_path,
+      action='"%s" "$SOURCES" "$TARGET"' % bcj2_path,
   )
   env.Depends(bcj_output, bcj2_path)
 
@@ -116,12 +116,12 @@ def BuildMetaInstaller(
   lzma_output = lzma_env.Command(
       target=payload_filename,
       source=bcj_output,
-      action='%s e $SOURCES $TARGET $LZMAFLAGS' % lzma_path,
+      action='"%s" e $SOURCES $TARGET $LZMAFLAGS' % lzma_path,
   )
 
   # Construct the resource generation script
   manifest_path = installers_sources_path + '/installers.manifest'
-  res_command = 'python.exe %s -i %s -o $TARGET -p $SOURCES -m %s -r %s' % (
+  res_command = 'python.exe "%s" -i "%s" -o $TARGET -p $SOURCES -m "%s" -r "%s"' % (
       env.File(installers_sources_path + '/generate_resource_script.py'
               ).abspath,
       env.File(installers_sources_path + '/resource.rc.in').abspath,
@@ -166,7 +166,7 @@ def BuildMetaInstaller(
   merged_output = env.Command(
       target='unsigned_' + target_name,
       source=[empty_metainstaller_path, dll_output_name],
-      action='%s --copyappend $SOURCES $TARGET' % resmerge_path)
+      action='"%s" --copyappend $SOURCES $TARGET' % resmerge_path)
 
   authenticode_signed_target_prefix = 'authenticode_'
   authenticode_signed_exe = env.DualSignedBinary(
