@@ -116,7 +116,7 @@ if (_sdk_dir is None):
 
 _sdk_version = os.getenv('OMAHA_WINDOWS_SDK_10_0_VERSION', None)
 _wtl_dir = os.getenv('OMAHA_WTL_DIR', '$GOOGLE3/third_party/wtl/files')
-_signtool_path = ('python $MAIN_DIR/tools/retry.py 10 5 \"%s/%s\"' %
+_signtool_path = ('python "$MAIN_DIR/tools/retry.py" 10 5 \"%s/%s\"' %
                   (os.getenv('OMAHA_SIGNTOOL_SDK_DIR'), 'signtool.exe'))
 
 # Windows is the only environment we bulid for, so create a specialized base
