@@ -35,18 +35,16 @@ $gopathbin = Join-Path "$gopath" "bin"
 # see the $GOBIN
 [Environment]::SetEnvironmentVariable("GOBIN", "$gopathbin", [System.EnvironmentVariableTarget]::User)
 
-Write-Output "downloading $url"
 # Create client, set its info, and download
+Write-Output "downloading $url"
 $wc = New-Object System.Net.WebClient
 $wc.UseDefaultCredentials = $true
 $wc.Headers.Add("X-FORMS_BASED_AUTH_ACCEPTED", "f")
 $wc.DownloadFile("$url", "$dest")
-
 Write-Output "$url downloaded as $dest"
-Write-Output "installing $v..."
-# Run the msi
-#Start-Process "$dest"
 
+# Run the msi
+Write-Output "installing $v..."
 $msiPath = "$dest"
 $msiArguments = @(
   "/i"
@@ -54,10 +52,8 @@ $msiArguments = @(
   "/qn"
   "/norestart"
 )
-
 Write-Host "$msiPath"
 Write-Host $msiArguments
-
 Write-Host "Installing..."
 Start-Process msiexec.exe -Wait -ArgumentList $msiArguments
 

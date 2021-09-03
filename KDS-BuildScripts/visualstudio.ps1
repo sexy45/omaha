@@ -7,11 +7,11 @@ $exePath = "$env:temp\vs_professional.exe"
 Write-Host "$exePath"
 
 $setupArguments = @(
-    "--add" 
-    "Microsoft.VisualStudio.Workload.NativeDesktop"
-    "--includeRecommended"
-    "--quiet"
-    "--wait"
+  "--add" 
+  "Microsoft.VisualStudio.Workload.NativeDesktop"
+  "--includeRecommended"
+  "--quiet"
+  "--wait"
 )
 
 Write-Host "Installing..."
