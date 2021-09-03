@@ -6,7 +6,7 @@ $msiPath = "$env:temp\python-2.7.18.msi"
 
 $msiArguments = @(
     "/i"
-    "$msiPath"
+    "`"$msiPath`""
     "/qn"
     "/norestart"
 )

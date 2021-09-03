@@ -50,7 +50,7 @@ Write-Output "installing $v..."
 $msiPath = "$dest"
 $msiArguments = @(
   "/i"
-  "$msiPath"
+  "`"$msiPath`""
   "/qn"
   "/norestart"
 )
