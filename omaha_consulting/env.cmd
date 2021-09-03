@@ -9,9 +9,7 @@ set TIMESTAMP_SERVER=http://timestamp.digicert.com
 set SHA1_TIMESTAMP_SERVER=http://timestamp.digicert.com
 set SHA2_TIMESTAMP_SERVER=http://timestamp.digicert.com
 
-rem Uncomment this to build in a regular command window.
-rem Change "Professional" to "Community" if using the community version of VS.
-rem call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
+rem Change "Community" to "Professional", etc., if using a non-community version of VS.
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
 
-rem call %~dp0\python\Scripts\activate.bat
 rem call C:\Python27\python\Scripts\activate.bat

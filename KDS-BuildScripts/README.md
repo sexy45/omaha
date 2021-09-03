@@ -133,8 +133,8 @@ Assumes the source repository has already been pulled.
 Script: [install-all-buildtools.ps1](./KDS-BuildScripts/install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
-- Open the Visual Studio "x64_x86 Cross Tools Command Prompt for VS 2019" command window as administrator.
-- Apply Omaha environment variables.
+- Open a command window as administrator.
+- Apply Omaha environment variables; if not using Visual Studio 2019 Community, modify "omaha_consulting\env.cmd" accordingly first.
 - Build with &quot;hammer&quot;.
 - [Hammer Options](../doc/HammerOptions.md)
 
