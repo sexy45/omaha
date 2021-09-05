@@ -40,7 +40,7 @@ set-executionpolicy remotesigned
 Need to install git to download the scripts, or directly access them from GitLab.
 
 Script: [git-install.ps1](./KDS-BuildScripts/git-install.ps1)   
-Gitlab Url: [https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1](https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1)  
+Repository Url: [git-install](./KDS-BuildScripts/git-install.ps1)
 Source Url: [https://github.com/tomlarse/Install-Git](https://github.com/tomlarse/Install-Git)  
 Destination: C:\Program Files\Git
 
@@ -52,17 +52,17 @@ Use &quot;ssh-keygen&quot; command and register the resulting public key (C:\Use
 ```
 ssh-keygen
 ```
-Repository: [git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git](git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git)  
-Branch: development  
+Repository: [git@github.com:Kings-Distributed-Systems/omaha.git](git@github.com:Kings-Distributed-Systems/omaha.git)  
+Branch: dcp/kds-update/development
 Destination: C:\kds-update
 ```
 cd C:\
-git clone --branch development git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git
+git clone --recursive --branch dcp/kds-update/development git@github.com:Kings-Distributed-Systems/omaha.git
 ```
 
 ### **Visual Studio 2019**
 
-Only need to install native desktop workload, with all recommenced components (Microsoft.VisualStudio.Workload.NativeDesktop).
+Only need to install native desktop workload, with all recommended components (Microsoft.VisualStudio.Workload.NativeDesktop).
 
 Comes as a 90 free trail with no license key. The command line setup can be adjusted to accommodate a license key.
 
@@ -120,11 +120,6 @@ Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://down
 The system path has to be augmented to include python, and an Omaha specific environment variable for the python directory needs to be made pervasive.
 
 Script: [environment.ps1](./KDS-BuildScripts/environment.ps1)
-
-### **Source Symbolic Links**
-Add symbolic links to the repository linking the third-party libraries with the correct location in the Omaha directory structure.
-
-Script: [build-links.ps1](./KDS-BuildScripts/build-links.ps1) 
 
 ### **Single Install All Script**
 A single script to install all the build tools. Will also add the symbolic links to the source code.  
