@@ -42,13 +42,6 @@ The following packages are required to build Omaha:
     * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\Go`.
   * Google Protocol Buffers (3.13.0 or higher) [here](https://github.com/google/protobuf/releases).
     * From the [release page](https://github.com/google/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `C:\protobuf`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the `src` sub-directory contents to `C:\protobuf\src`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
-  * Third-party dependencies:
-    * breakpad. Download [here](https://codeload.github.com/google/breakpad/zip/master). 
-      - Unzip everything inside `breakpad-master.zip\breakpad-master` to `third_party\breakpad`.
-    * googletest. Download [here](https://codeload.github.com/google/googletest/zip/master). This includes both gtest and gmock frameworks.
-      - Unzip everything inside `googletest-master.zip\googletest-master` to `third_party\googletest`.
-    * libzip 1.7.3. Source code [here](https://libzip.org/download/libzip-1.7.3.tar.xz). Unzip the contents of `libzip-1.7.3.tar.gz\libzip-1.7.3.tar\libzip-1.7.3\` into the directory `third_party\libzip`. The Omaha repository contains two generated configuration files in `base\libzip`, or one could build the libzip library and generate the files. A change has been made to config.h to disable zip crypto `#undef HAVE_CRYPTO`, or else the zip code won't build because of a compile time bug.
-    * zlib 1.2.11. Source code [here](https://zlib.net/zlib-1.2.11.tar.gz). Unzip the contents of `zlib-1.2.11.tar.gz\zlib-1.2.11.tar\zlib-1.2.11\` into the directory `third_party\zlib\v1_2_11`.       
 
 To run the unit tests, one more package is needed. Download the Windows Sysinternals PSTools suite [here](https://technet.microsoft.com/en-us/sysinternals/bb897553) and save psexec.exe somewhere. Then, set a system environment variable named OMAHA_PSEXEC_DIR to the directory containing psexec.exe.
 
