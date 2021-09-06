@@ -54,7 +54,7 @@ ssh-keygen
 ```
 Repository: [git@github.com:Kings-Distributed-Systems/omaha.git](git@github.com:Kings-Distributed-Systems/omaha.git)  
 Branch: dcp/kds-update/development
-Destination: C:\kds-update
+Destination: <repo-root>
 ```
 cd C:\
 git clone --recursive --branch dcp/kds-update/development git@github.com:Kings-Distributed-Systems/omaha.git
@@ -134,7 +134,7 @@ Script: [install-all-buildtools.ps1](./install-all-buildtools.ps1)
 - [Hammer Options](../doc/HammerOptions.md)
 
 ```
-cd C:\kds-update
+cd <repo-root>
 omaha_consulting\env.cmd
 cd omaha
 hammer --all
@@ -165,7 +165,7 @@ Supply the following parameters to the _hammer_ command when building the _relea
 
 #### Build Signed Release
 ```
-cd C:\kds-update\omaha
+cd <repo-root>\omaha
 hammer MODE=opt-win --authenticode_file=<path\to\pfx> --authenticode_password=<...> --sha1_authenticode_file=<path\to\pfx> --sha2_authenticode_file=<...> --sha1_authenticode_password=<...> --sha2_authenticode_password=<...>
 ```
 
@@ -181,12 +181,12 @@ DCP Worker App Guid:  {EF1FFA8B-49A9-475D-9698-DC379FF1257C}
 
 #### Release Version
 ``` 
-cd C:\kds-update\omaha
+cd <repo-root>\omaha
 scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\opt-win\staging\KDSUpdateSetup.exe scons-out\opt-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
 
 #### Debug Version
 ```
-cd C:\kds-update\omaha
+cd <repo-root>\omaha
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
