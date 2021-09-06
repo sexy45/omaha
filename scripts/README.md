@@ -190,3 +190,26 @@ scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\opt-win\staging\KDSU
 cd <repo-root>\omaha
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
+
+
+## Running tests
+
+Create the registry key
+`HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\<CompanyName>\UpdateDev`
+with the string value `TestSource` set to `ossdev`. Then run the following as
+Administrator:
+
+    scons-out\dbg-win\staging\omaha_unittest.exe --gtest_brief=1
+
+The following 8 tests will likely fail:
+
+ * `TimeTest.RFC822TimeParsing`
+ * `UserInfoTest.GetProcessUserSid`
+ * `VistaUtilTest.IsUACOn`
+ * `VistaUtilTest.IsElevatedWithUACOn`
+ * `OmahaCustomizationTest.IsInternalUser`
+ * `SchedulerTest.UsesDebugTimer`
+ * `WorkerWithTwoAppsTest.CheckForUpdateAsync_Large`
+ * `WorkerWithTwoAppsTest.DownloadAsyncThenDownloadAndInstallAsync_Large5`
+
+That's normal.
