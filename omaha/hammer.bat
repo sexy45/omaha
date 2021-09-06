@@ -56,10 +56,7 @@ set GOROOT=C:\Go
 :: binary. Unzip the contents under C:\protobuf.
 set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
 
-:: This directory is needed to find the protocol buffer source files. From the
-:: release page https://github.com/google/protobuf/releases, download the zip
-:: file protobuf-cpp-$VERSION.zip. Unzip the "src" sub-directory contents to
-:: C:\protobuf\src.
+:: The protocol buffer source files.
 set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\third_party\protobuf\src
 
 :: Directory where Python (python.exe) is installed.
