@@ -31,10 +31,6 @@ and the steps below. They were tested with revision 0d9965c.
     `call python\Scripts\activate.bat`
     `pip install pywin32==224`
     `python ...\path\to\scons-1.3.1\setup.py install`
-    `mklink /D ..\third_party\breakpad %CD%\breakpad-master-2021-05-28`
-    `mklink /D ..\third_party\googletest %CD%\googletest-master-2021-05-28`
-    `mklink /D ..\third_party\libzip %CD%\libzip-1.7.3`
-    `mklink /D ..\third_party\zlib %CD%\zlib-1.2.11`
 
  8. Install Go 1.14.6 into `C:\Go`.
 
