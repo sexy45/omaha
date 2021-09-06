@@ -16,3 +16,6 @@
 [submodule "third_party/swtoolkit"]
 	path = third_party/swtoolkit
 	url = https://github.com/gabegundy/swtoolkit.git
+[submodule "third_party/wtl"]
+	path = third_party/wtl
+	url = https://git.code.sf.net/p/wtl/git

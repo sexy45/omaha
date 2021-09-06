@@ -69,7 +69,7 @@ set OMAHA_PYTHON_DIR=C:\Python27
 set OMAHA_WIX_DIR=%WIX%\bin
 
 :: Root directory of the WTL installation.
-set OMAHA_WTL_DIR=%~dp0\..\omaha_consulting\wtl-10.0.10077\files
+set OMAHA_WTL_DIR=%~dp0\..\third_party\wtl
 
 set OMAHA_PLATFORM_SDK_DIR=%WindowsSdkDir%\
 set OMAHA_WINDOWS_SDK_10_0_VERSION=%WindowsSDKVersion:~0,-1%
