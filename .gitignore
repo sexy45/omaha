@@ -22,4 +22,3 @@ omaha/common/omaha_customization_proxy_clsid.h
 omaha/proxy_clsids.txt
 omaha/scons-out/
 third_party/lzma/files/**/obj/
-omaha_consulting/python
