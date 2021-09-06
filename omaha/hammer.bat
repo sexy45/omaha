@@ -50,11 +50,11 @@ goto set_env_variables
 :: Directory where the Go programming language toolchain is installed.
 set GOROOT=C:\Go
 
-:: This directory is needed to find protoc.exe, which is the protocol buffer
+:: Where to find protoc.exe, which is the protocol buffer
 :: compiler. From the release page https://github.com/google/protobuf/releases,
 :: download the zip file protoc-$VERSION-win32.zip. It contains the protoc
-:: binary. Unzip the contents under C:\protobuf.
-set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
+:: binary.
+set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\third_party\protoc\bin
 
 :: The protocol buffer source files.
 set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\third_party\protobuf\src

@@ -34,8 +34,6 @@ The following packages are required to build Omaha:
   * The GO programming language
     * Download [here](https://golang.org/dl/) 
     * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\Go`.
-  * Google Protocol Buffers (3.13.0 or higher) [here](https://github.com/google/protobuf/releases).
-    * From the [release page](https://github.com/google/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `C:\protobuf`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR`.
 
 To run the unit tests, one more package is needed. Download the Windows Sysinternals PSTools suite [here](https://technet.microsoft.com/en-us/sysinternals/bb897553) and save psexec.exe somewhere. Then, set a system environment variable named OMAHA_PSEXEC_DIR to the directory containing psexec.exe.
 
