@@ -39,8 +39,8 @@ set-executionpolicy remotesigned
 ### **Git**
 Need to install git to download the scripts, or directly access them from GitLab.
 
-Script: [git-install.ps1](./KDS-BuildScripts/git-install.ps1)   
-Repository Url: [git-install](./KDS-BuildScripts/git-install.ps1)
+Script: [git-install.ps1](./git-install.ps1)   
+Repository Url: [git-install](./git-install.ps1)
 Source Url: [https://github.com/tomlarse/Install-Git](https://github.com/tomlarse/Install-Git)  
 Destination: C:\Program Files\Git
 
@@ -66,7 +66,7 @@ Only need to install native desktop workload, with all recommended components (M
 
 Comes as a 90 free trail with no license key. The command line setup can be adjusted to accommodate a license key.
 
-Script: [visualstudio.ps1](./KDS-BuildScripts/visualstudio.ps1)  
+Script: [visualstudio.ps1](./visualstudio.ps1)  
 Download Url: [https://download.visualstudio.microsoft.com/download/pr/308e891b-f15e-43d8-8cc1-0e41f4962d4b/3d9dcb2b792f2f8e4de13e1e7f0bec7c2d44998c7892509b8044e12dfc63ea39/vs\_Professional.exe](https://download.visualstudio.microsoft.com/download/pr/308e891b-f15e-43d8-8cc1-0e41f4962d4b/3d9dcb2b792f2f8e4de13e1e7f0bec7c2d44998c7892509b8044e12dfc63ea39/vs_Professional.exe)  
 Release History: [https://docs.microsoft.com/en-us/visualstudio/releases/2019/history#release-dates-and-build-numbers](https://docs.microsoft.com/en-us/visualstudio/releases/2019/history%23release-dates-and-build-numbers)
 
@@ -74,7 +74,7 @@ Release History: [https://docs.microsoft.com/en-us/visualstudio/releases/2019/hi
 
 There may be issues with the SDK provided by Visual Studio, so it is necessary to install separately.
 
-Script: [winsdk.ps1](./KDS-BuildScripts/winsdk.ps1)  
+Script: [winsdk.ps1](./winsdk.ps1)  
 Download Url: [https://go.microsoft.com/fwlink/?linkid=2083338](https://go.microsoft.com/fwlink/?linkid=2083338)
 
 ### **.Net 3.5**
@@ -87,7 +87,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName &quot;NetFx3&quot; -All
 ```
 
 ### **Wix 3.11**
-Script: [wix.ps1](./KDS-BuildScripts/wix.ps1)   
+Script: [wix.ps1](./wix.ps1)   
 Destination: C:\Program Files (x86)\WiX Toolset v3.11
 Download Url: [https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe](https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe)
 
@@ -95,37 +95,37 @@ Download Url: [https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/w
 Python is required for the main build tool: &quot;scons&quot;.  
 Needs to be added to front of environment path.
 
-Script: [python.ps1](./KDS-BuildScripts/python.ps1)   
+Script: [python.ps1](./python.ps1)   
 Destination: C:\Python27
 Download Url: [https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi](https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi)
 
 ### **Scons 1.3.1**
 Install pywin32 first.
 
-Script: [scons.ps1](./KDS-BuildScripts/scons.ps1)   
+Script: [scons.ps1](./scons.ps1)   
 Destination: C:\scons-1.3.1
 Download Url: [https://sourceforge.net/projects/scons/files/scons/1.3.1/scons-1.3.1.zip/download](https://sourceforge.net/projects/scons/files/scons/1.3.1/scons-1.3.1.zip/download)
 
 ### **Go (1.14.6)**
-Script [go.ps1](./KDS-BuildScripts/go.ps1)   
+Script [go.ps1](./go.ps1)   
 Destination: C:\Go
 Download Url: [https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi](https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi)
 
 ### **PSTools**
-Script [pstools.ps1](./KDS-BuildScripts/pstools.ps1)  
+Script [pstools.ps1](./pstools.ps1)  
 Destination: C:\Program Files (x86)\pstools
 Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://download.sysinternals.com/files/PSTools.zip)
 
 ### **System Environment Path and Variables**
 The system path has to be augmented to include python, and an Omaha specific environment variable for the python directory needs to be made pervasive.
 
-Script: [environment.ps1](./KDS-BuildScripts/environment.ps1)
+Script: [environment.ps1](./environment.ps1)
 
 ### **Single Install All Script**
 A single script to install all the build tools. Will also add the symbolic links to the source code.  
 Assumes the source repository has already been pulled.
 
-Script: [install-all-buildtools.ps1](./KDS-BuildScripts/install-all-buildtools.ps1) 
+Script: [install-all-buildtools.ps1](./install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
 - Open a command window as administrator.
