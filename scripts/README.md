@@ -128,13 +128,13 @@ Script: [install-all-buildtools.ps1](./install-all-buildtools.ps1)
 
 ### **Building the Omaha Update Project**
 - Open a command window as administrator.
-- Apply Omaha environment variables; if not using Visual Studio 2019 Community, modify "omaha_consulting\env.cmd" accordingly first.
+- Apply Omaha environment variables; if not using Visual Studio 2019 Community, modify "scripts\env.cmd" accordingly first.
 - Build with &quot;hammer&quot;.
 - [Hammer Options](../doc/HammerOptions.md)
 
 ```
 cd <repo-root>
-omaha_consulting\env.cmd
+scripts\env.cmd
 cd omaha
 hammer --all
 ```
