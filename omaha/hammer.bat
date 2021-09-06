@@ -60,7 +60,7 @@ set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
 :: release page https://github.com/google/protobuf/releases, download the zip
 :: file protobuf-cpp-$VERSION.zip. Unzip the "src" sub-directory contents to
 :: C:\protobuf\src.
-set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\src
+set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\third_party\protobuf\src
 
 :: Directory where Python (python.exe) is installed.
 set OMAHA_PYTHON_DIR=C:\Python27
