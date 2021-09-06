@@ -34,9 +34,6 @@ The following packages are required to build Omaha:
   * SCons 1.3.x (Be sure to use **1.3**, the 2.0 series is not backwards-compatible!)
     * Download SCons [here](http://sourceforge.net/projects/scons/files/scons/1.3.1/).
     * Change this line in hammer.bat if you installed to a different location: `SCONS_DIR=C:\Python27\scons-1.3.1`.
-  * Google Software Construction Toolkit
-    * Get the SCT source [here](https://code.google.com/archive/p/swtoolkit/downloads), either via direct download or via SVN checkout.
-    * Change this line in hammer.bat if you installed to a different location: `set SCT_DIR=C:\swtoolkit`.
   * The GO programming language
     * Download [here](https://golang.org/dl/) 
     * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\Go`.

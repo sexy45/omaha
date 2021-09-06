@@ -82,7 +82,7 @@ set PYTHONPATH=%OMAHA_PYTHON_DIR%
 set SCONS_DIR=C:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
-set SCT_DIR=%~dp0\..\omaha_consulting\swtoolkit-0.9.1
+set SCT_DIR=%~dp0\..\third_party\swtoolkit
 
 set PROXY_CLSID_TARGET=%~dp0proxy_clsids.txt
 set CUSTOMIZATION_UT_TARGET=%~dp0common\omaha_customization_proxy_clsid.h
