@@ -4,11 +4,11 @@ These instructions complement the original developer notes.  They are targeted a
 
 The scripts associated with these instructions will download the necessary packages from the internet and install them.
 
-Auxilary Documents
+Auxiliary Documents
 * [Developer Setup Guide](../doc/DeveloperSetupGuide.md)  
 * [Omaha Consulting Setup Guide](../omaha_consulting/DeveloperSetupGuide.md)
 
-Suplimentary Sections
+Supplimentary Sections
 * [Quick Instructions](#quick-instructions)  
 * [Signing](#signing)  
 * [Meta Installer: KDSWorkerSetup.exe](#meta-installer)
