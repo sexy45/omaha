@@ -496,7 +496,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
 
 TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
        FixGoogleUpdate_AllValues_UserApp) {
-  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=0.0.0.0&userid=%s&osver"); //NOLINT
+  const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=0&version=0.0.0.0&userid=%s&osver"); // NOLINT
 
   EnableUsageStats(true);
   EXPECT_HRESULT_SUCCEEDED(RegKey::SetValue(kFullUserOmahaClientKeyPath,
