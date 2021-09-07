@@ -42,21 +42,21 @@ Need to install git to download the scripts, or directly access them from GitLab
 Script: [git-install.ps1](./KDS-BuildScripts/git-install.ps1)   
 Gitlab Url: [https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1](https://gitlab.com/Distributed-Compute-Protocol/eliot/kds-update/-/blob/development/KDS-BuildScripts/git-install.ps1)  
 Source Url: [https://github.com/tomlarse/Install-Git](https://github.com/tomlarse/Install-Git)  
-Destination: c:\Program Files\Git  
+Destination: C:\Program Files\Git
 
 ### **Close Source Repository**
 
 *Important: Need ssh key that has been registered with gitlab.*
 
-Use &quot;ssh-keygen&quot; command and register the resulting public key (c:\Users\\&lt;username\&gt;\.ssh\id\_rsa.pub) with gitlab server.
+Use &quot;ssh-keygen&quot; command and register the resulting public key (C:\Users\\&lt;username\&gt;\.ssh\id\_rsa.pub) with gitlab server.
 ```
 ssh-keygen
 ```
 Repository: [git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git](git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git)  
 Branch: development  
-Destination: c:\kds-update
+Destination: C:\kds-update
 ```
-cd c:\
+cd C:\
 git clone --branch development git@gitlab.com:Distributed-Compute-Protocol/eliot/kds-update.git
 ```
 
@@ -74,7 +74,7 @@ Release History: [https://docs.microsoft.com/en-us/visualstudio/releases/2019/hi
 
 There may be issues with the SDK provided by Visual Studio, so it is necessary to install separately.
 
-Script: [winskd.ps1](./KDS-BuildScripts/winskd.ps1)  
+Script: [winsdk.ps1](./KDS-BuildScripts/winsdk.ps1)  
 Download Url: [https://go.microsoft.com/fwlink/?linkid=2083338](https://go.microsoft.com/fwlink/?linkid=2083338)
 
 ### **.Net 3.5**
@@ -88,7 +88,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName &quot;NetFx3&quot; -All
 
 ### **Wix 3.11**
 Script: [wix.ps1](./KDS-BuildScripts/wix.ps1)   
-Destination: c:\Program Files (x86)\WiX Toolset v3.11  
+Destination: C:\Program Files (x86)\WiX Toolset v3.11
 Download Url: [https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe](https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe)
 
 ### **Python 2.7**
@@ -96,24 +96,24 @@ Python is required for the main build tool: &quot;scons&quot;.
 Needs to be added to front of environment path.
 
 Script: [python.ps1](./KDS-BuildScripts/python.ps1)   
-Destination: c:\Python27.  
+Destination: C:\Python27
 Download Url: [https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi](https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi)
 
 ### **Scons 1.3.1**
 Install pywin32 first.
 
 Script: [scons.ps1](./KDS-BuildScripts/scons.ps1)   
-Destination: c:\scons-1.3.1  
+Destination: C:\scons-1.3.1
 Download Url: [https://sourceforge.net/projects/scons/files/scons/1.3.1/scons-1.3.1.zip/download](https://sourceforge.net/projects/scons/files/scons/1.3.1/scons-1.3.1.zip/download)
 
 ### **Go (1.14.6)**
 Script [go.ps1](./KDS-BuildScripts/go.ps1)   
-Destination: c:\go  
+Destination: C:\Go
 Download Url: [https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi](https://storage.googleapis.com/golang/go1.14.6.windows-amd64.msi)
 
 ### **PSTools**
 Script [pstools.ps1](./KDS-BuildScripts/pstools.ps1)  
-Destination: c:\pstools  
+Destination: C:\Program Files (x86)\pstools
 Download Url: [https://download.sysinternals.com/files/PSTools.zip](https://download.sysinternals.com/files/PSTools.zip)
 
 ### **System Environment Path and Variables**
@@ -133,13 +133,13 @@ Assumes the source repository has already been pulled.
 Script: [install-all-buildtools.ps1](./KDS-BuildScripts/install-all-buildtools.ps1) 
 
 ### **Building the Omaha Update Project**
-- Open the Visual Studio "x64_x86 Cross Tools Command Prompt for VS 2019" command window as administrator.
-- Apply Omaha environment variables.
+- Open a command window as administrator.
+- Apply Omaha environment variables; if not using Visual Studio 2019 Community, modify "omaha_consulting\env.cmd" accordingly first.
 - Build with &quot;hammer&quot;.
 - [Hammer Options](../doc/HammerOptions.md)
 
 ```
-cd c:\kds-update
+cd C:\kds-update
 omaha_consulting\env.cmd
 cd omaha
 hammer --all
@@ -170,7 +170,7 @@ Supply the following parameters to the _hammer_ command when building the _relea
 
 #### Build Signed Release
 ```
-cd c:\kds-update\omaha 
+cd C:\kds-update\omaha
 hammer MODE=opt-win --authenticode_file=<path\to\pfx> --authenticode_password=<...> --sha1_authenticode_file=<path\to\pfx> --sha2_authenticode_file=<...> --sha1_authenticode_password=<...> --sha2_authenticode_password=<...>
 ```
 
@@ -186,13 +186,12 @@ DCP Worker App Guid:  {EF1FFA8B-49A9-475D-9698-DC379FF1257C}
 
 #### Release Version
 ``` 
-cd c:\kds-update\omaha
+cd C:\kds-update\omaha
 scons-out\opt-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\opt-win\staging\KDSUpdateSetup.exe scons-out\opt-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
 
 #### Debug Version
 ```
-cd c:\kds-update\omaha
+cd C:\kds-update\omaha
 scons-out\dbg-win\obj\tools\ApplyTag\ApplyTag.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe scons-out\dbg-win\staging\KDSUpdateSetup.exe "appguid={EF1FFA8B-49A9-475D-9698-DC379FF1257C}&appname=DCP&needsadmin=True&usagestats=1&lang=en"
 ```
-
