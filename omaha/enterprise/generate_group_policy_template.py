@@ -304,7 +304,7 @@ UPDATE_POLICY_ITEMLIST.replace('            ', '              ') + """
 APPLICATIONS_FOOTER = """
       END CATEGORY  ; Applications
 
-    END CATEGORY  ; KDSUpdate
+    END CATEGORY  ; GoogleUpdate
 
   END CATEGORY  ; Google
 """
