@@ -50,17 +50,14 @@ goto set_env_variables
 :: Directory where the Go programming language toolchain is installed.
 set GOROOT=C:\Go
 
-:: This directory is needed to find protoc.exe, which is the protocol buffer
-:: compiler. From the release page https://github.com/google/protobuf/releases,
+:: Directory containing protoc.exe, which is the protocol buffer compiler.
+:: From the release page https://github.com/google/protobuf/releases,
 :: download the zip file protoc-$VERSION-win32.zip. It contains the protoc
-:: binary. Unzip the contents under C:\protobuf.
-set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\bin
+:: binary.
+set OMAHA_PROTOBUF_BIN_DIR=%~dp0\..\third_party\protoc\bin
 
-:: This directory is needed to find the protocol buffer source files. From the
-:: release page https://github.com/google/protobuf/releases, download the zip
-:: file protobuf-cpp-$VERSION.zip. Unzip the "src" sub-directory contents to
-:: C:\protobuf\src.
-set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\omaha_consulting\protobuf-3.13.0\src
+:: Directory containing protocol buffer source files.
+set OMAHA_PROTOBUF_SRC_DIR=%~dp0\..\third_party\protobuf\src
 
 :: Directory where Python (python.exe) is installed.
 set OMAHA_PYTHON_DIR=C:\Python27
@@ -69,7 +66,7 @@ set OMAHA_PYTHON_DIR=C:\Python27
 set OMAHA_WIX_DIR=%WIX%\bin
 
 :: Root directory of the WTL installation.
-set OMAHA_WTL_DIR=%~dp0\..\omaha_consulting\wtl-10.0.10077\files
+set OMAHA_WTL_DIR=%~dp0\..\third_party\wtl
 
 set OMAHA_PLATFORM_SDK_DIR=%WindowsSdkDir%\
 set OMAHA_WINDOWS_SDK_10_0_VERSION=%WindowsSDKVersion:~0,-1%
@@ -82,7 +79,7 @@ set PYTHONPATH=%OMAHA_PYTHON_DIR%
 set SCONS_DIR=C:\Python27\scons-1.3.1
 
 :: Directory of the Google's Software Construction Toolkit.
-set SCT_DIR=%~dp0\..\omaha_consulting\swtoolkit-0.9.1
+set SCT_DIR=%~dp0\..\third_party\swtoolkit
 
 set PROXY_CLSID_TARGET=%~dp0proxy_clsids.txt
 set CUSTOMIZATION_UT_TARGET=%~dp0common\omaha_customization_proxy_clsid.h
