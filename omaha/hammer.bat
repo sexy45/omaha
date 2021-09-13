@@ -18,8 +18,6 @@ rem -- Set all environment variables used by Hammer and Omaha. --
 :: VS2017/VC14.1 is 1910.
 :: VS2019/VC16.0 is 1920.
 
-echo "%VisualStudioVersion%"
-
 if "%VisualStudioVersion%"=="" goto error_no_vc
 if "%VisualStudioVersion%"=="12.0" goto vc120
 if "%VisualStudioVersion%"=="14.0" goto vc140
