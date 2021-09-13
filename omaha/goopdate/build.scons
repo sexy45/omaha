@@ -642,3 +642,4 @@ signed_test_installer = test_installer_env.DualSignedBinary(
     source=unsigned_test_installer,
 )
 env.Replicate('$STAGING_DIR', signed_test_installer)
+
