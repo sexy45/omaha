@@ -473,7 +473,6 @@ INSTANTIATE_TEST_CASE_P(IsDomain,
 
 TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
        FixGoogleUpdate_AllValues_MachineApp) {
-  //const TCHAR kExpectedUrlFormat[] = _T("https://clients2.google.com/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=5.6.78.1&userid=%s&osversion=");  // NOLINT
   const TCHAR kExpectedUrlFormat[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=%s&osvers");
 
   EnableUsageStats(true);
