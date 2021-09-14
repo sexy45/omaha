@@ -1388,6 +1388,7 @@ TEST_F(AppBundlePopulatedRegistryUserTest,
   EXPECT_NE(REG_SZ, value_type);
   App* invalid_pv_app = CreateExpectedApp(kInvalidPvTypeAppId);
   invalid_pv_app->current_version()->set_version(kInvalidPvDwordAsString);
+
   invalid_pv_app->set_days_since_last_active_ping(-1);
   invalid_pv_app->set_days_since_last_roll_call(-1);
   SetDisplayName(kDefaultAppName, invalid_pv_app);

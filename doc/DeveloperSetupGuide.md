@@ -4,9 +4,7 @@ These instructions are intended to assist the would-be Omaha developer with sett
 
 We are striving to make the code build with the latest Windows toolchain from Microsoft. Since there is no continuous integration for this project, the code may not build using previous versions of the toolchain.
 
-#### Currently, the supported toolchain is Visual Studio 2019 Update 16.7.3 and Windows SDK 10.0.18362.0. ####
-
-Visual Studio 2017 Update 15.9.16 should work too.
+#### Currently, the supported toolchain is Visual Studio 2019 Update 16.10.4 and Windows SDK 10.0.18362.0. ####
 
 The updater runs on Windows 7, 8, and 10. Windows XP is not supported in the current build configuration due to a number of issues, such as thread-safe initializing of static local variables, etc.
 
@@ -39,13 +37,14 @@ The following packages are required to build Omaha:
     * Change this line in hammer.bat if you installed to a different location: `set SCT_DIR=third_party\swtoolkit`.
   * The GO programming language
     * Download [here](https://golang.org/dl/) 
-    * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\Go`.
-  * Google Protocol Buffers (3.13.0 or higher) [here](https://github.com/google/protobuf/releases).
-    * From the [release page](https://github.com/google/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `third_party\protoc`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the contents under `third_party\protobuf`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
+    * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\go`.
+  * Google Protocol Buffers (currently tested with v3.17.3) [here](https://github.com/protocolbuffers/protobuf/releases).
+    * From the [release page](https://github.com/protocolbuffers/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `third_party\protoc`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the contents under `third_party\protobuf`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
   * Third-party dependencies:
-    * breakpad. Download [here](https://codeload.github.com/google/breakpad/zip/master).
+    * breakpad. Download [here](https://github.com/google/breakpad/archive/refs/heads/main.zip). Tested with commit [bc7dda](https://github.com/google/breakpad/commit/bc7ddae23425cee8999e4e8ed61f77a62f058cbf) from Aug 9, 2021.
       - Unzip everything inside `breakpad-master.zip\breakpad-master` to `third_party\breakpad`.
-    * googletest. Download [here](https://codeload.github.com/google/googletest/zip/master). This includes both gtest and gmock frameworks.
+    * googletest. Download [here](https://github.com/google/googletest/archive/refs/heads/master.zip). Tested with commit [47f819c
+](https://github.com/google/googletest/commit/47f819c3ca54fb602f432904443e00a0a1fe2f42) from Aug 10, 2021. This includes both gtest and gmock frameworks.
       - Unzip everything inside `googletest-master.zip\googletest-master` to `third_party\googletest`.
     * libzip 1.7.3. Source code [here](https://libzip.org/download/libzip-1.7.3.tar.xz). Unzip the contents of `libzip-1.7.3.tar.gz\libzip-1.7.3.tar\libzip-1.7.3\` into the directory `third_party\libzip`. The Omaha repository contains two generated configuration files in `base\libzip`, or one could build the libzip library and generate the files. A change has been made to config.h to disable zip crypto `#undef HAVE_CRYPTO`, or else the zip code won't build because of a compile time bug.
     * zlib 1.2.11. Source code [here](https://zlib.net/zlib-1.2.11.tar.gz). Unzip the contents of `zlib-1.2.11.tar.gz\zlib-1.2.11.tar\zlib-1.2.11\` into the directory `third_party\zlib`.
