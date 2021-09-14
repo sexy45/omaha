@@ -56,9 +56,6 @@ const TCHAR* const kAppMachineClientStatePath2 =
 const TCHAR* const kAppUserClientStatePath2 =
     _T("HKCU\\") OMAHA_KEY_REL _T("\\ClientState\\") APP_GUID2;
 
-const TCHAR* const kPolicyKey =
-    _T("HKLM\\Software\\Policies\\")
-    REG_KEY_NAME _T("\\") PRODUCT_NAME _T("\\");
 const TCHAR* const kInstallPolicyApp1 = _T("Install") APP_GUID1;
 const TCHAR* const kInstallPolicyApp2 = _T("Install") APP_GUID2;
 const TCHAR* const kUpdatePolicyApp1 = _T("Update") APP_GUID1;
