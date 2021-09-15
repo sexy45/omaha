@@ -64,7 +64,7 @@ const TCHAR* const kRegValueNameCodeRedUrl = _T("CodeRedUrl");
 const TCHAR* const kRecoveryDirectory = _T("Recovery");
 
 // The hard-coded SHA256 of the SubjectPublicKeyInfo used to sign the Recovery
-// CRX which contains KDSUpdateRecovery.exe.
+// CRX which contains GoogleUpdateRecovery.exe.
 std::vector<uint8_t> GetRecoveryCRXHash() {
   return std::vector<uint8_t>{0x2B, 0xAA, 0xB5, 0x7A, 0xF7, 0xF3, 0xB0, 0x65,
                               0x73, 0x96, 0xB8, 0x03, 0xFB, 0x24, 0xCA, 0xBA,

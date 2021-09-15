@@ -95,7 +95,7 @@ const TCHAR* const kInvalidFileUrl = _T("http://www.google.com/robots.txt");
 const TCHAR kRegistryHiveOverrideRoot[] =
     _T("HKCU\\Software\\Kings Distributed Systems\\Update\\UnitTest\\");
 
-const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");
+const TCHAR kExpectedUrlForDummyAppAndNoOmahaValues[] = _T("https://updates.kingsds.network/service/check2?crx3=true&appid=%7B8E472B0D-3E8B-43b1-B89A-E8506AAF1F16%7D&appversion=3.4.5.6&applang=en-us&machine=1&version=0.0.0.0&userid=&osver");  // NOLINT
 const int kExpectedUrlForDummyAppAndNoOmahaValuesLength =
     arraysize(kExpectedUrlForDummyAppAndNoOmahaValues) - 1;
 

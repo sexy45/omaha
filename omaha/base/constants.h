@@ -82,7 +82,7 @@ const TCHAR* const kCompanyInternalLanGroupName = COMPANY_DOMAIN_BASE;
 
 // The base name of the main executable. Everything except the ".exe".
 // Most files start with the main .exe's base name.
-// MAIN_EXE_BASE_NAME = "KDSUpdate"
+// MAIN_EXE_BASE_NAME = "GoogleUpdate"
 #define MAIN_EXE_BASE_NAME  _T(MAIN_EXE_BASE_NAME_ANSI)
 
 // Base name of the main DLL.
@@ -128,7 +128,7 @@ const TCHAR* const kPSFileNameUser     = _T("psuser.dll");
 const TCHAR* const kPSFileNameUser64   = _T("psuser_64.dll");
 
 // TODO(omaha): Replace the following literal in clickonce\build.scons.
-// '%s/KDSUpdateSetup.exe'
+// '%s/GoogleUpdateSetup.exe'
 
 const TCHAR* const kLegacyHelperInstallerGuid =
     _T("{A92DAB39-4E2C-4304-9AB6-BC44E68B55E2}");
