@@ -37,8 +37,6 @@
 #include "omaha/testing/unit_test.h"
 #include "omaha/third_party/smartany/scoped_any.h"
 
-#include <iostream>
-
 namespace omaha {
 
 // Make sure that the time functions work.
