@@ -52,7 +52,6 @@ const uint8 kRequestBuffer[] =
 "       </app>"
 "</request>";
 
-
 class CupEcdsaRequestTest : public testing::Test {
  protected:
   CupEcdsaRequestTest() {}
