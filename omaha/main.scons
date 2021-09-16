@@ -71,7 +71,7 @@ _PRODUCT_NAME = 'Update'
 _COMPANY_DOMAIN_BASE = 'kingsds'
 _COMPANY_DOMAIN = 'kingsds.network'
 _MAIN_EXE_BASE_NAME = 'KDSUpdate'
-_REG_KEY_NAME = 'Kings Distributed Systems'
+_PATH_COMPANY_NAME = 'Kings Distributed Systems'
 # TODO(omaha): Use this throughout the build files where goopdate and
 # goopdateres are referenced.
 _MAIN_DLL_BASE_NAME = 'goopdate'
@@ -658,7 +658,7 @@ win_env.AppendUnique(
             omaha_version_utils.GetUPDATE_PLUGIN_NAME()),
         'CRASH_HANDLER_NAME=_T(\\"%s\\")' %
             omaha_version_utils.GetCRASH_HANDLER_NAME(),
-        'REG_KEY_NAME_ANSI=\\"%s\\"' % _REG_KEY_NAME,
+        'PATH_COMPANY_NAME_ANSI=\\"%s\\"' % _PATH_COMPANY_NAME,
         ],
 
     LIBS = [
