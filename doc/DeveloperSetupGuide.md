@@ -19,7 +19,7 @@ The following packages are required to build Omaha:
     * Optionally, download and intall Windows 10 SDK [here](https://dev.windows.com/en-us/downloads/windows-10-sdk).
   * The Windows Template Library (WTL)
     * Download WTL [here](http://sourceforge.net/projects/wtl/).
-    * hammer.bat has `OMAHA_WTL_DIR` set to `third_party\wtl`. Change this if you unpacked to a different location.
+    * hammer.bat has `OMAHA_WTL_DIR` set to `C:\wtl\files`. Change this if you unpacked to a different location.
   * The Windows Install XML (WiX) Toolkit, version 3.0 or later.
     * Download any of the v3 binaries packages [here](http://wix.sourceforge.net/).
     * Set the `WIX` environment variable to the directory where you unpacked WiX.
@@ -34,12 +34,12 @@ The following packages are required to build Omaha:
     * Change this line in hammer.bat if you installed to a different location: `SCONS_DIR=C:\Python27\scons-1.3.1`.
   * Google Software Construction Toolkit
     * Get the SCT source [here](https://code.google.com/archive/p/swtoolkit/downloads), either via direct download or via SVN checkout.
-    * Change this line in hammer.bat if you installed to a different location: `set SCT_DIR=third_party\swtoolkit`.
+    * Change this line in hammer.bat if you installed to a different location: `set SCT_DIR=C:\swtoolkit`.
   * The GO programming language
     * Download [here](https://golang.org/dl/) 
     * Change this line in hammer.bat if you installed to a different location: `set GOROOT=C:\go`.
   * Google Protocol Buffers (currently tested with v3.17.3) [here](https://github.com/protocolbuffers/protobuf/releases).
-    * From the [release page](https://github.com/protocolbuffers/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `third_party\protoc`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the contents under `third_party\protobuf`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
+    * From the [release page](https://github.com/protocolbuffers/protobuf/releases), download the zip file `protoc-$VERSION-win32.zip`. It contains the protoc binary. Unzip the contents under `C:\protobuf`. After that, download the zip file `protobuf-cpp-$VERSION.zip`. Unzip the `src` sub-directory contents to `C:\protobuf\src`. If other directory is used, please edit the environment variables in the hammer.bat, specifically, `OMAHA_PROTOBUF_BIN_DIR` and `OMAHA_PROTOBUF_SRC_DIR`.
   * Third-party dependencies:
     * breakpad. Download [here](https://github.com/google/breakpad/archive/refs/heads/main.zip). Tested with commit [bc7dda](https://github.com/google/breakpad/commit/bc7ddae23425cee8999e4e8ed61f77a62f058cbf) from Aug 9, 2021.
       - Unzip everything inside `breakpad-master.zip\breakpad-master` to `third_party\breakpad`.
