@@ -67,11 +67,11 @@ _is_google_update_build = False
 # *generated_resources_*.rc files with localized strings.
 _FULL_COMPANY_NAME = 'Kings Distributed Systems'
 _SHORT_COMPANY_NAME = 'KDS'
+_PATH_COMPANY_NAME = 'Kings Distributed Systems'
 _PRODUCT_NAME = 'Update'
 _COMPANY_DOMAIN_BASE = 'kingsds'
 _COMPANY_DOMAIN = 'kingsds.network'
 _MAIN_EXE_BASE_NAME = 'KDSUpdate'
-_PATH_COMPANY_NAME = 'Kings Distributed Systems'
 # TODO(omaha): Use this throughout the build files where goopdate and
 # goopdateres are referenced.
 _MAIN_DLL_BASE_NAME = 'goopdate'
