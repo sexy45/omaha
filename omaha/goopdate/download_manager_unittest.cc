@@ -212,13 +212,13 @@ TEST_F(DownloadManagerUserTest, DownloadApp_MultiplePackagesInOneApp) {
   EXPECT_NE(-1, actual_pings.Find(
       _T("eventtype=1, eventresult=1, errorcode=0, extracode1=0, ")
       _T("url=http://dl.google.com/update2/UpdateData.bin, ")
-      _T("downloader=winhttp, error=0x0, downloaded_bytes=2048, ")
+      _T("downloader=bits, error=0x0, downloaded_bytes=2048, ")
       _T("total_bytes=2048, download_time=")));
 
   EXPECT_NE(-1, actual_pings.Find(
       _T("eventtype=1, eventresult=1, errorcode=0, extracode1=0, ")
       _T("url=http://dl.google.com/update2/UpdateData1.bin, ")
-      _T("downloader=winhttp, error=0x0, downloaded_bytes=2048, ")
+      _T("downloader=bits, error=0x0, downloaded_bytes=2048, ")
       _T("total_bytes=2048, download_time=")));
 
   EXPECT_NE(-1, actual_pings.Find(
