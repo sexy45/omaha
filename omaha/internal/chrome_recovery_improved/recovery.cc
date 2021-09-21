@@ -180,7 +180,7 @@ HRESULT ChromeRecoveryImproved::InstallOmaha() {
   builder.set_install_source(kCmdLineInstallSource_ChromeRecovery);
   CString extra_args;
   SafeCStringFormat(&extra_args,
-                    _T("runtime=true&needsadmin=%s&usagestats=1"),
+                    _T("runtime=true&needsadmin=%s"),
                     is_machine_ ? _T("true") : _T("false"));
   builder.set_extra_args(extra_args);
   const CString cmd_line_args = builder.GetCommandLineArgs();
