@@ -195,9 +195,6 @@ class GoogleUpdateRecoveryTest : public testing::Test {
     CString saved_arguments_path = ConcatenatePath(
                                        GetDirectoryFromPath(saved_file_path_),
                                        kSavedArgumentsFileName);
-
-    CORE_LOG(L2,(_T("saved_file_pat=%s"), saved_arguments_path));
-
     bool is_found = false;
     for (int tries = 0; tries < 100 && !is_found; ++tries) {
       ::Sleep(50);
@@ -241,8 +238,6 @@ class GoogleUpdateRecoveryTest : public testing::Test {
                                             void* context) {
     ASSERT1(url);
     ASSERT1(file_path);
-
-    CORE_LOG(L2,(_T("url=%s  file_path=%s"), url, file_path));
 
     GoogleUpdateRecoveryTest::set_saved_url(url);
     GoogleUpdateRecoveryTest::set_saved_file_path(file_path);
