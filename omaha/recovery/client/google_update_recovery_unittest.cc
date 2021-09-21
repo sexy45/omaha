@@ -396,7 +396,7 @@ class GoogleUpdateRecoveryRegistryProtectedTest
 // FixGoogleUpdate Tests
 //
 
-TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_UseRealHttpClient) {
+TEST_F(GoogleUpdateRecoveryTest, DISABLED_FixGoogleUpdate_UseRealHttpClient) {
   EXPECT_EQ(CRYPT_E_NO_MATCH,
             FixGoogleUpdate(kDummyAppGuid,
                             kDummyAppVersion,
@@ -524,7 +524,7 @@ TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
 }
 
 TEST_P(GoogleUpdateRecoveryRegistryProtectedTest,
-       FixGoogleUpdate_EmptyAppInfo) {
+       DISABLED_FixGoogleUpdate_EmptyAppInfo) {
   const TCHAR kExpectedUrl[] = _T("https://updates.kingsds.networks.network/service/check2?crx3=true&appid=&appversion=&applang=&machine=1&version=0.0.0.0&userid=&osversion=10.0&servicepack=");  // NOLINT
 
   EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(_T(""),
@@ -848,7 +848,7 @@ TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_BadFilenames) {
 //
 // Production Server Response Tests Tests
 //
-TEST_F(GoogleUpdateRecoveryTest, ProductionServerResponseTest) {
+TEST_F(GoogleUpdateRecoveryTest, DISABLED_ProductionServerResponseTest) {
   EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,

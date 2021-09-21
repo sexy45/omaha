@@ -113,7 +113,7 @@ TEST_F(WebServicesClientTest, Send) {
   EXPECT_TRUE(etag.IsEmpty());
 }
 
-TEST_P(WebServicesClientTest, SendUsingCup) {
+TEST_P(WebServicesClientTest, DISABLED_SendUsingCup) {
 
   xml::request::App app;
   app.app_id = _T("{21CD0965-0B0E-47cf-B421-2D191C16C0E2}");
