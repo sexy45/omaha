@@ -145,7 +145,7 @@ def GetWixCandleFlags(
       ]
 
   if company_name:
-    flags.append('-dCompanyName="' + company_name + '"')
+    flags.append('-dCompanyName=' + company_name)
 
   if custom_action_dll_path:
     flags.append('-dMsiInstallerCADll=' + custom_action_dll_path)
