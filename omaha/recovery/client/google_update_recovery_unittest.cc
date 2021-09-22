@@ -396,7 +396,7 @@ class GoogleUpdateRecoveryRegistryProtectedTest
 // FixGoogleUpdate Tests
 //
 
-TEST_F(GoogleUpdateRecoveryTest, DISABLED_FixGoogleUpdate_UseRealHttpClient) {
+TEST_F(GoogleUpdateRecoveryTest, FixGoogleUpdate_UseRealHttpClient) {
   EXPECT_EQ(CRYPT_E_NO_MATCH,
             FixGoogleUpdate(kDummyAppGuid,
                             kDummyAppVersion,
@@ -848,7 +848,7 @@ TEST_F(GoogleUpdateRecoveryTest, VerifyRepairFileMarkup_BadFilenames) {
 //
 // Production Server Response Tests Tests
 //
-TEST_F(GoogleUpdateRecoveryTest, DISABLED_ProductionServerResponseTest) {
+TEST_F(GoogleUpdateRecoveryTest, ProductionServerResponseTest) {
   EXPECT_EQ(kDummyNoFileError, FixGoogleUpdate(kDummyAppGuid,
                                                kDummyAppVersion,
                                                kDummyAppLang,
