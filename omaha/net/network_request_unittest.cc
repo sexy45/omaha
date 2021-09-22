@@ -314,7 +314,7 @@ TEST_F(NetworkRequestTest, Download) {
   DownloadHelper();
 }
 
-TEST_F(NetworkRequestTest, DISABLED_MultipleRequests) {
+TEST_F(NetworkRequestTest, MultipleRequests) {
   network_request_->AddHttpRequest(new CupEcdsaRequest(new SimpleRequest));
   MultipleRequestsHelper();
 }

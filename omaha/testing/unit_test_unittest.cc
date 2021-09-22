@@ -96,7 +96,7 @@ TEST(UnitTestHelpersTest, StringToGuid_ValidString) {
                  StringToGuid(_T("{ca3045bf-a6b1-4fb8-a0ef-a615cefe452c}")));
 }
 
-TEST(UnitTestHelpersTest, DISABLED_ClearGroupPolicies) {
+TEST(UnitTestHelpersTest, ClearGroupPolicies) {
   EXPECT_SUCCEEDED(SetPolicyString(kRegValueDownloadPreference,
                                    kDownloadPreferenceCacheable));
   ConfigManager* cm = ConfigManager::Instance();
