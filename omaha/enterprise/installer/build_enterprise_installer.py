@@ -83,7 +83,7 @@ def BuildGoogleUpdateFragment(env,
       msi_product_version,
       product_version,
       '"%s"' % product_guid,
-      company_name=company_name,
+      '"%s"' % company_name,
       product_custom_params=product_custom_params,
       metainstaller_path=str(env.File(metainstaller_path).abspath))
 
