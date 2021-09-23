@@ -66,8 +66,8 @@ TEST(OmahaCustomizationTest, Constants_BuildFiles) {
                             kActualProxyClsidIsUserGuid));
 
   // Primary omaha_version_utils values.
-  EXPECT_STREQ(_T("npKDSOneClick"), ONECLICK_PLUGIN_NAME);
-  EXPECT_STREQ(_T("npKDSUpdate"), UPDATE_PLUGIN_NAME);
+  EXPECT_STREQ(_T("np") SHORT_COMPANY_NAME _T("OneClick"), ONECLICK_PLUGIN_NAME);
+  EXPECT_STREQ(_T("np") SHORT_COMPANY_NAME _T("Update"), UPDATE_PLUGIN_NAME);
 }
 
 TEST(OmahaCustomizationTest, Constants_Names) {
@@ -91,28 +91,28 @@ TEST(OmahaCustomizationTest, Constants_Names) {
   // Identifiers.
   EXPECT_STREQ(_T("Google"), COMPANY_NAME_IDENTIFIER);
   EXPECT_STREQ(_T("Update"), PRODUCT_NAME_IDENTIFIER);
-  EXPECT_STREQ(_T("KDSUpdate"), APP_NAME_IDENTIFIER);
+  EXPECT_STREQ(_T("GoogleUpdate"), APP_NAME_IDENTIFIER);
 
   // Other values based on the app name.
   EXPECT_STREQ(_T("_Google_Update_"), kLockPrefix);
-#endif  // GOOGLE_UPDATE_BUILD
 
   // Filename bases
-  EXPECT_STREQ(_T("KDSUpdate"), MAIN_EXE_BASE_NAME);
+  EXPECT_STREQ(_T("GoogleUpdate"), MAIN_EXE_BASE_NAME);
+#endif  // GOOGLE_UPDATE_BUILD
   EXPECT_STREQ(_T("goopdate"), MAIN_DLL_BASE_NAME);
 }
 
 TEST(OmahaCustomizationTest, Constants_Filenames) {
-  EXPECT_STREQ(_T("KDSUpdate.exe"), kOmahaShellFileName);
-  EXPECT_STREQ(_T("KDSCrashHandler.exe"), kCrashHandlerFileName);
-  EXPECT_STREQ(_T("KDSCrashHandler64.exe"), kCrashHandler64FileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T(".exe"), kOmahaShellFileName);
+  EXPECT_STREQ(CRASH_HANDLER_NAME _T(".exe"), kCrashHandlerFileName);
+  EXPECT_STREQ(CRASH_HANDLER_NAME _T("64.exe"), kCrashHandler64FileName);
   EXPECT_STREQ(_T("goopdate.dll"), kOmahaDllName);
   EXPECT_STREQ(_T("goopdateres_%s.dll"), kOmahaResourceDllNameFormat);
-  EXPECT_STREQ(_T("KDSUpdateBroker.exe"), kOmahaBrokerFileName);
-  EXPECT_STREQ(_T("KDSUpdateCore.exe"), kOmahaCoreFileName);
-  EXPECT_STREQ(_T("KDSUpdateOnDemand.exe"), kOmahaOnDemandFileName);
-  EXPECT_STREQ(_T("KDSUpdateSetup.exe"), kOmahaMetainstallerFileName);
-  EXPECT_STREQ(_T("KDSUpdateComRegisterShell64.exe"),
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T("Broker.exe"), kOmahaBrokerFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T("Core.exe"), kOmahaCoreFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T("OnDemand.exe"), kOmahaOnDemandFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T("Setup.exe"), kOmahaMetainstallerFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T("ComRegisterShell64.exe"),
                kOmahaCOMRegisterShell64);
   EXPECT_STREQ(_T("psmachine.dll"), kPSFileNameMachine);
   EXPECT_STREQ(_T("psmachine_64.dll"), kPSFileNameMachine64);
@@ -238,8 +238,8 @@ TEST(OmahaCustomizationTest, Constants_Debug) {
 }
 
 TEST(OmahaCustomizationTest, Constants_Logging) {
-  EXPECT_STREQ(_T("KDSUpdate.ini"), kLogConfigFileName);
-  EXPECT_STREQ(_T("KDSUpdate.log"), kDefaultLogFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T(".ini"), kLogConfigFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T(".log"), kDefaultLogFileName);
 }
 
 // These should not change during customization.
@@ -286,7 +286,7 @@ TEST(OmahaCustomizationTest, Constants_Services) {
   EXPECT_GU_STREQ(_T("gupdate"), kServicePrefix);
   EXPECT_GU_STREQ(_T("gupdatem"), kMediumServicePrefix);
 
-  EXPECT_STREQ(_T("KDSUpdate.exe"), kServiceFileName);
+  EXPECT_STREQ(MAIN_EXE_BASE_NAME _T(".exe"), kServiceFileName);
 }
 
 TEST(OmahaCustomizationTest, Constants_ScheduledTasks) {
