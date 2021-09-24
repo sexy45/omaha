@@ -52,9 +52,9 @@ const TCHAR* const kQueryStringFormat =
 // Information about where to obtain Omaha info.
 // This must never change in Omaha.
 const TCHAR* const kRegValueProductVersion  = _T("pv");
-const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\Kings Distributed Systems\\Update\\");
+const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\") PATH_COMPANY_NAME _T("\\Update\\");
 const TCHAR* const kRelativeClientsGoopdateRegPath =
-    _T("Software\\Kings Distributed Systems\\Update\\Clients\\")
+    _T("Software\\") PATH_COMPANY_NAME _T("\\Update\\Clients\\")
     _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}");
 
 // The UpdateDev registry value to override the Code Red url.
@@ -436,7 +436,7 @@ HRESULT GetDownloadTargetPath(CPath* download_target_path,
   }
 
   *download_target_path = *parent_dir;
-  *download_target_path += _T("KDSUpdateSetup.crx3");
+  *download_target_path += MAIN_EXE_BASE_NAME _T("Setup.crx3");
   return S_OK;
 }
 
@@ -456,7 +456,7 @@ HRESULT DownloadRepairFile(const CString& download_target_path,
 
   CString url;
   HRESULT hr = GetRegStringValue(true,
-                                 _T("SOFTWARE\\Kings Distributed Systems\\UpdateDev"),
+                                 _T("SOFTWARE\\") PATH_COMPANY_NAME _T("\\UpdateDev"),
                                  kRegValueNameCodeRedUrl,
                                  &url);
   if (FAILED(hr)) {
@@ -572,9 +572,6 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                              const std::vector<uint8_t>& crx_hash,
                              const CPath& unpack_under_path,
                              CPath* unpacked_exe) {
-
-  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: AAAA")));
-
   ASSERT1(unpacked_exe);
 
   std::string public_key;
@@ -584,27 +581,18 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                        {},
                        &public_key,
                        NULL) != crx_file::VerifierResult::OK_FULL) {
-    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: Verify failed")));
     //return CRYPT_E_NO_MATCH;
   }
 
-  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), from_crx_path.m_strPath));
-  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: %s"), unpack_under_path.m_strPath));
-
   if (!crx_file::Crx3Unzip(from_crx_path, unpack_under_path)) {
-    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: E_UNEXPECTED")));
     //return E_UNEXPECTED;
   }
-  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: CCCC")));
 
   CPath exe = unpack_under_path;
-  exe += _T("KDSUpdateSetup.exe");
+  exe += MAIN_EXE_BASE_NAME _T("Setup.exe");
   if (!exe.FileExists()) {
-    CORE_LOG(L2,(_T("ValidateAndUnpackCRX: FILE NOT FOUND")));
     return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
   }
-
-  CORE_LOG(L2,(_T("ValidateAndUnpackCRX: DDDD")));
 
   *unpacked_exe = exe;
   return S_OK;
@@ -626,8 +614,6 @@ HRESULT FixGoogleUpdate(const TCHAR* app_guid,
     return E_INVALIDARG;
   }
 
-  CORE_LOG(L2,(_T("BINGO 1")));
-
   CPath download_target_path;
   CPath parent_dir;
   HRESULT hr = omaha::GetDownloadTargetPath(&download_target_path,
@@ -635,10 +621,6 @@ HRESULT FixGoogleUpdate(const TCHAR* app_guid,
   if (FAILED(hr)) {
     return hr;
   }
-
-  CORE_LOG(L2,(_T("BINGO_2")));
-  CORE_LOG(L2,(_T("target: %s"),  download_target_path.m_strPath));
-  //CORE_LOG(LE, (_T("[AddSwitch failed][%s][0x%x]")                    current_switch_name, hr));
 
   hr = omaha::DownloadRepairFile(download_target_path,
                                  app_guid,
