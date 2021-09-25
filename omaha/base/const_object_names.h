@@ -125,10 +125,10 @@ const TCHAR* const kOptUserIdLock =
 // in-process updater should back off.)   The app ID is appended to this string,
 // and the standard prefixes for Omaha events are prepended.  For example, if
 // machine Earth was performing an in-process update, it would create:
-//   Global\\OmahaUpdaterRunning{81DC32B4-DDEC-4CEA-AE1D-866A7A56594A} // NOLINT
+//   Global\\OmahaUpdaterRunning{74AF07D8-FB8F-4D51-8AC7-927721D56EBB} // NOLINT
 // While user Chrome would create two objects:
-//   Global\\OmahaS-1-5-21-39260824-743453154-142223018-386460UpdaterRunning{40FF61DA-EE2F-4C7A-9350-58ACD1F23FC7}  // NOLINT
-//   Global\\OmahaS-1-5-21-39260824-743453154-142223018-386460UpdaterRunning{B784C6B2-932A-4723-B2BE-F876436EDFEE}  // NOLINT
+//   Global\\OmahaS-1-5-21-39260824-743453154-142223018-386460UpdaterRunning{4DC8B4CA-1BDA-483E-B5FA-D3C12E15B62D}  // NOLINT
+//   Global\\OmahaS-1-5-21-39260824-743453154-142223018-386460UpdaterRunning{8A69D345-D564-463C-AFF1-A69D9E530F96}  // NOLINT
 //
 // The Omaha client will check for these events and not add these apps to the
 // bundle when performing an update check.  These events are also checked in
