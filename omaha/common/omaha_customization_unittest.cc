@@ -126,18 +126,22 @@ TEST(OmahaCustomizationTest, Constants_Certificate) {
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_String) {
-  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"), GOOPDATE_APP_ID);
-  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"),
+#ifdef GOOGLE_UPDATE_BUILD
+  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"), GOOPDATE_APP_ID);
+  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"),
                kGoogleUpdateAppId);
+#endif
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_GUID) {
+#ifdef GOOGLE_UPDATE_BUILD
   const GUID kExpectedGoogleUpdateGuid =
-      {0x2070893A, 0xB7CF, 0x42FD,
-       {0x9B, 0xA1, 0xF0, 0x0E, 0x04, 0xA9, 0xD7, 0x66}};
+      {0x430FD4D0, 0xB729, 0x4F61,
+       {0xAA, 0x34, 0x91, 0x52, 0x64, 0x81, 0x79, 0x9D}};
   EXPECT_TRUE(::IsEqualGUID(kExpectedGoogleUpdateGuid, kGoopdateGuid));
-  EXPECT_STREQ(_T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}"),
+  EXPECT_STREQ(_T("{430FD4D0-B729-4F61-AA34-91526481799D}"),
                GuidToString(kGoopdateGuid));
+#endif
 }
 
 TEST(OmahaCustomizationTest, Constants_OmahaAppId_GUIDAndStringMatch) {
@@ -216,17 +220,19 @@ TEST(OmahaCustomizationTest, Constants_BrandCode) {
 }
 
 TEST(OmahaCustomizationTest, Constants_Addresses) {
-  EXPECT_STREQ(_T("www.kingsds.network"), kGoogleHttpServer);
-  EXPECT_STREQ(_T("tools.kingsds.network"), kGoopdateServer);
-  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"),
+#ifdef GOOGLE_UPDATE_BUILD
+  EXPECT_STREQ(_T("www.google.com"), kGoogleHttpServer);
+  EXPECT_STREQ(_T("tools.google.com"), kGoopdateServer);
+  EXPECT_STREQ(_T("https://update.googleapis.com/service/update2"),
                kUrlUpdateCheck);
-  EXPECT_STREQ(_T("https://updates.kingsds.network/service/update2"), kUrlPing);
-  EXPECT_STREQ(_T("https://updates.kingsds.network/service/crash_report"), kUrlCrashReport);
-  EXPECT_STREQ(_T("https://kingsds.network/support/installer/?"), kUrlMoreInfo);
-  EXPECT_STREQ(_T("https://updates.kingsds.network/service/check2?crx3=true"),
+  EXPECT_STREQ(_T("https://update.googleapis.com/service/update2"), kUrlPing);
+  EXPECT_STREQ(_T("https://clients2.google.com/cr/report"), kUrlCrashReport);
+  EXPECT_STREQ(_T("https://www.google.com/support/installer/?"), kUrlMoreInfo);
+  EXPECT_STREQ(_T("https://clients2.google.com/service/check2?crx3=true"),
                kUrlCodeRedCheck);
-  EXPECT_STREQ(_T("https://updates.kingsds.network/tbproxy/usagestats"),
+  EXPECT_STREQ(_T("https://clients5.google.com/tbproxy/usagestats"),
                kUrlUsageStatsReport);
+#endif
 }
 
 TEST(OmahaCustomizationTest, Constants_Config) {
@@ -252,22 +258,24 @@ TEST(OmahaCustomizationTest, Constants_ObjectNames_Pipes) {
 }
 
 TEST(OmahaCustomizationTest, Constants_ObjectNames_MutexesAndEvents) {
-  EXPECT_STREQ(_T("{C18F3F85-CDD6-4B48-8DE5-98F98C90D77C}"), kSetupMutex);
-  EXPECT_STREQ(_T("{3D6E7A03-E2FD-4B99-9973-6CDE9B235AA0}"), kShutdownEvent);
-  EXPECT_STREQ(_T("{CC3AF33C-7A64-4D95-BCE1-F40F32DD862C}"),
+#ifdef GOOGLE_UPDATE_BUILD
+  EXPECT_STREQ(_T("{A9A86B93-B54E-4570-BE89-42418507707B}"), kSetupMutex);
+  EXPECT_STREQ(_T("{A0C1F415-D2CE-4ddc-9B48-14E56FD55162}"), kShutdownEvent);
+  EXPECT_STREQ(_T("{B5665124-2B19-40e2-A7BC-B44321E72C4B}"),
                kCoreSingleInstance);
-  EXPECT_STREQ(_T("{8C1217E3-7EA4-4698-8CCC-79E062C32317}"),
+  EXPECT_STREQ(_T("{C4F406E5-F024-4e3f-89A7-D5AB7663C3CD}"),
                kCrashHandlerSingleInstance);
-  EXPECT_STREQ(_T("{04B54C42-9095-4DA0-B721-F042075A154C}"),
+  EXPECT_STREQ(_T("{D0BB2EF1-C183-4cdb-B218-040922092869}"),
                kUpdateAppsSingleInstance);
-  EXPECT_STREQ(_T("%s-{86D25F1C-A1F8-48F5-818D-CAA22C1064BB}"),
+  EXPECT_STREQ(_T("%s-{F707E94F-D66B-4525-AD84-B1DA87D6A971}"),
                kInstallAppSingleInstance);
-  EXPECT_STREQ(_T("{B9D46B77-416A-4985-A29D-1750CB595C7D}"),
+  EXPECT_STREQ(_T("{0A175FBE-AEEC-4fea-855A-2AA549A88846}"),
                kInstallManagerSerializer);
-  EXPECT_STREQ(_T("{99955AB6-659D-4168-8405-9DBF20E82EF6}"),
+  EXPECT_STREQ(_T("{C68009EA-1163-4498-8E93-D5C4E317D8CE}"),
                kMetricsSerializer);
-  EXPECT_STREQ(_T("{93C8DE3A-E199-4156-ACE6-C3342002BA0F}"),
+  EXPECT_STREQ(_T("{66CC0160-ABB3-4066-AE47-1CA6AD5065C8}"),
                kRegistryAccessMutex);
+#endif
 }
 
 TEST(OmahaCustomizationTest, Constants_ObjectNames_SharedMemory) {
