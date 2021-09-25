@@ -334,7 +334,7 @@ TEST(OmahaCustomizationTest, ConfigManager_RegistryKeys) {
   EXPECT_GU_STREQ(_T("HKLM\\Software\\Google\\"), cm.registry_google(true));
 }
 
-TEST(OmahaCustomizationTest, DISABLED_IsInternalUser) {
+TEST(OmahaCustomizationTest, IsInternalUser) {
   if (IsBuildSystem()) {
   // The build system is not configured the same.
   // This may or may not be true in non-Google Update builds.
