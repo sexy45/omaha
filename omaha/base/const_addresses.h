@@ -58,36 +58,36 @@ const TCHAR* const kGoopdateServer = _T("tools.") COMPANY_DOMAIN;
 // The channel for update checks is secured by using CUP to sign the messages.
 // It does not depend solely on https security in any case.
 const TCHAR* const kUrlUpdateCheck =
-    _T("https://updates.kingsds.network/service/update2");
+    _T("https://updates.") COMPANY_DOMAIN _T("/service/update2");
 
 // Pings.
 const TCHAR* const kUrlPing =
-    _T("https://updates.kingsds.network/service/update2");
+    _T("https://updates.") COMPANY_DOMAIN _T("/service/update2");
 
 // The urls below never fall back to http.
 //
 // Crash reports.
 const TCHAR* const kUrlCrashReport =
-    _T("https://updates.kingsds.network/service/crash_report");
+    _T("https://updates.") COMPANY_DOMAIN _T("/service/crash_report");
 
 // More information url.
 // Must allow query parameters to be appended to it.
 const TCHAR* const kUrlMoreInfo =
-    _T("https://kingsds.network/support/installer/?");
+    _T("https://") COMPANY_DOMAIN _T("/support/installer/?");
 
 // Code Red check url.
 const TCHAR* const kUrlCodeRedCheck =
-    _T("https://updates.kingsds.network/service/check2?crx3=true");
+    _T("https://updates.") COMPANY_DOMAIN _T("/service/check2?crx3=true");
 
 // Usage stats url.
 const TCHAR* const kUrlUsageStatsReport =
-    _T("https://updates.kingsds.network/tbproxy/usagestats");
+    _T("https://updates.") COMPANY_DOMAIN _T("/tbproxy/usagestats");
 
 #if defined(HAS_DEVICE_MANAGEMENT)
 
 // Device Management API url.
 const TCHAR* const kUrlDeviceManagement =
-    _T("https://updates.kingsds.network/devicemanagement/data/api");
+    _T("https://updates.") COMPANY_DOMAIN _T("/devicemanagement/data/api");
 
 #endif  // defined(HAS_DEVICE_MANAGEMENT)
 
