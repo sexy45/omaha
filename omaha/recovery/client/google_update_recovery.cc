@@ -55,7 +55,7 @@ const TCHAR* const kRegValueProductVersion  = _T("pv");
 const TCHAR* const kRelativeGoopdateRegPath = _T("Software\\") PATH_COMPANY_NAME _T("\\Update\\");
 const TCHAR* const kRelativeClientsGoopdateRegPath =
     _T("Software\\") PATH_COMPANY_NAME _T("\\Update\\Clients\\")
-    _T("{2070893A-B7CF-42FD-9BA1-F00E04A9D766}");
+    GOOPDATE_APP_ID;
 
 // The UpdateDev registry value to override the Code Red url.
 const TCHAR* const kRegValueNameCodeRedUrl = _T("CodeRedUrl");

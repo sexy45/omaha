@@ -231,10 +231,15 @@ const TCHAR* const kRegValueRuntimeMode           = _T("RuntimeMode");
 const TCHAR* const kRegValueOmahaEulaAccepted     = _T("eulaaccepted");
 // TODO(omaha3): Consider renaming these if there is not a upgrade problem.
 // If we can't consider moving all "gupdate" values to the customization file.
-const TCHAR* const kRegValueServiceName           = _T("kds_service_name");
-const TCHAR* const kRegValueMediumServiceName     = _T("kdsm_service_name");
-const TCHAR* const kRegValueTaskNameC             = _T("kds_task_name_c");
-const TCHAR* const kRegValueTaskNameUA            = _T("kds_task_name_ua");
+// Use a non-gupdate name for the new medium service.
+#define SERVICE_PREFIX _T("kds")
+#define MEDIUM_SERVICE_PREFIX _T("kdsm")
+const TCHAR* const kServicePrefix                 = SERVICE_PREFIX;
+const TCHAR* const kMediumServicePrefix           = MEDIUM_SERVICE_PREFIX;
+const TCHAR* const kRegValueServiceName           = SERVICE_PREFIX _T("_service_name");
+const TCHAR* const kRegValueMediumServiceName     = MEDIUM_SERVICE_PREFIX _T("_service_name");
+const TCHAR* const kRegValueTaskNameC             = SERVICE_PREFIX _T("_task_name_c");
+const TCHAR* const kRegValueTaskNameUA            = SERVICE_PREFIX _T("_task_name_ua");
 const TCHAR* const kRegValueLastStartedAU         = _T("LastStartedAU");
 const TCHAR* const kRegValueLastChecked           = _T("LastChecked");
 const TCHAR* const kRegValueLastCoreRun           = _T("LastCoreRun");
@@ -300,11 +305,6 @@ const TCHAR kRegValueCloudManagementEnrollmentToken[] =
     _T("CloudManagementEnrollmentToken");
 
 #endif  // defined(HAS_DEVICE_MANAGEMENT)
-
-// TODO(omaha3): Consider moving all "gupdate" values to the customization file.
-// Use a non-gupdate name for the new medium service.
-const TCHAR* const kServicePrefix               = _T("kds");
-const TCHAR* const kMediumServicePrefix         = _T("kdsm");
 
 const TCHAR* const kScheduledTaskNameUserPrefix =
     APP_NAME_IDENTIFIER _T("TaskUser");
