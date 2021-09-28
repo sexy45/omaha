@@ -230,8 +230,6 @@ TEST_F(WebServicesClientTest, SendForcingHttps) {
   EXPECT_STREQ(_T("3.0"), response.protocol);
   ASSERT_EQ(2, response.apps.size());
   
-  //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[0].status);
-  //EXPECT_STREQ(_T("error-unknownApplication"), response.apps[1].status);
   EXPECT_STREQ(_T("ok"), response.apps[0].status);
   EXPECT_STREQ(_T("ok"), response.apps[1].status);
 }
