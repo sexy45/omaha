@@ -589,7 +589,7 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
   }
 
   CPath exe = unpack_under_path;
-  exe += MAIN_EXE_BASE_NAME _T("Setup.exe");
+  exe += _T("GoogleUpdateSetup.exe");
   if (!exe.FileExists()) {
     return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
   }
