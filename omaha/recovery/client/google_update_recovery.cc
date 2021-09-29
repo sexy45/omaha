@@ -581,11 +581,11 @@ HRESULT ValidateAndUnpackCRX(const CPath& from_crx_path,
                        {},
                        &public_key,
                        NULL) != crx_file::VerifierResult::OK_FULL) {
-    //return CRYPT_E_NO_MATCH;
+    return CRYPT_E_NO_MATCH;
   }
 
   if (!crx_file::Crx3Unzip(from_crx_path, unpack_under_path)) {
-    //return E_UNEXPECTED;
+    return E_UNEXPECTED;
   }
 
   CPath exe = unpack_under_path;
