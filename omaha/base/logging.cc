@@ -88,6 +88,31 @@ bool IsReparsePoint(HANDLE file) {
   return (file_info.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) != 0;
 }
 
+bool IsEnabledLogToFile() {
+  HKEY key = NULL;
+  int res = ::RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+                           REG_UPDATE_DEV,
+                           0,
+                           KEY_READ,
+                           &key);
+  if (res != ERROR_SUCCESS) {
+    return false;
+  }
+
+  DWORD is_enabled_log_to_file = 0;
+  DWORD bytes = sizeof(is_enabled_log_to_file);
+  DWORD type = REG_DWORD;
+  res = ::RegQueryValueEx(key,
+                          kRegValueIsEnabledLogToFile,
+                          0,
+                          &type,
+                          reinterpret_cast<BYTE*>(&is_enabled_log_to_file),
+                          &bytes);
+  ::RegCloseKey(key);
+
+  return res == ERROR_SUCCESS && type == REG_DWORD && is_enabled_log_to_file;
+}
+
 }  // namespace
 
 // enforce ban on ASSERT/REPORT
@@ -202,7 +227,7 @@ Logging::Logging()
       logging_enabled_(true),
       force_show_time_(false),
       show_time_(true),
-      log_to_file_(true),
+      log_to_file_(false),
       log_to_debug_out_(true),
       append_to_file_(true),
       logging_shutdown_(false),
@@ -275,6 +300,8 @@ void Logging::UpdateCatAndLevel(const wchar_t* cat_name, LogCategory cat) {
 }
 
 void Logging::ReadLoggingSettings() {
+  log_to_file_ = IsEnabledLogToFile();
+
   CString config_file = GetCurrentConfigurationFilePath();
   if (!config_file.IsEmpty()) {
     logging_enabled_ = ::GetPrivateProfileInt(
@@ -287,12 +314,6 @@ void Logging::ReadLoggingSettings() {
         kConfigSectionLoggingSettings,
         kConfigAttrShowTime,
         kDefaultShowTime,
-        config_file) == 0 ? false : true;
-
-    log_to_file_ = ::GetPrivateProfileInt(
-        kConfigSectionLoggingSettings,
-        kConfigAttrLogToFile,
-        kDefaultLogToFile,
         config_file) == 0 ? false : true;
 
     log_to_debug_out_ = ::GetPrivateProfileInt(
@@ -309,7 +330,6 @@ void Logging::ReadLoggingSettings() {
   } else {
     logging_enabled_ = kDefaultLoggingEnabled;
     show_time_ = kDefaultShowTime;
-    log_to_file_ = kDefaultLogToFile;
     log_to_debug_out_ = kDefaultLogToOutputDebug;
     append_to_file_ = kDefaultAppendToFile;
   }
